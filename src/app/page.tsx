@@ -190,7 +190,7 @@ export default function DanielaMirandaStudio() {
 
         <FadeIn delay={0.9}>
           <div className="flex gap-2 justify-center mb-6 text-[18px] md:text-[20px]">
-            {["\ud83c\uddf8\ud83c\uddfb","\ud83c\uddf5\ud83c\uddea","\ud83c\uddea\ud83c\uddf8","\ud83c\uddee\ud83c\uddf9","\ud83c\uddf2\ud83c\uddfd","\ud83c\udde7\ud83c\uddf7"].map((flag, i) => (
+            {["\ud83c\uddf8\ud83c\uddfb","\ud83c\uddf5\ud83c\uddea","\ud83c\uddea\ud83c\uddf8","\ud83c\uddf2\ud83c\uddfd","\ud83c\udde7\ud83c\uddf7"].map((flag, i) => (
               <span key={i} className="hover:scale-125 transition-transform duration-300 cursor-default">{flag}</span>
             ))}
           </div>
@@ -218,7 +218,7 @@ export default function DanielaMirandaStudio() {
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:flex md:flex-wrap md:justify-center gap-5 md:gap-12">
           {[
             { icon: "\ud83d\udc51", text: "Miss PMU Internacional" },
-            { icon: "\ud83c\udf0e", text: "Certificada en 6 Pa\u00edses" },
+            { icon: "\ud83c\udf0e", text: "Certificada en 5 Pa\u00edses" },
             { icon: "\ud83d\udcdc", text: "T\u00e9cnicas Avanzadas" },
             { icon: "\ud83d\udc8e", text: "Experiencia de Lujo" },
           ].map((c, i) => (
@@ -230,6 +230,16 @@ export default function DanielaMirandaStudio() {
             </FadeIn>
           ))}
         </div>
+      </section>
+
+      {/* ═══ CERTIFICATION ═══ */}
+      <section className="py-12 md:py-20 px-5 bg-cream-light">
+        <FadeIn>
+          <div className="max-w-[420px] mx-auto">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/certificada-internacional.png" alt="Certificada Internacionalmente en Per\u00fa, Brasil, Espa\u00f1a, M\u00e9xico y El Salvador" className="w-full h-auto" />
+          </div>
+        </FadeIn>
       </section>
 
       {/* ═══ ABOUT ═══ */}
@@ -259,7 +269,7 @@ export default function DanielaMirandaStudio() {
               <p className="text-[13px] md:text-[14px] text-text-muted leading-[1.85] mb-4 font-light">
                 Modelo profesional, coronada Miss PMU Internacional y Miss Beauty World International 2023.
                 Daniela Miranda transform\u00f3 su pasi\u00f3n por la belleza en un arte: la micropigmentaci\u00f3n con
-                est\u00e1ndares internacionales, certificada en seis pa\u00edses.
+                est\u00e1ndares internacionales, certificada en cinco pa\u00edses.
               </p>
               <p className="text-[13px] md:text-[14px] text-text-muted leading-[1.85] mb-8 font-light">
                 Cada procedimiento en su studio es una experiencia personalizada
@@ -271,7 +281,7 @@ export default function DanielaMirandaStudio() {
               </blockquote>
 
               <div className="flex gap-6 md:gap-8">
-                {[{ n: "6", l: "Pa\u00edses" }, { n: "500+", l: "Clientas" }, { n: "2023", l: "Miss PMU" }].map((s, i) => (
+                {[{ n: "5", l: "Pa\u00edses" }, { n: "500+", l: "Clientas" }, { n: "2023", l: "Miss PMU" }].map((s, i) => (
                   <div key={i} className="stat-item pr-6 md:pr-8">
                     <div className="font-serif text-[28px] md:text-[34px] text-rose font-light leading-none">{s.n}</div>
                     <div className="text-[8px] md:text-[9px] tracking-[2px] text-text-light mt-1.5 uppercase font-semibold">{s.l}</div>
@@ -507,7 +517,7 @@ export default function DanielaMirandaStudio() {
             <div className="col-span-2 lg:col-span-1">
               <div className="font-serif italic text-[28px] text-blush/70 mb-0.5">dm</div>
               <div className="text-[7px] md:text-[8px] tracking-[4px] text-rose/40 font-semibold mb-4 uppercase">Daniela Miranda Studio</div>
-              <p className="text-[10px] md:text-[11px] text-blush-muted/40 leading-[1.9] font-light">Micropigmentaci\u00f3n de lujo en San Salvador. Certificaci\u00f3n internacional en 6 pa\u00edses.</p>
+              <p className="text-[10px] md:text-[11px] text-blush-muted/40 leading-[1.9] font-light">Micropigmentaci\u00f3n de lujo en San Salvador. Certificaci\u00f3n internacional en 5 pa\u00edses.</p>
             </div>
             <div>
               <div className="text-[7px] md:text-[8px] tracking-[3px] text-blush-muted/35 font-semibold mb-4 uppercase">Contacto</div>
