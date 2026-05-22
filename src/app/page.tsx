@@ -232,62 +232,68 @@ export default function DanielaMirandaStudio() {
         </div>
       </section>
 
-      {/* ═══ CERTIFICATION ═══ */}
-      <section className="py-12 md:py-20 px-5 bg-cream-light">
-        <FadeIn>
-          <div className="max-w-[420px] mx-auto">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/certificada-internacional.png" alt="Certificada Internacionalmente en Per\u00fa, Brasil, Espa\u00f1a, M\u00e9xico y El Salvador" className="w-full h-auto" />
-          </div>
-        </FadeIn>
-      </section>
-
       {/* ═══ ABOUT ═══ */}
-      <section id="about" className="py-16 md:py-32 px-5">
-        <div className="max-w-[1080px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
-          <FadeIn>
-            <div className="relative aspect-[3/4] max-w-[400px] mx-auto md:max-w-none overflow-hidden group">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/daniela-miranda.jpg" alt="Daniela Miranda" className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.03]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-void/25 via-transparent to-transparent" />
-              <div className="absolute top-4 left-4 w-8 md:w-10 h-8 md:h-10 border-t border-l border-rose/30" />
-              <div className="absolute bottom-4 right-4 w-8 md:w-10 h-8 md:h-10 border-b border-r border-rose/30" />
-              <div className="absolute bottom-5 md:bottom-8 left-5 md:left-8 bg-void/50 backdrop-blur-md px-4 py-2">
-                <div className="text-[7px] md:text-[8px] tracking-[3px] text-blush font-semibold uppercase">Miss PMU Internacional 2023</div>
-              </div>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={0.15}>
-            <div>
-              <div className="section-label">Sobre Daniela</div>
-              <div className="w-8 md:w-10 h-px bg-rose mb-8" />
-              <h2 className="font-serif text-[26px] md:text-[36px] lg:text-[42px] font-light text-void leading-[1.15] mb-6">
-                Del mundo del modelaje<br />
-                <span className="text-rose italic">al arte de la micropigmentaci\u00f3n</span>
-              </h2>
-              <p className="text-[13px] md:text-[14px] text-text-muted leading-[1.85] mb-4 font-light">
-                Modelo profesional, coronada Miss PMU Internacional y Miss Beauty World International 2023.
-                Daniela Miranda transform\u00f3 su pasi\u00f3n por la belleza en un arte: la micropigmentaci\u00f3n con
-                est\u00e1ndares internacionales, certificada en cinco pa\u00edses.
-              </p>
-              <p className="text-[13px] md:text-[14px] text-text-muted leading-[1.85] mb-8 font-light">
-                Cada procedimiento en su studio es una experiencia personalizada
-                de lujo \u2014 dise\u00f1o con visagismo, pigmentos premium importados, y t\u00e9cnica con reconocimiento internacional.
-              </p>
-
-              <blockquote className="font-serif text-[16px] md:text-[18px] italic text-rose-dark leading-[1.7] mb-10 pl-5 border-l border-rose/30">
-                &ldquo;No busco seguidoras. Busco mujeres que merezcan llevar la mejor versi\u00f3n de s\u00ed mismas.&rdquo;
-              </blockquote>
-
-              <div className="flex gap-6 md:gap-8">
-                {[{ n: "5", l: "Pa\u00edses" }, { n: "500+", l: "Clientas" }, { n: "2023", l: "Miss PMU" }].map((s, i) => (
-                  <div key={i} className="stat-item pr-6 md:pr-8">
-                    <div className="font-serif text-[28px] md:text-[34px] text-rose font-light leading-none">{s.n}</div>
-                    <div className="text-[8px] md:text-[9px] tracking-[2px] text-text-light mt-1.5 uppercase font-semibold">{s.l}</div>
+      <section id="about" className="py-16 md:py-36 px-5">
+        <div className="max-w-[1080px] mx-auto">
+          {/* Daniela photo + bio */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center mb-16 md:mb-24">
+            <FadeIn>
+              <div className="relative max-w-[380px] mx-auto md:max-w-none">
+                <div className="relative aspect-[3/4] overflow-hidden group">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/images/daniela-miranda.jpg" alt="Daniela Miranda" className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.03]" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-void/30 via-transparent to-transparent" />
+                  <div className="absolute top-4 left-4 w-8 md:w-10 h-8 md:h-10 border-t border-l border-rose/30" />
+                  <div className="absolute bottom-4 right-4 w-8 md:w-10 h-8 md:h-10 border-b border-r border-rose/30" />
+                  <div className="absolute bottom-5 md:bottom-8 left-5 md:left-8 bg-void/50 backdrop-blur-md px-4 py-2">
+                    <div className="text-[7px] md:text-[8px] tracking-[3px] text-blush font-semibold uppercase">Miss PMU Internacional 2023</div>
                   </div>
-                ))}
+                </div>
               </div>
+            </FadeIn>
+
+            <FadeIn delay={0.15}>
+              <div>
+                <div className="section-label">Sobre Daniela</div>
+                <div className="w-8 md:w-10 h-px bg-rose mb-8" />
+                <h2 className="font-serif text-[26px] md:text-[36px] lg:text-[42px] font-light text-void leading-[1.15] mb-6">
+                  Del mundo del modelaje<br />
+                  <span className="text-rose italic">al arte de la micropigmentaci&oacute;n</span>
+                </h2>
+                <p className="text-[13px] md:text-[14px] text-text-muted leading-[1.85] mb-4 font-light">
+                  Modelo profesional, coronada Miss PMU Internacional y Miss Beauty
+                  World International 2023. Daniela Miranda transform&oacute; su pasi&oacute;n
+                  por la belleza en un arte: la micropigmentaci&oacute;n con est&aacute;ndares
+                  internacionales, certificada en cinco pa&iacute;ses.
+                </p>
+                <p className="text-[13px] md:text-[14px] text-text-muted leading-[1.85] mb-8 font-light">
+                  Cada procedimiento en su studio es una experiencia personalizada
+                  de lujo &mdash; dise&ntilde;o con visagismo, pigmentos premium importados,
+                  y t&eacute;cnica con reconocimiento internacional.
+                </p>
+
+                <blockquote className="font-serif text-[16px] md:text-[18px] italic text-rose-dark leading-[1.7] mb-10 pl-5 border-l border-rose/30">
+                  &ldquo;No busco seguidoras. Busco mujeres que merezcan llevar
+                  la mejor versi&oacute;n de s&iacute; mismas.&rdquo;
+                </blockquote>
+
+                <div className="flex gap-6 md:gap-8">
+                  {[{ n: "5", l: "Pa\u00edses" }, { n: "500+", l: "Clientas" }, { n: "2023", l: "Miss PMU" }].map((s, i) => (
+                    <div key={i} className="stat-item pr-6 md:pr-8">
+                      <div className="font-serif text-[28px] md:text-[34px] text-rose font-light leading-none">{s.n}</div>
+                      <div className="text-[8px] md:text-[9px] tracking-[2px] text-text-light mt-1.5 uppercase font-semibold">{s.l}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
+          </div>
+
+          {/* Certification graphic — centered below bio */}
+          <FadeIn delay={0.1}>
+            <div className="max-w-[320px] md:max-w-[380px] mx-auto">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/certificada-internacional.png" alt="Certificada Internacionalmente" className="w-full h-auto" />
             </div>
           </FadeIn>
         </div>
