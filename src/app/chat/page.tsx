@@ -3,13 +3,13 @@
 import { useState, useRef, useEffect } from "react";
 
 const QUICK_QS = [
-  { label: "💎 Servicios y precios", q: "¿Qué servicios ofrecen y cuáles son los precios?" },
-  { label: "✨ Hydra Lips", q: "¿Qué es Hydra Lips y en qué se diferencia?" },
-  { label: "😰 ¿Duele?", q: "¿Duele la micropigmentación?" },
-  { label: "🩹 Sanación", q: "¿Cómo es el proceso de sanación día por día?" },
-  { label: "⏰ ¿Cuánto dura?", q: "¿Cuánto tiempo duran los resultados?" },
-  { label: "👑 ¿Por qué Daniela?", q: "¿Qué hace diferente a Daniela Miranda Studio?" },
-  { label: "📅 Agendar cita", q: "Quiero agendar una cita, ¿cómo hago?" },
+  { label: "Servicios y precios", q: "¿Qué servicios ofrecen y cuáles son los precios?" },
+  { label: "Hydra Lips", q: "¿Qué es Hydra Lips y en qué se diferencia?" },
+  { label: "¿Duele?", q: "¿Duele la micropigmentación?" },
+  { label: "Sanación", q: "¿Cómo es el proceso de sanación día por día?" },
+  { label: "¿Cuánto dura?", q: "¿Cuánto tiempo duran los resultados?" },
+  { label: "¿Por qué Daniela?", q: "¿Qué hace diferente a Daniela Miranda Studio?" },
+  { label: "Agendar cita", q: "Quiero agendar una cita, ¿cómo hago?" },
 ];
 
 interface Message {
@@ -44,34 +44,23 @@ export default function DanielaChat() {
     setLoading(true);
 
     try {
-      const apiMessages = updated.map((m) => ({
-        role: m.role,
-        content: m.content,
-      }));
-
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: apiMessages }),
+        body: JSON.stringify({
+          messages: updated.map((m) => ({ role: m.role, content: m.content })),
+        }),
       });
-
       const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "API error");
-      }
-
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: data.reply },
-      ]);
+      if (!res.ok) throw new Error(data.error);
+      setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
     } catch {
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
           content:
-            "Disculpa hermosa, estoy teniendo problemas de conexión. Puedes escribirnos directamente al WhatsApp +503 7310 6004 y te atendemos al instante 💕",
+            "Disculpa hermosa, estoy teniendo problemas de conexión. Puedes escribirnos directamente al WhatsApp +503 7310 6004 💕",
         },
       ]);
     }
@@ -83,163 +72,211 @@ export default function DanielaChat() {
       if (!line.trim()) return <br key={i} />;
       const parts = line.split(/(\*\*.*?\*\*)/g).map((p, j) => {
         if (p.startsWith("**") && p.endsWith("**")) {
-          return (
-            <strong key={j} className="font-semibold text-rose-dark">
-              {p.slice(2, -2)}
-            </strong>
-          );
+          return <strong key={j} className="font-semibold">{p.slice(2, -2)}</strong>;
         }
         return p;
       });
-      return (
-        <div key={i} className="mb-1">
-          {parts}
-        </div>
-      );
+      return <div key={i} className="mb-0.5">{parts}</div>;
     });
   };
 
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString("es-SV", { hour: "2-digit", minute: "2-digit", hour12: false });
+
   return (
-    <div className="h-screen flex flex-col bg-cream-light overflow-hidden">
-      {/* Header */}
-      <div className="bg-void px-5 py-4 flex items-center gap-3 border-b border-rose/10 flex-shrink-0">
-        <a href="/" className="mr-1 text-blush-muted/50 hover:text-blush transition-colors text-sm">
-          ←
-        </a>
-        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-rose to-blush flex items-center justify-center flex-shrink-0">
-          <span className="font-serif italic text-white text-[15px]">dm</span>
-        </div>
-        <div className="flex-1 min-w-0">
-          <div className="text-[14px] font-semibold text-blush tracking-wide">
-            Daniela AI
-          </div>
-          <div className="text-[10px] text-blush-muted/70 tracking-wider flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#25D366] inline-block" />
-            Daniela Miranda Studio · En línea
-          </div>
-        </div>
-        <a
-          href="https://wa.me/50373106004"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-9 h-9 rounded-full bg-[#25D366]/15 flex items-center justify-center hover:bg-[#25D366]/30 transition-colors"
-          aria-label="WhatsApp"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-          </svg>
-        </a>
-      </div>
+    <div className="min-h-screen bg-[#000000] flex items-center justify-center p-0 md:p-6">
+      {/* iPhone Frame */}
+      <div className="w-full max-w-[430px] h-screen md:h-[860px] bg-[#000000] md:rounded-[52px] md:border-[6px] md:border-[#2a2a2a] relative overflow-hidden md:shadow-[0_0_0_2px_#1a1a1a,0_40px_100px_rgba(0,0,0,0.6),0_0_60px_rgba(183,110,121,0.08)] flex flex-col">
 
-      {/* Credential bar */}
-      <div className="bg-void-light px-4 py-2 flex items-center justify-center gap-1.5 text-[9px] text-blush-muted/60 tracking-wider flex-shrink-0 border-b border-rose/5">
-        <span>👑 Miss PMU Internacional</span>
-        <span className="opacity-30">·</span>
-        <span>🇸🇻🇵🇪🇪🇸🇲🇽🇧🇷</span>
-        <span className="opacity-30">·</span>
-        <span>Skylight Center</span>
-      </div>
+        {/* Notch / Dynamic Island */}
+        <div className="hidden md:block absolute top-[10px] left-1/2 -translate-x-1/2 w-[126px] h-[36px] bg-[#000000] rounded-full z-50" />
 
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 py-5 space-y-3">
-        {messages.map((m, i) => (
-          <div
-            key={i}
-            className={`flex ${m.role === "user" ? "justify-end" : "justify-start"} animate-[fadeSlide_0.3s_ease-out]`}
+        {/* Status Bar */}
+        <div className="h-[54px] md:h-[60px] bg-[#1c1c1e]/95 backdrop-blur-xl flex items-end justify-between px-8 pb-2 flex-shrink-0 relative z-40">
+          <span className="text-[15px] text-white font-semibold tracking-tight">{timeStr}</span>
+          <div className="flex items-center gap-1.5">
+            {/* Signal */}
+            <div className="flex gap-[2px] items-end">
+              <div className="w-[3px] h-[4px] bg-white rounded-[0.5px]" />
+              <div className="w-[3px] h-[6px] bg-white rounded-[0.5px]" />
+              <div className="w-[3px] h-[8px] bg-white rounded-[0.5px]" />
+              <div className="w-[3px] h-[10px] bg-white rounded-[0.5px]" />
+            </div>
+            {/* WiFi */}
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="white" className="ml-0.5">
+              <path d="M8 10.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM8 7c1.7 0 3.2.7 4.3 1.8l-1.4 1.4C10 9.4 9 9 8 9s-2 .4-2.9 1.2L3.7 8.8C4.8 7.7 6.3 7 8 7zm0-3.5c2.7 0 5.1 1.1 6.9 2.8l-1.4 1.4C12 6.3 10.1 5.5 8 5.5S4 6.3 2.5 7.7L1.1 6.3C2.9 4.6 5.3 3.5 8 3.5zM8 0c3.7 0 7 1.5 9.4 3.9l-1.4 1.4C13.8 3.2 11.1 2 8 2S2.2 3.2 0 5.3L-1.4 3.9C1 1.5 4.3 0 8 0z" />
+            </svg>
+            {/* Battery */}
+            <div className="flex items-center ml-0.5">
+              <div className="w-[25px] h-[12px] border border-white/50 rounded-[3px] p-[1.5px] relative">
+                <div className="w-[75%] h-full bg-white rounded-[1.5px]" />
+              </div>
+              <div className="w-[1.5px] h-[5px] bg-white/50 rounded-r-full ml-[1px]" />
+            </div>
+          </div>
+        </div>
+
+        {/* Nav Bar — iMessage style */}
+        <div className="bg-[#1c1c1e]/90 backdrop-blur-xl px-4 py-3 flex items-center gap-3 border-b border-white/[0.06] flex-shrink-0">
+          <a href="/" className="flex items-center gap-1 text-[#B76E79] text-[17px] hover:opacity-70 transition-opacity -ml-1">
+            <svg width="10" height="17" viewBox="0 0 10 17" fill="none" className="mt-px">
+              <path d="M9 1L1.5 8.5L9 16" stroke="#B76E79" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+          <div className="flex-1 flex flex-col items-center">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-rose to-blush-muted flex items-center justify-center mb-0.5">
+              <span className="font-serif italic text-white text-[16px] -mt-px">dm</span>
+            </div>
+            <span className="text-[11px] text-white font-semibold tracking-wide">Daniela AI</span>
+            <span className="text-[10px] text-white/40 flex items-center gap-1">
+              <span className="w-[5px] h-[5px] rounded-full bg-[#30d158] inline-block" />
+              en línea
+            </span>
+          </div>
+          <a
+            href="https://wa.me/50373106004"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#B76E79] hover:opacity-70 transition-opacity"
           >
-            {m.role === "assistant" && (
-              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-rose to-blush flex items-center justify-center flex-shrink-0 mr-2 mt-0.5">
-                <span className="font-serif italic text-white text-[10px]">d</span>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B76E79" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+            </svg>
+          </a>
+        </div>
+
+        {/* Messages Area */}
+        <div
+          className="flex-1 overflow-y-auto px-4 py-4"
+          style={{
+            background: "linear-gradient(180deg, #0a0a0a 0%, #111111 100%)",
+          }}
+        >
+          {/* Date chip */}
+          <div className="text-center mb-4">
+            <span className="text-[11px] text-white/25 bg-white/[0.06] px-3 py-1 rounded-full">
+              Hoy
+            </span>
+          </div>
+
+          <div className="space-y-2">
+            {messages.map((m, i) => (
+              <div
+                key={i}
+                className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
+                style={{ animation: "fadeSlide 0.35s cubic-bezier(0.16,1,0.3,1)" }}
+              >
+                <div
+                  className={`max-w-[78%] px-[14px] py-[9px] text-[15px] leading-[1.45] ${
+                    m.role === "user"
+                      ? "bg-[#B76E79] text-white rounded-[20px] rounded-br-[6px]"
+                      : "bg-[#262628] text-[#e5e5e7] rounded-[20px] rounded-bl-[6px]"
+                  }`}
+                >
+                  {formatMsg(m.content)}
+                </div>
+              </div>
+            ))}
+
+            {loading && (
+              <div className="flex justify-start">
+                <div className="bg-[#262628] rounded-[20px] rounded-bl-[6px] px-5 py-3 flex gap-[6px] items-center">
+                  {[0, 1, 2].map((j) => (
+                    <div
+                      key={j}
+                      className="w-[7px] h-[7px] rounded-full bg-white/30"
+                      style={{
+                        animation: `pulse-line 1.4s ease-in-out infinite ${j * 0.15}s`,
+                      }}
+                    />
+                  ))}
+                </div>
               </div>
             )}
-            <div
-              className={`max-w-[80%] px-4 py-3 text-[13px] leading-[1.65] ${
-                m.role === "user"
-                  ? "bg-rose text-white rounded-2xl rounded-br-sm"
-                  : "bg-white text-text-dark rounded-2xl rounded-bl-sm border border-blush/30 shadow-[0_1px_3px_rgba(238,201,205,0.15)]"
-              }`}
-            >
-              {formatMsg(m.content)}
-            </div>
           </div>
-        ))}
 
-        {loading && (
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-rose to-blush flex items-center justify-center flex-shrink-0">
-              <span className="font-serif italic text-white text-[10px]">d</span>
-            </div>
-            <div className="bg-white border border-blush/30 rounded-2xl rounded-bl-sm px-5 py-3.5 flex gap-1.5">
-              {[0, 1, 2].map((j) => (
-                <div
-                  key={j}
-                  className="w-[6px] h-[6px] rounded-full bg-rose"
-                  style={{
-                    animation: `pulse-line 1.2s infinite ${j * 0.2}s`,
-                  }}
-                />
+          <div ref={chatEnd} />
+        </div>
+
+        {/* Quick Questions */}
+        {showQuick && (
+          <div className="px-3 py-2.5 bg-[#1c1c1e] border-t border-white/[0.06] flex-shrink-0">
+            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none" style={{ scrollbarWidth: "none" }}>
+              {QUICK_QS.map((q, i) => (
+                <button
+                  key={i}
+                  onClick={() => send(q.q)}
+                  className="px-3.5 py-[7px] bg-white/[0.07] border border-white/[0.1] rounded-full text-[13px] text-[#B76E79] font-medium whitespace-nowrap hover:bg-[#B76E79]/20 hover:border-[#B76E79]/30 transition-all duration-200 flex-shrink-0"
+                >
+                  {q.label}
+                </button>
               ))}
             </div>
           </div>
         )}
 
-        <div ref={chatEnd} />
-      </div>
-
-      {/* Quick questions */}
-      {showQuick && (
-        <div className="px-4 py-3 bg-white border-t border-blush/20 flex-shrink-0">
-          <div className="text-[9px] tracking-[2px] text-text-light uppercase font-semibold mb-2.5">
-            Preguntas frecuentes
+        {/* Input — iMessage style */}
+        <div className="px-3 py-2 pb-3 md:pb-4 bg-[#1c1c1e] border-t border-white/[0.06] flex gap-2 items-end flex-shrink-0">
+          <div className="flex-1 bg-[#2c2c2e] rounded-[22px] border border-white/[0.08] flex items-center px-4 min-h-[40px]">
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  send(input);
+                }
+              }}
+              placeholder="Mensaje"
+              disabled={loading}
+              className="flex-1 bg-transparent outline-none text-[16px] text-white placeholder:text-white/25 py-2"
+            />
           </div>
-          <div className="flex flex-wrap gap-1.5">
-            {QUICK_QS.map((q, i) => (
-              <button
-                key={i}
-                onClick={() => send(q.q)}
-                className="px-3 py-1.5 bg-blush/20 border border-blush/40 rounded-full text-[11px] text-rose-dark font-medium hover:bg-blush hover:text-white transition-all duration-200 whitespace-nowrap"
-              >
-                {q.label}
-              </button>
-            ))}
-          </div>
+          <button
+            onClick={() => send(input)}
+            disabled={loading || !input.trim()}
+            className={`w-[34px] h-[34px] rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200 mb-[3px] ${
+              input.trim()
+                ? "bg-[#B76E79] scale-100"
+                : "bg-white/[0.06] scale-95"
+            }`}
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              className={`transition-colors ${input.trim() ? "text-white" : "text-white/20"}`}
+            >
+              <path
+                d="M5 12h14m-7-7l7 7-7 7"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
         </div>
-      )}
 
-      {/* Input */}
-      <div className="px-4 py-3 bg-white border-t border-blush/15 flex gap-2.5 items-center flex-shrink-0">
-        <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
-              send(input);
-            }
-          }}
-          placeholder="Escribe tu pregunta aquí..."
-          disabled={loading}
-          className="flex-1 px-4 py-3 rounded-full border border-blush/40 outline-none text-[13px] text-text-dark bg-cream-light focus:border-rose transition-colors placeholder:text-text-light"
-        />
-        <button
-          onClick={() => send(input)}
-          disabled={loading || !input.trim()}
-          className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 text-white text-lg transition-all ${
-            input.trim()
-              ? "bg-rose hover:bg-rose-dark cursor-pointer"
-              : "bg-blush/40 cursor-default"
-          }`}
-        >
-          →
-        </button>
+        {/* Home Indicator */}
+        <div className="h-[20px] md:h-[28px] bg-[#1c1c1e] flex items-center justify-center flex-shrink-0">
+          <div className="w-[134px] h-[5px] bg-white/20 rounded-full" />
+        </div>
       </div>
 
-      {/* Footer */}
-      <div className="px-4 py-1.5 bg-white text-center flex-shrink-0">
-        <span className="text-[8px] text-text-light tracking-wider">
-          DANIELA MIRANDA STUDIO · SKYLIGHT CENTER · SAN SALVADOR
-        </span>
-      </div>
+      {/* CSS */}
+      <style>{`
+        @keyframes fadeSlide {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .scrollbar-none::-webkit-scrollbar { display: none; }
+        .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+        @media (max-width: 768px) {
+          .scrollbar-none { -webkit-overflow-scrolling: touch; }
+        }
+      `}</style>
     </div>
   );
 }
