@@ -69,12 +69,12 @@ const FAQS = [
 ];
 
 const GALLERY = [
-  { label: "Cejas + Full Lips", cat: "Cejas & Labios", image: "/images/gallery-1.jpg" },
-  { label: "Full Lips Natural", cat: "Labios", image: "/images/gallery-2.jpg" },
-  { label: "Powder Brows", cat: "Cejas", image: "/images/gallery-3.jpg" },
-  { label: "T\u00e9cnica H\u00edbrida", cat: "Cejas", image: "/images/gallery-4.jpg" },
-  { label: "Lip Blush", cat: "Labios", image: "/images/gallery-5.jpg" },
-  { label: "Nano Brows", cat: "Cejas", image: "/images/gallery-6.jpg" },
+  { label: "T\u00e9cnica H\u00edbrida", cat: "Cejas", image: "/images/gallery-1.jpg" },
+  { label: "Full Lip Blush", cat: "Labios", image: "/images/gallery-2.jpg" },
+  { label: "Lip Blush Natural", cat: "Labios", image: "/images/gallery-3.jpg" },
+  { label: "Cejas Definidas", cat: "Cejas", image: "/images/gallery-4.jpg" },
+  { label: "Cejas + Labios", cat: "Combo", image: "/images/gallery-5.jpg" },
+  { label: "Resultado Natural", cat: "Cejas", image: "/images/gallery-6.jpg" },
 ];
 
 // ═══ COMPONENTS ═══
