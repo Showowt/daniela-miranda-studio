@@ -74,7 +74,7 @@ const GALLERY = [
   { label: "Powder Brows", cat: "Cejas", image: "/images/work-cejas-2.jpg" },
   { label: "Hydra Lips", cat: "Labios", image: "/images/work-lips-2.jpg" },
   { label: "Baby Lips", cat: "Labios", image: "/images/work-lips-3.jpg" },
-  { label: "Daniela Miranda", cat: "Studio", image: "/images/daniela-miranda.jpg" },
+  { label: "Labios Definidos", cat: "Labios", image: "/images/work-lips.jpg" },
 ];
 
 // ═══ COMPONENTS ═══
@@ -289,11 +289,27 @@ export default function DanielaMirandaStudio() {
             </FadeIn>
           </div>
 
-          {/* Certification graphic — centered below bio */}
-          <FadeIn delay={0.1}>
-            <div className="max-w-[320px] md:max-w-[380px] mx-auto">
+        </div>
+      </section>
+
+      {/* ═══ CERTIFICATION ═══ */}
+      <section className="py-10 md:py-14 px-5 bg-cream-light border-y border-blush/15">
+        <div className="max-w-[1080px] mx-auto flex flex-col md:flex-row items-center gap-6 md:gap-12">
+          <FadeIn>
+            <div className="w-[180px] md:w-[220px] flex-shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/images/certificada-internacional.png" alt="Certificada Internacionalmente" className="w-full h-auto" />
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <div className="text-center md:text-left">
+              <h3 className="font-serif text-[22px] md:text-[28px] font-light text-void leading-tight mb-2">
+                Certificada <span className="text-rose italic">internacionalmente</span>
+              </h3>
+              <p className="text-[12px] md:text-[13px] text-text-muted leading-[1.8] font-light max-w-md">
+                Formación y certificación en cinco países: El Salvador, Perú, España, México y Brasil.
+                La única artista en El Salvador con el título Miss PMU Internacional.
+              </p>
             </div>
           </FadeIn>
         </div>

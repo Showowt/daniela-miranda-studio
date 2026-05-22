@@ -84,15 +84,15 @@ export default function DanielaChat() {
   const timeStr = now.toLocaleTimeString("es-SV", { hour: "2-digit", minute: "2-digit", hour12: false });
 
   return (
-    <div className="min-h-screen bg-[#000000] flex items-center justify-center p-0 md:p-6">
+    <div className="min-h-screen bg-[#000000] flex items-center justify-center p-0 md:p-8 lg:p-12">
       {/* iPhone Frame */}
-      <div className="w-full max-w-[430px] h-screen md:h-[860px] bg-[#000000] md:rounded-[52px] md:border-[6px] md:border-[#2a2a2a] relative overflow-hidden md:shadow-[0_0_0_2px_#1a1a1a,0_40px_100px_rgba(0,0,0,0.6),0_0_60px_rgba(183,110,121,0.08)] flex flex-col">
+      <div className="w-full max-w-[393px] h-screen md:h-[min(852px,90vh)] bg-[#000000] md:rounded-[48px] md:border-[5px] md:border-[#2a2a2a] relative overflow-hidden md:shadow-[0_0_0_1.5px_#1a1a1a,0_30px_80px_rgba(0,0,0,0.5),0_0_40px_rgba(183,110,121,0.06)] flex flex-col">
 
         {/* Notch / Dynamic Island */}
-        <div className="hidden md:block absolute top-[10px] left-1/2 -translate-x-1/2 w-[126px] h-[36px] bg-[#000000] rounded-full z-50" />
+        <div className="hidden md:block absolute top-[8px] left-1/2 -translate-x-1/2 w-[120px] h-[34px] bg-[#000000] rounded-full z-50" />
 
         {/* Status Bar */}
-        <div className="h-[54px] md:h-[60px] bg-[#1c1c1e]/95 backdrop-blur-xl flex items-end justify-between px-8 pb-2 flex-shrink-0 relative z-40">
+        <div className="h-[50px] md:h-[54px] bg-[#1c1c1e]/95 backdrop-blur-xl flex items-end justify-between px-7 pb-1.5 flex-shrink-0 relative z-40">
           <span className="text-[15px] text-white font-semibold tracking-tight">{timeStr}</span>
           <div className="flex items-center gap-1.5">
             {/* Signal */}
@@ -117,19 +117,19 @@ export default function DanielaChat() {
         </div>
 
         {/* Nav Bar — iMessage style */}
-        <div className="bg-[#1c1c1e]/90 backdrop-blur-xl px-4 py-3 flex items-center gap-3 border-b border-white/[0.06] flex-shrink-0">
-          <a href="/" className="flex items-center gap-1 text-[#B76E79] text-[17px] hover:opacity-70 transition-opacity -ml-1">
-            <svg width="10" height="17" viewBox="0 0 10 17" fill="none" className="mt-px">
+        <div className="bg-[#1c1c1e]/90 backdrop-blur-xl px-4 py-2 flex items-center gap-3 border-b border-white/[0.06] flex-shrink-0">
+          <a href="/" className="flex items-center text-[#B76E79] hover:opacity-70 transition-opacity">
+            <svg width="9" height="15" viewBox="0 0 10 17" fill="none">
               <path d="M9 1L1.5 8.5L9 16" stroke="#B76E79" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </a>
           <div className="flex-1 flex flex-col items-center">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-rose to-blush-muted flex items-center justify-center mb-0.5">
-              <span className="font-serif italic text-white text-[16px] -mt-px">dm</span>
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-rose to-blush-muted flex items-center justify-center mb-0.5">
+              <span className="font-serif italic text-white text-[14px] -mt-px">dm</span>
             </div>
-            <span className="text-[11px] text-white font-semibold tracking-wide">Daniela AI</span>
-            <span className="text-[10px] text-white/40 flex items-center gap-1">
-              <span className="w-[5px] h-[5px] rounded-full bg-[#30d158] inline-block" />
+            <span className="text-[11px] text-white font-semibold tracking-wide leading-tight">Daniela AI</span>
+            <span className="text-[9px] text-white/35 flex items-center gap-1">
+              <span className="w-[4px] h-[4px] rounded-full bg-[#30d158] inline-block" />
               en línea
             </span>
           </div>
@@ -167,7 +167,7 @@ export default function DanielaChat() {
                 style={{ animation: "fadeSlide 0.35s cubic-bezier(0.16,1,0.3,1)" }}
               >
                 <div
-                  className={`max-w-[78%] px-[14px] py-[9px] text-[15px] leading-[1.45] ${
+                  className={`max-w-[78%] px-[13px] py-[8px] text-[14px] leading-[1.4] ${
                     m.role === "user"
                       ? "bg-[#B76E79] text-white rounded-[20px] rounded-br-[6px]"
                       : "bg-[#262628] text-[#e5e5e7] rounded-[20px] rounded-bl-[6px]"
@@ -216,7 +216,7 @@ export default function DanielaChat() {
         )}
 
         {/* Input — iMessage style */}
-        <div className="px-3 py-2 pb-3 md:pb-4 bg-[#1c1c1e] border-t border-white/[0.06] flex gap-2 items-end flex-shrink-0">
+        <div className="px-3 py-2 bg-[#1c1c1e] border-t border-white/[0.06] flex gap-2 items-end flex-shrink-0">
           <div className="flex-1 bg-[#2c2c2e] rounded-[22px] border border-white/[0.08] flex items-center px-4 min-h-[40px]">
             <input
               value={input}
@@ -260,8 +260,8 @@ export default function DanielaChat() {
         </div>
 
         {/* Home Indicator */}
-        <div className="h-[20px] md:h-[28px] bg-[#1c1c1e] flex items-center justify-center flex-shrink-0">
-          <div className="w-[134px] h-[5px] bg-white/20 rounded-full" />
+        <div className="h-[16px] md:h-[22px] bg-[#1c1c1e] flex items-center justify-center flex-shrink-0">
+          <div className="w-[120px] h-[4px] bg-white/15 rounded-full" />
         </div>
       </div>
 
