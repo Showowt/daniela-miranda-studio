@@ -133,12 +133,12 @@ const FAQS = [
 ];
 
 const GALLERY = [
-  { label: "Powder Brows", cat: "Cejas", image: "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&h=300&fit=crop" },
-  { label: "Full Lip Blush", cat: "Labios", image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&h=300&fit=crop" },
-  { label: "Hydra Lips", cat: "Signature", image: "https://images.unsplash.com/photo-1596704017254-9b121068fb31?w=400&h=300&fit=crop" },
-  { label: "Baby Lips", cat: "Labios", image: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&h=300&fit=crop" },
-  { label: "Nano Brows", cat: "Cejas", image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=300&fit=crop" },
-  { label: "Microblading", cat: "Cejas", image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&h=300&fit=crop" },
+  { label: "Cejas H\u00edbridas + Full Lips", cat: "Cejas & Labios", image: "/images/gallery-1.jpg" },
+  { label: "Full Lip Blush", cat: "Labios", image: "/images/gallery-2.jpg" },
+  { label: "Hydra Lips", cat: "Signature", image: "/images/gallery-3.jpg" },
+  { label: "Powder Brows", cat: "Cejas", image: "/images/gallery-4.jpg" },
+  { label: "Nano Brows", cat: "Cejas", image: "/images/gallery-5.jpg" },
+  { label: "Baby Lips", cat: "Labios", image: "/images/gallery-6.jpg" },
 ];
 
 // ═══════════════════════════════════════
