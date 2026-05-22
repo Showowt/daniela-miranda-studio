@@ -12,64 +12,64 @@ import { useState, useEffect, useRef, type ReactNode } from "react";
 const SERVICES = [
   {
     id: "cejas",
-    title: "Micropigmentaci\u00f3n de Cejas",
-    techniques: "Powder Brows \u00b7 Microblading \u00b7 Nano Brows",
-    desc: "Dise\u00f1o personalizado seg\u00fan la morfolog\u00eda de tu rostro. Pigmentos premium importados. Resultado ultra-natural que dura 1\u20132 a\u00f1os.",
+    title: "Micropigmentación de Cejas",
+    techniques: "Powder Brows · Microblading · Nano Brows",
+    desc: "Diseño personalizado según la morfología de tu rostro. Pigmentos premium importados. Resultado ultra-natural que dura 1–2 años.",
     price: "$100",
-    duration: "2\u20133 horas",
-    includes: ["Consulta y dise\u00f1o con visagismo", "Anestesia t\u00f3pica premium", "Procedimiento completo", "Kit de cuidados post-PMU", "Retoque incluido (30\u201345 d\u00edas)"],
+    duration: "2–3 horas",
+    includes: ["Consulta y diseño con visagismo", "Anestesia tópica premium", "Procedimiento completo", "Kit de cuidados post-PMU", "Retoque incluido (30–45 días)"],
   },
   {
     id: "labios",
-    title: "Micropigmentaci\u00f3n de Labios",
-    techniques: "Full Lip Blush \u00b7 Contorno + Relleno",
-    desc: "Labios definidos con color permanente y efecto jugoso. Rejuvenece, corrige asimetr\u00edas y elimina la necesidad de labial diario.",
+    title: "Micropigmentación de Labios",
+    techniques: "Full Lip Blush · Contorno + Relleno",
+    desc: "Labios definidos con color permanente y efecto jugoso. Rejuvenece, corrige asimetrías y elimina la necesidad de labial diario.",
     price: "$100",
-    duration: "2\u20133 horas",
-    includes: ["Selecci\u00f3n de tono personalizada", "Dise\u00f1o con fotograf\u00eda de referencia", "Procedimiento completo", "Kit de cuidados post-PMU", "Retoque incluido (30\u201345 d\u00edas)"],
+    duration: "2–3 horas",
+    includes: ["Selección de tono personalizada", "Diseño con fotografía de referencia", "Procedimiento completo", "Kit de cuidados post-PMU", "Retoque incluido (30–45 días)"],
   },
   {
     id: "hydralips",
     title: "Hydra Lips",
-    techniques: "Hidrataci\u00f3n Profunda \u00b7 Micro-Needling",
-    desc: "Tratamiento signature. Micro-needling con \u00e1cido hialur\u00f3nico y pigmentaci\u00f3n sutil para labios hidratados y voluminosos.",
+    techniques: "Hidratación Profunda · Micro-Needling",
+    desc: "Tratamiento signature. Micro-needling con ácido hialurónico y pigmentación sutil para labios hidratados y voluminosos.",
     price: "$80",
-    duration: "1.5\u20132 horas",
+    duration: "1.5–2 horas",
     badge: "SIGNATURE",
-    includes: ["Limpieza y preparaci\u00f3n labial", "\u00c1cido hialur\u00f3nico + vitaminas", "Micropigmentaci\u00f3n sutil", "Efecto glass lip natural", "Seguimiento post-tratamiento"],
+    includes: ["Limpieza y preparación labial", "Ácido hialurónico + vitaminas", "Micropigmentación sutil", "Efecto glass lip natural", "Seguimiento post-tratamiento"],
   },
   {
     id: "babylips",
     title: "Baby Lips",
-    techniques: "Tinte Sutil \u00b7 Efecto Natural",
-    desc: "La versi\u00f3n m\u00e1s suave de labios pigmentados. Ideal como primera experiencia PMU.",
+    techniques: "Tinte Sutil · Efecto Natural",
+    desc: "La versión más suave de labios pigmentados. Ideal como primera experiencia PMU.",
     price: "$80",
-    duration: "1.5\u20132 horas",
-    includes: ["Consulta de tono y expectativas", "Dise\u00f1o conservador", "Pigmentaci\u00f3n sutil", "Kit de cuidados", "Retoque incluido (30\u201345 d\u00edas)"],
+    duration: "1.5–2 horas",
+    includes: ["Consulta de tono y expectativas", "Diseño conservador", "Pigmentación sutil", "Kit de cuidados", "Retoque incluido (30–45 días)"],
   },
   {
     id: "retoque",
-    title: "Retoque & Correcci\u00f3n",
-    techniques: "Refresh \u00b7 Correcci\u00f3n Crom\u00e1tica",
-    desc: "Restauramos y corregimos trabajos previos con t\u00e9cnicas avanzadas de correcci\u00f3n crom\u00e1tica.",
+    title: "Retoque & Corrección",
+    techniques: "Refresh · Corrección Cromática",
+    desc: "Restauramos y corregimos trabajos previos con técnicas avanzadas de corrección cromática.",
     price: "$60",
-    duration: "1\u20132 horas",
-    includes: ["Evaluaci\u00f3n del trabajo previo", "Plan de correcci\u00f3n personalizado", "Procedimiento de restauraci\u00f3n", "Seguimiento y control"],
+    duration: "1–2 horas",
+    includes: ["Evaluación del trabajo previo", "Plan de corrección personalizado", "Procedimiento de restauración", "Seguimiento y control"],
   },
 ];
 
 const FAQS = [
-  { q: "\u00bfDuele la micropigmentaci\u00f3n?", a: "Aplicamos anestesia t\u00f3pica antes y durante el procedimiento. La mayor\u00eda de clientas describen la sensaci\u00f3n como una leve molestia, no dolor." },
-  { q: "\u00bfCu\u00e1nto dura el resultado?", a: "Entre 1 y 2 a\u00f1os dependiendo de tu tipo de piel y cuidados. Un retoque anual mantiene el resultado perfecto." },
-  { q: "\u00bfC\u00f3mo es la sanaci\u00f3n?", a: "Los primeros 3\u20135 d\u00edas el color se ve m\u00e1s intenso. Entre el d\u00eda 5\u201310 la piel se descama suavemente. Color final al d\u00eda 28\u201330." },
-  { q: "\u00bfPuedo elegir forma y color?", a: "Absolutamente. Hacemos un dise\u00f1o completo con l\u00e1piz que apruebas t\u00fa. Usamos visagismo para encontrar la forma perfecta para TU rostro." },
-  { q: "\u00bfQu\u00e9 es Hydra Lips?", a: "Nuestro tratamiento signature: micro-needling con \u00e1cido hialur\u00f3nico y pigmentaci\u00f3n sutil. Labios hidratados con color natural que dura meses." },
-  { q: "\u00bfEs seguro?", a: "Agujas est\u00e9riles desechables. Pigmentos premium libres de metales pesados. Protocolos estrictos de bioseguridad." },
-  { q: "\u00bfIncluye retoque?", a: "S\u00ed. Todos los servicios incluyen retoque gratuito entre 30\u201345 d\u00edas despu\u00e9s del procedimiento inicial." },
+  { q: "¿Duele la micropigmentación?", a: "Aplicamos anestesia tópica antes y durante el procedimiento. La mayoría de clientas describen la sensación como una leve molestia, no dolor." },
+  { q: "¿Cuánto dura el resultado?", a: "Entre 1 y 2 años dependiendo de tu tipo de piel y cuidados. Un retoque anual mantiene el resultado perfecto." },
+  { q: "¿Cómo es la sanación?", a: "Los primeros 3–5 días el color se ve más intenso. Entre el día 5–10 la piel se descama suavemente. Color final al día 28–30." },
+  { q: "¿Puedo elegir forma y color?", a: "Absolutamente. Hacemos un diseño completo con lápiz que apruebas tú. Usamos visagismo para encontrar la forma perfecta para TU rostro." },
+  { q: "¿Qué es Hydra Lips?", a: "Nuestro tratamiento signature: micro-needling con ácido hialurónico y pigmentación sutil. Labios hidratados con color natural que dura meses." },
+  { q: "¿Es seguro?", a: "Agujas estériles desechables. Pigmentos premium libres de metales pesados. Protocolos estrictos de bioseguridad." },
+  { q: "¿Incluye retoque?", a: "Sí. Todos los servicios incluyen retoque gratuito entre 30–45 días después del procedimiento inicial." },
 ];
 
 const GALLERY = [
-  { label: "T\u00e9cnica H\u00edbrida", cat: "Cejas", image: "/images/gallery-1.jpg" },
+  { label: "Técnica Híbrida", cat: "Cejas", image: "/images/gallery-1.jpg" },
   { label: "Full Lip Blush", cat: "Labios", image: "/images/gallery-2.jpg" },
   { label: "Lip Blush Natural", cat: "Labios", image: "/images/gallery-3.jpg" },
   { label: "Cejas Definidas", cat: "Cejas", image: "/images/gallery-4.jpg" },
@@ -164,7 +164,7 @@ export default function DanielaMirandaStudio() {
         <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] rounded-full border border-blush/[0.06] pointer-events-none" style={{ animation: "rotate-slow 80s linear infinite" }} />
 
         <FadeIn delay={0.2}>
-          <div className="text-[8px] md:text-[9px] tracking-[4px] md:tracking-[5px] text-blush-muted font-semibold uppercase mb-6 md:mb-8">Skylight Center \u00b7 San Salvador</div>
+          <div className="text-[8px] md:text-[9px] tracking-[4px] md:tracking-[5px] text-blush-muted font-semibold uppercase mb-6 md:mb-8">Skylight Center · San Salvador</div>
         </FadeIn>
 
         <FadeIn delay={0.4}>
@@ -183,14 +183,14 @@ export default function DanielaMirandaStudio() {
         </FadeIn>
 
         <FadeIn delay={0.8}>
-          <p className="text-[13px] text-text-muted max-w-xs md:max-w-sm leading-relaxed mb-1 font-light">La \u00fanica artista con t\u00edtulo</p>
+          <p className="text-[13px] text-text-muted max-w-xs md:max-w-sm leading-relaxed mb-1 font-light">La única artista con título</p>
           <p className="font-serif text-[22px] md:text-[28px] font-normal italic text-rose-dark leading-snug mb-1">Miss PMU Internacional</p>
           <p className="text-[11px] md:text-[12px] text-text-light tracking-[2px] mb-3">en El Salvador</p>
         </FadeIn>
 
         <FadeIn delay={0.9}>
           <div className="flex gap-2 justify-center mb-6 text-[18px] md:text-[20px]">
-            {["\ud83c\uddf8\ud83c\uddfb","\ud83c\uddf5\ud83c\uddea","\ud83c\uddea\ud83c\uddf8","\ud83c\uddf2\ud83c\uddfd","\ud83c\udde7\ud83c\uddf7"].map((flag, i) => (
+            {["🇸🇻","🇵🇪","🇪🇸","🇲🇽","🇧🇷"].map((flag, i) => (
               <span key={i} className="hover:scale-125 transition-transform duration-300 cursor-default">{flag}</span>
             ))}
           </div>
@@ -217,10 +217,10 @@ export default function DanielaMirandaStudio() {
       <section className="bg-void py-8 md:py-10 px-5 border-y border-rose/[0.06]">
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:flex md:flex-wrap md:justify-center gap-5 md:gap-12">
           {[
-            { icon: "\ud83d\udc51", text: "Miss PMU Internacional" },
-            { icon: "\ud83c\udf0e", text: "Certificada en 5 Pa\u00edses" },
-            { icon: "\ud83d\udcdc", text: "T\u00e9cnicas Avanzadas" },
-            { icon: "\ud83d\udc8e", text: "Experiencia de Lujo" },
+            { icon: "👑", text: "Miss PMU Internacional" },
+            { icon: "🌎", text: "Certificada en 5 Países" },
+            { icon: "📜", text: "Técnicas Avanzadas" },
+            { icon: "💎", text: "Experiencia de Lujo" },
           ].map((c, i) => (
             <FadeIn key={i} delay={i * 0.08}>
               <div className="flex items-center gap-2.5 text-[10px] md:text-[11px] text-blush/80 tracking-[1px] md:tracking-[2px] font-light uppercase">
@@ -278,7 +278,7 @@ export default function DanielaMirandaStudio() {
                 </blockquote>
 
                 <div className="flex gap-6 md:gap-8">
-                  {[{ n: "5", l: "Pa\u00edses" }, { n: "500+", l: "Clientas" }, { n: "2023", l: "Miss PMU" }].map((s, i) => (
+                  {[{ n: "5", l: "Países" }, { n: "500+", l: "Clientas" }, { n: "2023", l: "Miss PMU" }].map((s, i) => (
                     <div key={i} className="stat-item pr-6 md:pr-8">
                       <div className="font-serif text-[28px] md:text-[34px] text-rose font-light leading-none">{s.n}</div>
                       <div className="text-[8px] md:text-[9px] tracking-[2px] text-text-light mt-1.5 uppercase font-semibold">{s.l}</div>
@@ -306,12 +306,12 @@ export default function DanielaMirandaStudio() {
           <FadeIn>
             <div className="relative group overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/work-cejas.jpg" alt="Micropigmentaci\u00f3n de Cejas \u2014 Resultado real" className="w-full aspect-[4/3] md:aspect-[3/2] object-cover transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
+              <img src="/images/work-cejas.jpg" alt="Micropigmentación de Cejas — Resultado real" className="w-full aspect-[4/3] md:aspect-[3/2] object-cover transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
               <div className="absolute inset-0 bg-gradient-to-t from-void/70 via-void/10 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
                 <div className="text-[8px] md:text-[9px] tracking-[3px] text-blush-muted/70 uppercase font-semibold mb-1.5">Resultado Real</div>
-                <div className="font-serif text-[20px] md:text-[24px] text-white italic font-light leading-tight">Micropigmentaci\u00f3n de Cejas</div>
-                <div className="text-[10px] md:text-[11px] text-blush/60 mt-2 tracking-[1px]">T\u00e9cnica H\u00edbrida \u00b7 Efecto Natural</div>
+                <div className="font-serif text-[20px] md:text-[24px] text-white italic font-light leading-tight">Micropigmentación de Cejas</div>
+                <div className="text-[10px] md:text-[11px] text-blush/60 mt-2 tracking-[1px]">Técnica Híbrida · Efecto Natural</div>
               </div>
             </div>
           </FadeIn>
@@ -320,12 +320,12 @@ export default function DanielaMirandaStudio() {
           <FadeIn delay={0.15}>
             <div className="relative group overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/work-lips.jpg" alt="Full Lip Blush \u2014 Resultado real" className="w-full aspect-[4/3] md:aspect-[3/2] object-cover transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
+              <img src="/images/work-lips.jpg" alt="Full Lip Blush — Resultado real" className="w-full aspect-[4/3] md:aspect-[3/2] object-cover transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
               <div className="absolute inset-0 bg-gradient-to-t from-void/70 via-void/10 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
                 <div className="text-[8px] md:text-[9px] tracking-[3px] text-blush-muted/70 uppercase font-semibold mb-1.5">Resultado Real</div>
                 <div className="font-serif text-[20px] md:text-[24px] text-white italic font-light leading-tight">Full Lip Blush</div>
-                <div className="text-[10px] md:text-[11px] text-blush/60 mt-2 tracking-[1px]">Color Perfecto \u00b7 Acabado Jugoso</div>
+                <div className="text-[10px] md:text-[11px] text-blush/60 mt-2 tracking-[1px]">Color Perfecto · Acabado Jugoso</div>
               </div>
             </div>
           </FadeIn>
@@ -339,7 +339,7 @@ export default function DanielaMirandaStudio() {
             <div className="text-center mb-12 md:mb-20">
               <div className="section-label">Servicios</div>
               <h2 className="font-serif text-[26px] md:text-[38px] lg:text-[44px] font-light text-void leading-tight max-w-md mx-auto">
-                T\u00e9cnicas internacionales, <span className="text-rose italic">resultado natural</span>
+                Técnicas internacionales, <span className="text-rose italic">resultado natural</span>
               </h2>
               <div className="w-8 md:w-10 h-px bg-rose mx-auto mt-6 md:mt-8" />
             </div>
@@ -376,7 +376,7 @@ export default function DanielaMirandaStudio() {
                         <span className="font-serif text-[22px] md:text-[24px] text-rose-dark font-light">{s.price}</span>
                       </div>
                       <a href={`https://wa.me/50373106004?text=Hola%20Daniela%20%E2%9C%A8%20me%20interesa%20${encodeURIComponent(s.title)}`} target="_blank" rel="noopener noreferrer" className="text-[9px] tracking-[2px] text-rose font-bold no-underline hover:text-rose-dark transition-colors uppercase group" onClick={(e) => e.stopPropagation()}>
-                        Agendar <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">{"\u2192"}</span>
+                        Agendar <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">{"→"}</span>
                       </a>
                     </div>
                   </div>
@@ -394,7 +394,7 @@ export default function DanielaMirandaStudio() {
             <div className="text-center mb-12 md:mb-20">
               <div className="section-label">Tu Experiencia</div>
               <h2 className="font-serif text-[26px] md:text-[38px] font-light text-void leading-tight max-w-sm mx-auto">
-                C\u00f3mo funciona tu <span className="text-rose italic">transformaci\u00f3n</span>
+                Cómo funciona tu <span className="text-rose italic">transformación</span>
               </h2>
               <div className="w-8 md:w-10 h-px bg-rose mx-auto mt-6 md:mt-8" />
             </div>
@@ -404,9 +404,9 @@ export default function DanielaMirandaStudio() {
             <div className="hidden lg:block absolute top-[22px] left-[14%] right-[14%] h-px bg-blush/20" />
             {[
               { n: "01", t: "Consulta", d: "Evaluamos tu rostro y expectativas. Sin compromiso." },
-              { n: "02", t: "Dise\u00f1o", d: "Visagismo profesional. T\u00fa apruebas cada detalle." },
-              { n: "03", t: "Procedimiento", d: "Pigmentos premium, t\u00e9cnica internacional. 2\u20133 hrs." },
-              { n: "04", t: "Cuidados", d: "Kit post-PMU y retoque incluido a los 30\u201345 d\u00edas." },
+              { n: "02", t: "Diseño", d: "Visagismo profesional. Tú apruebas cada detalle." },
+              { n: "03", t: "Procedimiento", d: "Pigmentos premium, técnica internacional. 2–3 hrs." },
+              { n: "04", t: "Cuidados", d: "Kit post-PMU y retoque incluido a los 30–45 días." },
             ].map((p, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <div className="text-center">
@@ -431,7 +431,7 @@ export default function DanielaMirandaStudio() {
               <h2 className="font-serif text-[26px] md:text-[38px] font-light text-blush leading-tight max-w-md mx-auto mb-2">
                 Resultados <span className="text-rose-light italic">reales</span>
               </h2>
-              <p className="text-[12px] md:text-[13px] text-blush-muted/50 max-w-xs mx-auto font-light">Cada rostro es \u00fanico. Cada resultado es personalizado.</p>
+              <p className="text-[12px] md:text-[13px] text-blush-muted/50 max-w-xs mx-auto font-light">Cada rostro es único. Cada resultado es personalizado.</p>
             </div>
           </FadeIn>
 
@@ -453,8 +453,8 @@ export default function DanielaMirandaStudio() {
 
           <FadeIn delay={0.2}>
             <div className="text-center mt-10 md:mt-14 flex gap-6 justify-center px-5">
-              <a href="https://www.instagram.com/danielamirandapmu/" target="_blank" rel="noopener noreferrer" className="text-[9px] md:text-[10px] text-blush-muted/60 tracking-[2px] no-underline hover:text-rose-light transition-colors uppercase font-semibold">Instagram {"\u2192"}</a>
-              <a href="https://www.tiktok.com/@danielamirandastudio" target="_blank" rel="noopener noreferrer" className="text-[9px] md:text-[10px] text-blush-muted/60 tracking-[2px] no-underline hover:text-rose-light transition-colors uppercase font-semibold">TikTok {"\u2192"}</a>
+              <a href="https://www.instagram.com/danielamirandapmu/" target="_blank" rel="noopener noreferrer" className="text-[9px] md:text-[10px] text-blush-muted/60 tracking-[2px] no-underline hover:text-rose-light transition-colors uppercase font-semibold">Instagram {"→"}</a>
+              <a href="https://www.tiktok.com/@danielamirandastudio" target="_blank" rel="noopener noreferrer" className="text-[9px] md:text-[10px] text-blush-muted/60 tracking-[2px] no-underline hover:text-rose-light transition-colors uppercase font-semibold">TikTok {"→"}</a>
             </div>
           </FadeIn>
         </div>
@@ -475,9 +475,9 @@ export default function DanielaMirandaStudio() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
             {[
-              { text: "Nunca pens\u00e9 que unas cejas pudieran cambiar tanto mi cara. Daniela es una artista. Me veo m\u00e1s joven y segura sin maquillaje.", name: "Andrea R.", service: "Powder Brows" },
-              { text: "El Hydra Lips fue incre\u00edble. Mis labios se ven hidratados y con un color hermoso. La experiencia es de otro nivel.", name: "Mar\u00eda Jos\u00e9 L.", service: "Hydra Lips" },
-              { text: "Me hice el lip blush y qued\u00e9 enamorada. El color es exactamente lo que quer\u00eda. Daniela es muy profesional.", name: "Carolina S.", service: "Lip Blush" },
+              { text: "Nunca pensé que unas cejas pudieran cambiar tanto mi cara. Daniela es una artista. Me veo más joven y segura sin maquillaje.", name: "Andrea R.", service: "Powder Brows" },
+              { text: "El Hydra Lips fue increíble. Mis labios se ven hidratados y con un color hermoso. La experiencia es de otro nivel.", name: "María José L.", service: "Hydra Lips" },
+              { text: "Me hice el lip blush y quedé enamorada. El color es exactamente lo que quería. Daniela es muy profesional.", name: "Carolina S.", service: "Lip Blush" },
             ].map((t, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <div className="testimonial-card h-full flex flex-col">
@@ -504,7 +504,7 @@ export default function DanielaMirandaStudio() {
               <h2 className="font-serif text-[24px] md:text-[34px] font-light text-void leading-[1.15] mb-5">
                 Todo lo que necesitas <span className="text-rose italic">saber</span>
               </h2>
-              <p className="text-[13px] md:text-[14px] text-text-muted leading-[1.85] font-light mb-6">\u00bfOtra pregunta? Escr\u00edbenos por WhatsApp.</p>
+              <p className="text-[13px] md:text-[14px] text-text-muted leading-[1.85] font-light mb-6">¿Otra pregunta? Escríbenos por WhatsApp.</p>
               <a href={wa} target="_blank" rel="noopener noreferrer" className="btn-outline !text-[9px] !px-6 !py-3">Escribir por WhatsApp</a>
             </div>
           </FadeIn>
@@ -535,12 +535,12 @@ export default function DanielaMirandaStudio() {
       {/* ═══ CTA ═══ */}
       <section className="py-16 md:py-32 px-5 text-center border-t border-blush/15" style={{ background: `linear-gradient(180deg, rgba(238,201,205,0.06) 0%, #FBF5EE 40%, rgba(238,201,205,0.03) 100%)` }}>
         <FadeIn>
-          <div className="section-label mb-4">\u00bfLista para tu transformaci\u00f3n?</div>
+          <div className="section-label mb-4">¿Lista para tu transformación?</div>
           <h2 className="font-serif text-[28px] md:text-[42px] lg:text-[48px] font-light text-void leading-tight mb-4">
-            Tu mejor versi\u00f3n <span className="text-rose italic">empieza aqu\u00ed</span>
+            Tu mejor versión <span className="text-rose italic">empieza aquí</span>
           </h2>
           <p className="text-[13px] md:text-[14px] text-text-muted max-w-sm mx-auto leading-[1.85] mb-10 font-light">
-            Agenda tu consulta sin compromiso. Dise\u00f1amos juntas el resultado perfecto.
+            Agenda tu consulta sin compromiso. Diseñamos juntas el resultado perfecto.
           </p>
           <div className="flex gap-3 md:gap-4 justify-center flex-wrap">
             <a href={wa} target="_blank" rel="noopener noreferrer" className="btn-primary">Agendar por WhatsApp</a>
@@ -556,7 +556,7 @@ export default function DanielaMirandaStudio() {
             <div className="col-span-2 lg:col-span-1">
               <div className="font-serif italic text-[28px] text-blush/70 mb-0.5">dm</div>
               <div className="text-[7px] md:text-[8px] tracking-[4px] text-rose/40 font-semibold mb-4 uppercase">Daniela Miranda Studio</div>
-              <p className="text-[10px] md:text-[11px] text-blush-muted/40 leading-[1.9] font-light">Micropigmentaci\u00f3n de lujo en San Salvador. Certificaci\u00f3n internacional en 5 pa\u00edses.</p>
+              <p className="text-[10px] md:text-[11px] text-blush-muted/40 leading-[1.9] font-light">Micropigmentación de lujo en San Salvador. Certificación internacional en 5 países.</p>
             </div>
             <div>
               <div className="text-[7px] md:text-[8px] tracking-[3px] text-blush-muted/35 font-semibold mb-4 uppercase">Contacto</div>
@@ -578,15 +578,15 @@ export default function DanielaMirandaStudio() {
             <div>
               <div className="text-[7px] md:text-[8px] tracking-[3px] text-blush-muted/35 font-semibold mb-4 uppercase">Horario</div>
               <div className="text-[10px] md:text-[11px] text-blush-muted/40 space-y-2 font-light">
-                <div>Lun\u2013Vie: 9AM\u20136PM</div>
-                <div>S\u00e1b: 9AM\u20132PM</div>
+                <div>Lun–Vie: 9AM–6PM</div>
+                <div>Sáb: 9AM–2PM</div>
                 <div>Dom: Cerrado</div>
                 <div className="text-rose/30 text-[9px] mt-2">Solo con cita previa</div>
               </div>
             </div>
           </div>
           <div className="border-t border-rose/[0.04] pt-5 flex flex-col sm:flex-row justify-between items-center gap-2">
-            <div className="text-[8px] md:text-[9px] text-blush-muted/20 tracking-wider">{"\u00a9"} 2026 Daniela Miranda Studio</div>
+            <div className="text-[8px] md:text-[9px] text-blush-muted/20 tracking-wider">{"©"} 2026 Daniela Miranda Studio</div>
             <div className="text-[7px] md:text-[8px] text-blush-muted/12 tracking-[2px] uppercase">Powered by MachineMind</div>
           </div>
         </div>
