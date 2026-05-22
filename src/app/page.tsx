@@ -71,10 +71,10 @@ const FAQS = [
 const GALLERY = [
   { label: "Técnica Híbrida", cat: "Cejas", image: "/images/work-cejas.jpg" },
   { label: "Full Lip Blush", cat: "Labios", image: "/images/work-lips.jpg" },
-  { label: "Cejas Naturales", cat: "Cejas", image: "/images/work-cejas-2.jpg" },
-  { label: "Lip Blush Rosado", cat: "Labios", image: "/images/work-lips-2.jpg" },
-  { label: "Cejas Definidas", cat: "Cejas", image: "/images/gallery-4.jpg" },
-  { label: "Resultado Natural", cat: "Cejas", image: "/images/gallery-5.jpg" },
+  { label: "Powder Brows", cat: "Cejas", image: "/images/work-cejas-2.jpg" },
+  { label: "Hydra Lips", cat: "Labios", image: "/images/work-lips-2.jpg" },
+  { label: "Baby Lips", cat: "Labios", image: "/images/work-lips-3.jpg" },
+  { label: "Daniela Miranda", cat: "Studio", image: "/images/daniela-miranda.jpg" },
 ];
 
 // ═══ COMPONENTS ═══
@@ -301,31 +301,63 @@ export default function DanielaMirandaStudio() {
 
       {/* ═══ WORK SHOWCASE ═══ */}
       <section className="relative bg-void overflow-hidden">
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          {/* Cejas */}
+        {/* Row 1: 2 images */}
+        <div className="grid grid-cols-2">
           <FadeIn>
             <div className="relative group overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/work-cejas.jpg" alt="Micropigmentación de Cejas — Resultado real" className="w-full aspect-[4/3] md:aspect-[3/2] object-cover transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-void/70 via-void/10 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
-                <div className="text-[8px] md:text-[9px] tracking-[3px] text-blush-muted/70 uppercase font-semibold mb-1.5">Resultado Real</div>
-                <div className="font-serif text-[20px] md:text-[24px] text-white italic font-light leading-tight">Micropigmentación de Cejas</div>
-                <div className="text-[10px] md:text-[11px] text-blush/60 mt-2 tracking-[1px]">Técnica Híbrida · Efecto Natural</div>
+              <img src="/images/work-cejas.jpg" alt="Micropigmentación de Cejas" className="w-full aspect-square md:aspect-[4/3] object-cover transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-void/70 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-3 md:p-6">
+                <div className="text-[7px] md:text-[9px] tracking-[3px] text-blush-muted/60 uppercase font-semibold mb-1">Cejas</div>
+                <div className="font-serif text-[14px] md:text-[22px] text-white italic font-light">Técnica Híbrida</div>
               </div>
             </div>
           </FadeIn>
-
-          {/* Labios */}
+          <FadeIn delay={0.1}>
+            <div className="relative group overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/work-lips.jpg" alt="Full Lip Blush" className="w-full aspect-square md:aspect-[4/3] object-cover transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-void/70 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-3 md:p-6">
+                <div className="text-[7px] md:text-[9px] tracking-[3px] text-blush-muted/60 uppercase font-semibold mb-1">Labios</div>
+                <div className="font-serif text-[14px] md:text-[22px] text-white italic font-light">Full Lip Blush</div>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+        {/* Row 2: 3 images */}
+        <div className="grid grid-cols-3">
           <FadeIn delay={0.15}>
             <div className="relative group overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/work-lips.jpg" alt="Full Lip Blush — Resultado real" className="w-full aspect-[4/3] md:aspect-[3/2] object-cover transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-void/70 via-void/10 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
-                <div className="text-[8px] md:text-[9px] tracking-[3px] text-blush-muted/70 uppercase font-semibold mb-1.5">Resultado Real</div>
-                <div className="font-serif text-[20px] md:text-[24px] text-white italic font-light leading-tight">Full Lip Blush</div>
-                <div className="text-[10px] md:text-[11px] text-blush/60 mt-2 tracking-[1px]">Color Perfecto · Acabado Jugoso</div>
+              <img src="/images/work-cejas-2.jpg" alt="Cejas Naturales" className="w-full aspect-square object-cover transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-void/60 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-2.5 md:p-5">
+                <div className="text-[7px] md:text-[8px] tracking-[2px] text-blush-muted/50 uppercase font-semibold mb-0.5">Cejas</div>
+                <div className="font-serif text-[12px] md:text-[17px] text-white italic font-light">Powder Brows</div>
+              </div>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <div className="relative group overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/work-lips-2.jpg" alt="Lip Blush Rosado" className="w-full aspect-square object-cover transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-void/60 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-2.5 md:p-5">
+                <div className="text-[7px] md:text-[8px] tracking-[2px] text-blush-muted/50 uppercase font-semibold mb-0.5">Labios</div>
+                <div className="font-serif text-[12px] md:text-[17px] text-white italic font-light">Hydra Lips</div>
+              </div>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.25}>
+            <div className="relative group overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/work-lips-3.jpg" alt="Labios Definidos" className="w-full aspect-square object-cover transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-void/60 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-2.5 md:p-5">
+                <div className="text-[7px] md:text-[8px] tracking-[2px] text-blush-muted/50 uppercase font-semibold mb-0.5">Labios</div>
+                <div className="font-serif text-[12px] md:text-[17px] text-white italic font-light">Baby Lips</div>
               </div>
             </div>
           </FadeIn>
