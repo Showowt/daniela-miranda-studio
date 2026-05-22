@@ -293,6 +293,39 @@ export default function DanielaMirandaStudio() {
         </div>
       </section>
 
+      {/* ═══ WORK SHOWCASE ═══ */}
+      <section className="relative bg-void overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          {/* Cejas */}
+          <FadeIn>
+            <div className="relative group overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/work-cejas.jpg" alt="Micropigmentaci\u00f3n de Cejas \u2014 Resultado real" className="w-full aspect-[4/3] md:aspect-[3/2] object-cover transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-void/70 via-void/10 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
+                <div className="text-[8px] md:text-[9px] tracking-[3px] text-blush-muted/70 uppercase font-semibold mb-1.5">Resultado Real</div>
+                <div className="font-serif text-[20px] md:text-[24px] text-white italic font-light leading-tight">Micropigmentaci\u00f3n de Cejas</div>
+                <div className="text-[10px] md:text-[11px] text-blush/60 mt-2 tracking-[1px]">T\u00e9cnica H\u00edbrida \u00b7 Efecto Natural</div>
+              </div>
+            </div>
+          </FadeIn>
+
+          {/* Labios */}
+          <FadeIn delay={0.15}>
+            <div className="relative group overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/work-lips.jpg" alt="Full Lip Blush \u2014 Resultado real" className="w-full aspect-[4/3] md:aspect-[3/2] object-cover transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-void/70 via-void/10 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
+                <div className="text-[8px] md:text-[9px] tracking-[3px] text-blush-muted/70 uppercase font-semibold mb-1.5">Resultado Real</div>
+                <div className="font-serif text-[20px] md:text-[24px] text-white italic font-light leading-tight">Full Lip Blush</div>
+                <div className="text-[10px] md:text-[11px] text-blush/60 mt-2 tracking-[1px]">Color Perfecto \u00b7 Acabado Jugoso</div>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* ═══ SERVICES ═══ */}
       <section id="servicios" className="py-16 md:py-32 px-5 bg-white border-y border-blush/20">
         <div className="max-w-[1080px] mx-auto">
