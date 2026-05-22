@@ -402,7 +402,7 @@ export default function DanielaMirandaStudio() {
             <div className="relative aspect-[3/4] overflow-hidden rounded border border-blush/40 group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&h=800&fit=crop&crop=face"
+                src="/images/daniela-miranda.jpg"
                 alt="Daniela Miranda - Miss PMU Internacional"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
