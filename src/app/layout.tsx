@@ -16,26 +16,26 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Daniela Miranda Studio | Micropigmentaci\u00f3n de Lujo en El Salvador",
+  title: "Piel Dorada by Daniela Miranda Studios | Beauty & Sun Spa | El Salvador",
   description:
-    "La \u00fanica artista con t\u00edtulo Miss PMU Internacional en El Salvador. Micropigmentaci\u00f3n de cejas y labios con certificaci\u00f3n en 6 pa\u00edses. Belleza que traspasa fronteras.",
+    "Piel Dorada — El Salvador's premier Beauty & Sun Spa by Daniela Miranda Studios. An oasis of luxury, beauty, and golden transformation. Coming soon.",
   keywords: [
-    "micropigmentaci\u00f3n",
-    "PMU",
-    "cejas",
-    "labios",
-    "microblading",
-    "powder brows",
-    "lip blush",
-    "hydra lips",
+    "Piel Dorada",
+    "beauty spa",
+    "sun spa",
     "El Salvador",
-    "San Salvador",
     "Daniela Miranda",
+    "luxury spa",
+    "coming soon",
+    "tanning",
+    "beauty",
+    "wellness",
+    "San Salvador",
   ],
   openGraph: {
-    title: "Daniela Miranda Studio | Belleza que traspasa fronteras",
+    title: "Piel Dorada by Daniela Miranda Studios | Coming Soon",
     description:
-      "Miss PMU Internacional. Micropigmentaci\u00f3n de cejas y labios con certificaci\u00f3n internacional en 6 pa\u00edses. San Salvador.",
+      "El Salvador's premier Beauty & Sun Spa. An oasis of luxury, beauty, and golden transformation. Próximamente.",
     type: "website",
     locale: "es_SV",
   },
@@ -48,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${cormorant.variable} ${dmSans.variable}`}>
-      <body className="min-h-screen bg-cream-light text-text-dark antialiased">
+      <body className="min-h-screen bg-[#0A0A08] text-white antialiased">
         {children}
       </body>
     </html>

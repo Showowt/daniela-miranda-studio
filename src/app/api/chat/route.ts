@@ -33,9 +33,15 @@ DANIELA'S CREDENTIALS:
 COMPLETE SERVICE CATALOG & PRICING
 ════════════════════════════════════════════
 
-SERVICE 1: MICROPIGMENTACIÓN DE CEJAS
+SERVICE 1: MICROPIGMENTACIÓN DE LABIOS
+Techniques: Full Lip Blush, Lip Contour + Fill, Técnicas Variadas de Micropigmentación
+Price: $200
+Duration: 2-3 hours
+Includes: Custom color selection, reference photo design, full procedure, post-PMU care kit, touch-up at 30-45 days
+
+SERVICE 2: MICROPIGMENTACIÓN DE CEJAS
 Techniques: Powder Brows, Microblading, Microshading, Nano Brows, Combo Brows
-Price: Desde $100
+Price: $200
 Duration: 2-3 hours
 Includes: Consultation with visagismo, topical anesthesia, full procedure, post-PMU care kit, complimentary touch-up at 30-45 days
 
@@ -45,30 +51,46 @@ Technique details:
 - NANO BROWS: Ultra-fine hair strokes using nano needle in machine. Suitable for ALL skin types. Lasts 1-2 years.
 - COMBO BROWS: Microblading hair strokes in front + shading in body/tail.
 
-SERVICE 2: MICROPIGMENTACIÓN DE LABIOS
-Techniques: Full Lip Blush, Lip Contour + Fill, Color Correction
-Price: Desde $100
-Duration: 2-3 hours
-Includes: Custom color selection, reference photo design, full procedure, post-PMU care kit, touch-up at 30-45 days
-
 SERVICE 3: HYDRA LIPS ✨ (SIGNATURE SERVICE)
 Technique: Micro-needling + hyaluronic acid + subtle pigmentation
-Price: Desde $80
+Price: $135
 Duration: 1.5-2 hours
 Includes: Lip cleansing, hyaluronic acid + vitamins, subtle micropigmentation, glass lip effect, post-treatment follow-up
 This is our SIGNATURE treatment — no other studio in El Salvador offers this exact combination.
 
-SERVICE 4: BABY LIPS
-Technique: Subtle tint, natural effect
-Price: Desde $80
-Duration: 1.5-2 hours
-Includes: Tone consultation, conservative design, subtle pigmentation, care kit, touch-up included
+SERVICE 4: LAMINADO DE CEJAS CON DISEÑO
+Technique: Custom brow lamination with design
+Price: $35
+Duration: 45-60 minutes
+Includes: Custom brow design, professional lamination, brow tint, premium imported products
 
-SERVICE 5: RETOQUE & CORRECCIÓN
-Techniques: Color refresh, chromatic correction, restoration
-Price: Desde $60
-Duration: 1-2 hours
-Includes: Evaluation, correction plan, procedure, follow-up
+SERVICE 5: LIFTING DE PESTAÑAS
+Technique: Natural curl, mascara effect
+Price: $35
+Duration: 45-60 minutes
+Includes: Professional lash lift, lash tint, lasts 6-8 weeks, premium products
+
+════════════════════════════════════════════
+MANICURE & PEDICURE SERVICES
+════════════════════════════════════════════
+
+MANICURE:
+- Uñas Acrílicas o Soft Gel: $35
+- Uñas Acrílicas y Nail Art: $40
+- Manicure + Tratamiento de Keratina: $30
+- Manicure Esencial + Gel Color: $25
+- Manicure Spa + Gel Color: $25
+- Dipping: $20
+- Gel Color: $15
+- Retiro: $5
+
+PEDICURE:
+- Pedicure Deluxe Spa: $30
+- Pedicure Clínico + Gel: $30
+- Pedicure Jelly Spa: $28
+- Pedicure Clínico: $28
+- Pedicure Esencial + Gel Color: $26
+- Pedicure Esencial: $20
 
 ════════════════════════════════════════════
 CLINICAL PMU KNOWLEDGE
@@ -100,8 +122,8 @@ CONTRAINDICATIONS:
 Pre-appointment: No alcohol 24-48hrs before, no aspirin/ibuprofen 48-72hrs, no caffeine morning of, eat full meal before.
 
 PRICING VALUE FRAMING:
-- $100 over 18 months = less than $0.20/day for perfect brows
-- Compare to monthly brow products ($15-25/month × 18 months = $270-450)
+- $200 over 18 months = less than $0.37/day for perfect brows
+- Compare to monthly brow products ($15-25/month × 18 months = $270-450) — PMU saves money long-term
 
 IMPORTANT RULES:
 1. NEVER diagnose medical conditions
