@@ -21,10 +21,13 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
+const siteUrl = "https://daniela-miranda-studio.vercel.app";
+const ogImage = `${siteUrl}/og-share.jpg`;
+
 export const metadata: Metadata = {
   title: "Piel Dorada by Daniela Miranda Studios | Beauty & Sun Spa | El Salvador",
   description:
-    "Piel Dorada — El Salvador's premier Beauty & Sun Spa by Daniela Miranda Studios. An oasis of luxury, beauty, and golden transformation. Coming soon.",
+    "Piel Dorada — Beauty & Sun Spa by Daniela Miranda Studios. Bronceado de lujo, micropigmentaci\u00f3n y bienestar en San Salvador. Septiembre 2026.",
   keywords: [
     "Piel Dorada",
     "beauty spa",
@@ -37,13 +40,37 @@ export const metadata: Metadata = {
     "beauty",
     "wellness",
     "San Salvador",
+    "micropigmentaci\u00f3n",
+    "bronceado",
   ],
+  metadataBase: new URL(siteUrl),
   openGraph: {
-    title: "Piel Dorada by Daniela Miranda Studios | Coming Soon",
+    title: "Piel Dorada — Beauty & Sun Spa | Septiembre 2026",
     description:
-      "El Salvador's premier Beauty & Sun Spa. An oasis of luxury, beauty, and golden transformation. Próximamente.",
+      "Tu momento de brillar comienza aqu\u00ed. Beauty & Sun Spa by Daniela Miranda Studios. San Salvador, El Salvador. Pr\u00f3ximamente.",
     type: "website",
     locale: "es_SV",
+    siteName: "Piel Dorada",
+    url: siteUrl,
+    images: [
+      {
+        url: ogImage,
+        width: 1200,
+        height: 630,
+        alt: "Piel Dorada — Beauty & Sun Spa by Daniela Miranda Studios",
+        type: "image/jpeg",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Piel Dorada — Beauty & Sun Spa | Septiembre 2026",
+    description:
+      "Tu momento de brillar comienza aqu\u00ed. By Daniela Miranda Studios. San Salvador, El Salvador.",
+    images: [ogImage],
+  },
+  other: {
+    "apple-mobile-web-app-title": "Piel Dorada",
   },
 };
 
