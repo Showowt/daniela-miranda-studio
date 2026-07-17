@@ -72,7 +72,7 @@ export default function PielDorada() {
       {/* ═══ SINGLE FRAME ═══ */}
       <div className="fixed inset-0 w-full h-full">
 
-        {/* Video — fills everything */}
+        {/* Video */}
         <video
           autoPlay
           muted
@@ -84,55 +84,45 @@ export default function PielDorada() {
           <source src="/piel-dorada-hero.mp4" type="video/mp4" />
         </video>
 
-        {/* Cinematic overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/20 to-black/75" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/15 via-transparent to-black/15" />
+        {/* Cinematic overlays — slightly stronger on mobile for contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-black/80 md:from-black/55 md:via-black/20 md:to-black/75" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-black/10 md:from-black/15 md:to-black/15" />
         <div className="absolute inset-0 bg-[rgba(201,168,76,0.02)] mix-blend-overlay" />
 
-        {/* ═══ CONTENT COMPOSITION ═══ */}
-        <div className="absolute inset-0 z-10 flex flex-col px-6 md:px-14 lg:px-20 py-5 md:py-8">
+        {/* ═══ CONTENT ═══ */}
+        <div className="absolute inset-0 z-10 flex flex-col safe-top safe-bottom px-5 md:px-14 lg:px-20">
 
-          {/* ── TOP: Nav ── */}
+          {/* ── NAV ── */}
           <nav
-            className="flex items-center justify-between flex-shrink-0"
+            className="flex items-center justify-between flex-shrink-0 pt-1 md:pt-3"
             style={{ animation: "fade-in 1s ease 3s both" }}
           >
-            <span className="text-[9px] md:text-[10px] tracking-[5px] text-white/50 uppercase font-medium">
+            <span className="text-[9px] md:text-[10px] tracking-[4px] md:tracking-[5px] text-white/50 uppercase font-medium">
               Piel Dorada
             </span>
-            <div className="flex items-center gap-5 md:gap-7">
-              <a
-                href="https://instagram.com/danielamirandapmu"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[9px] tracking-[3px] text-white/25 uppercase font-medium hover:text-white/60 transition-colors duration-700 hidden md:block"
-              >
-                Instagram
-              </a>
-              <a
-                href={wa}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[9px] tracking-[3px] text-white/25 uppercase font-medium hover:text-white/60 transition-colors duration-700"
-              >
-                Contacto
-              </a>
-            </div>
+            <a
+              href={wa}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[9px] tracking-[3px] text-white/30 uppercase font-medium hover:text-white/60 active:text-white/60 transition-colors duration-500"
+            >
+              Contacto
+            </a>
           </nav>
 
-          {/* ── CENTER: Brand + Info ── */}
-          <div className="flex-1 flex flex-col items-center justify-center text-center -mt-2 md:-mt-4">
+          {/* ── CENTER: Brand composition ── */}
+          <div className="flex-1 flex flex-col items-center justify-center text-center min-h-0">
 
             {/* Eyebrow */}
             <p
-              className="text-[9px] md:text-[10px] tracking-[5px] md:tracking-[7px] text-white/30 uppercase font-medium mb-5 md:mb-7"
+              className="text-[8px] md:text-[10px] tracking-[4px] md:tracking-[7px] text-white/30 uppercase font-medium mb-4 md:mb-7"
               style={{ animation: "fade-up 1s cubic-bezier(0.16,1,0.3,1) 2.4s both" }}
             >
               Beauty & Sun Spa
             </p>
 
-            {/* Brand name — character blur reveal */}
-            <h1 className="font-serif text-[46px] md:text-[90px] lg:text-[120px] xl:text-[140px] font-light tracking-[3px] md:tracking-[8px] lg:tracking-[12px] leading-[0.85] uppercase">
+            {/* Brand name */}
+            <h1 className="font-serif text-[52px] md:text-[90px] lg:text-[120px] xl:text-[140px] font-light tracking-[4px] md:tracking-[8px] lg:tracking-[12px] leading-[0.85] uppercase">
               <span className="block">
                 <SplitText text="Piel" charClass="text-gradient-gold" staggerDelay={0.06} baseDelay={2.6} />
               </span>
@@ -143,7 +133,7 @@ export default function PielDorada() {
 
             {/* Attribution */}
             <p
-              className="text-[12px] md:text-[15px] tracking-[3px] md:tracking-[5px] text-white/70 uppercase font-light mt-6 md:mt-9"
+              className="text-[11px] md:text-[15px] tracking-[2px] md:tracking-[5px] text-white/70 uppercase font-light mt-5 md:mt-9"
               style={{ animation: "fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 3.8s both" }}
             >
               by Daniela Miranda Studios
@@ -151,7 +141,7 @@ export default function PielDorada() {
 
             {/* Location */}
             <p
-              className="text-[11px] md:text-[13px] tracking-[3px] md:tracking-[4px] text-white/45 uppercase font-light mt-2 md:mt-3"
+              className="text-[10px] md:text-[13px] tracking-[2px] md:tracking-[4px] text-white/45 uppercase font-light mt-1.5 md:mt-3"
               style={{ animation: "fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 4s both" }}
             >
               San Salvador, El Salvador
@@ -159,21 +149,21 @@ export default function PielDorada() {
 
             {/* Divider */}
             <div
-              className="w-8 md:w-12 h-px bg-white/15 mt-7 md:mt-10 mb-7 md:mb-10"
+              className="w-7 md:w-12 h-px bg-white/15 mt-5 md:mt-10 mb-5 md:mb-10"
               style={{ animation: "line-grow 1s ease-out 4.2s both", transformOrigin: "center" }}
             />
 
-            {/* Date — the announcement */}
+            {/* Date */}
             <div style={{ animation: "fade-up 1s cubic-bezier(0.16,1,0.3,1) 4.4s both" }}>
-              <p className="font-serif text-[24px] md:text-[34px] lg:text-[40px] font-light text-white/90 tracking-[2px] md:tracking-[4px] leading-none">
+              <p className="font-serif text-[22px] md:text-[34px] lg:text-[40px] font-light text-white/90 tracking-[1px] md:tracking-[4px] leading-none">
                 Septiembre 2026
               </p>
-              <div className="flex items-center justify-center gap-2.5 mt-3 md:mt-4">
+              <div className="flex items-center justify-center gap-2 mt-2.5 md:mt-4">
                 <span
                   className="w-[5px] h-[5px] rounded-full bg-[#C9A84C]"
                   style={{ animation: "pulse-dot 2.5s ease-in-out infinite" }}
                 />
-                <span className="text-[9px] md:text-[10px] tracking-[4px] text-[#C9A84C]/70 uppercase font-medium">
+                <span className="text-[8px] md:text-[10px] tracking-[3px] md:tracking-[4px] text-[#C9A84C]/70 uppercase font-medium">
                   Apertura
                 </span>
               </div>
@@ -182,28 +172,28 @@ export default function PielDorada() {
 
           {/* ── BOTTOM: Email + Links ── */}
           <div
-            className="flex-shrink-0 pb-1 md:pb-2"
+            className="flex-shrink-0 pb-1"
             style={{ animation: "fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 4.6s both" }}
           >
-            {/* Email form */}
-            <div className="max-w-[440px] mx-auto mb-5 md:mb-6">
+            <div className="max-w-[440px] mx-auto mb-4 md:mb-6">
               {!sent ? (
                 <form onSubmit={submit}>
-                  <p className="text-[9px] md:text-[10px] text-white/20 tracking-[2px] uppercase text-center mb-3 font-medium">
+                  <p className="text-[8px] md:text-[10px] text-white/25 tracking-[2px] uppercase text-center mb-2.5 md:mb-3 font-medium">
                     S&eacute; la primera en saberlo
                   </p>
-                  <div className="flex gap-px">
+                  {/* Stacked on mobile, inline on tablet+ */}
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-px">
                     <input
                       type="email"
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       placeholder="tu@email.com"
                       required
-                      className="flex-1 bg-white/[0.04] border border-white/[0.08] text-white text-[12px] md:text-[13px] font-light px-4 md:px-5 py-3 md:py-3.5 rounded-none outline-none transition-all duration-500 focus:border-white/20 focus:bg-white/[0.06] placeholder:text-white/15 placeholder:text-[11px] placeholder:tracking-[1px]"
+                      className="w-full sm:flex-1 bg-white/[0.05] border border-white/[0.10] text-white text-[16px] sm:text-[13px] font-light px-4 py-3.5 sm:py-3 rounded-none outline-none transition-all duration-500 focus:border-white/25 focus:bg-white/[0.08] placeholder:text-white/20 placeholder:text-[14px] sm:placeholder:text-[12px] placeholder:tracking-[1px]"
                     />
                     <button
                       type="submit"
-                      className="px-5 md:px-7 py-3 md:py-3.5 bg-white text-black text-[9px] md:text-[10px] tracking-[2px] uppercase font-semibold hover:bg-white/90 active:bg-white/80 transition-colors duration-300 whitespace-nowrap"
+                      className="w-full sm:w-auto px-6 sm:px-7 py-3.5 sm:py-3 bg-white text-black text-[10px] tracking-[2px] uppercase font-semibold hover:bg-white/90 active:bg-white/85 transition-colors duration-300 whitespace-nowrap"
                     >
                       Notificarme
                     </button>
@@ -221,13 +211,13 @@ export default function PielDorada() {
               )}
             </div>
 
-            {/* Bottom links */}
-            <div className="flex items-center justify-center gap-6 md:gap-8">
+            {/* Links */}
+            <div className="flex items-center justify-center gap-5 md:gap-8">
               <a
                 href={wa}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[8px] md:text-[9px] tracking-[3px] text-white/15 uppercase font-medium hover:text-white/40 transition-colors duration-700"
+                className="text-[8px] md:text-[9px] tracking-[2px] md:tracking-[3px] text-white/20 uppercase font-medium hover:text-white/40 active:text-white/40 transition-colors duration-500 py-1"
               >
                 WhatsApp
               </a>
@@ -236,7 +226,7 @@ export default function PielDorada() {
                 href="https://instagram.com/danielamirandapmu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[8px] md:text-[9px] tracking-[3px] text-white/15 uppercase font-medium hover:text-white/40 transition-colors duration-700"
+                className="text-[8px] md:text-[9px] tracking-[2px] md:tracking-[3px] text-white/20 uppercase font-medium hover:text-white/40 active:text-white/40 transition-colors duration-500 py-1"
               >
                 Instagram
               </a>

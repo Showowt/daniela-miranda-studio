@@ -33,6 +33,14 @@ body {
 ::-webkit-scrollbar { width: 0; height: 0; }
 html { scrollbar-width: none; }
 
+/* ═══ SAFE AREAS — notch, Dynamic Island, home indicator ═══ */
+.safe-top {
+  padding-top: max(16px, env(safe-area-inset-top, 16px));
+}
+.safe-bottom {
+  padding-bottom: max(12px, env(safe-area-inset-bottom, 12px));
+}
+
 /* ═══ FILM GRAIN ═══ */
 .grain::after {
   content: '';
@@ -60,10 +68,6 @@ html { scrollbar-width: none; }
 @keyframes preloader-reveal {
   0% { opacity: 0; transform: translateY(8px); filter: blur(4px); }
   100% { opacity: 1; transform: translateY(0); filter: blur(0); }
-}
-@keyframes preloader-line {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
 }
 
 /* ═══ CHARACTER REVEAL ═══ */
@@ -111,4 +115,11 @@ html { scrollbar-width: none; }
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* ═══ MOBILE INPUT — prevent iOS zoom on focus ═══ */
+@supports (-webkit-touch-callout: none) {
+  input[type="email"] {
+    font-size: 16px !important;
+  }
 }
