@@ -21,7 +21,7 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-const siteUrl = "https://daniela-miranda-studio.vercel.app";
+const siteUrl = "https://www.pieldoradasv.com";
 const ogImage = `${siteUrl}/og-share.jpg`;
 
 export const metadata: Metadata = {
