@@ -366,19 +366,47 @@ export default function PielDorada() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mt-12 md:mt-16">
               <div className="perk reveal">
-                <div className="icon">☀️</div>
-                <h3>Bronceado de Lujo</h3>
-                <p>Las primeras camas de bronceado en El Salvador. Color perfecto, ambiente premium, experiencia controlada y segura.</p>
+                <div className="perk-media">
+                  <img
+                    src="/images/perks/bronceado.jpg"
+                    alt="Piel Dorada — visualización del nuevo Beauty & Sun Spa"
+                    loading="lazy"
+                  />
+                  <div className="perk-chip">☀️</div>
+                </div>
+                <div className="perk-body">
+                  <h3>Bronceado de Lujo</h3>
+                  <p>Las primeras camas de bronceado en El Salvador. Color perfecto, ambiente premium, experiencia controlada y segura.</p>
+                </div>
               </div>
               <div className="perk reveal" style={{ transitionDelay: "120ms" }}>
-                <div className="icon">👑</div>
-                <h3>Miss PMU Internacional</h3>
-                <p>Micropigmentación de cejas y labios con la única artista certificada Miss PMU Internacional del país.</p>
+                <div className="perk-media">
+                  <img
+                    src="/images/perks/pmu.jpg"
+                    alt="Daniela Miranda — Miss PMU Internacional"
+                    loading="lazy"
+                    style={{ objectPosition: "center 22%" }}
+                  />
+                  <div className="perk-chip">👑</div>
+                </div>
+                <div className="perk-body">
+                  <h3>Miss PMU Internacional</h3>
+                  <p>Micropigmentación de cejas y labios con la única artista certificada Miss PMU Internacional del país.</p>
+                </div>
               </div>
               <div className="perk reveal" style={{ transitionDelay: "240ms" }}>
-                <div className="icon">💎</div>
-                <h3>Miembros Fundadores</h3>
-                <p>Las primeras en la lista reciben precio de fundador que se congela para siempre. Solo por tiempo limitado antes de la apertura.</p>
+                <div className="perk-media">
+                  <img
+                    src="/images/perks/fundadoras.jpg"
+                    alt="Lip blush por Daniela Miranda Studios"
+                    loading="lazy"
+                  />
+                  <div className="perk-chip">💎</div>
+                </div>
+                <div className="perk-body">
+                  <h3>Miembros Fundadores</h3>
+                  <p>Las primeras en la lista reciben precio de fundador que se congela para siempre. Solo por tiempo limitado antes de la apertura.</p>
+                </div>
               </div>
             </div>
           </div>
