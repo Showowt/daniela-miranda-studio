@@ -81,7 +81,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${cormorant.variable} ${dmSans.variable}`}>
-      <body className="min-h-screen antialiased">
+      <body className="min-h-screen bg-[#0A0A08] text-white antialiased">
         {children}
       </body>
     </html>
