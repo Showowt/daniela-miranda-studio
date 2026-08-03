@@ -538,7 +538,7 @@ export default function PielDorada() {
                     <div className="success-view">
                       <div className="position-ring">
                         <svg viewBox="0 0 130 130">
-                          <circle cx="65" cy="65" r="58" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="6" />
+                          <circle cx="65" cy="65" r="58" fill="none" stroke="rgba(201,160,92,0.18)" strokeWidth="6" />
                           <circle
                             cx="65" cy="65" r="58" fill="none" stroke="#C9A84C" strokeWidth="6"
                             strokeLinecap="round" strokeDasharray="364" strokeDashoffset={ringOffset}
