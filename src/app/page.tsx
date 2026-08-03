@@ -412,6 +412,48 @@ export default function PielDorada() {
           </div>
         </section>
 
+        {/* ── ACT II.5: SU ARTE ── */}
+        <section className="px-5 md:px-14 lg:px-20 pt-24 md:pt-32 pb-8 md:pb-12">
+          <div className="max-w-[1000px] mx-auto text-center">
+            <p className="section-eyebrow reveal">Su Arte</p>
+            <h2 className="section-title reveal font-serif">
+              Belleza que <span className="text-gradient-gold italic">traspasa fronteras</span>
+            </h2>
+            <p className="section-lead reveal">
+              Trabajo real del estudio — resultados de clientas reales, de la mano de Daniela.
+            </p>
+
+            <div className="gallery-grid mt-12 md:mt-16">
+              <div className="gallery-tile reveal">
+                <img src="/images/gallery/g1.jpg" alt="Micropigmentación de cejas — resultado real" loading="lazy" />
+                <span className="gallery-label">Cejas</span>
+              </div>
+              <div className="gallery-tile reveal" style={{ transitionDelay: "120ms" }}>
+                <img src="/images/gallery/g2.jpg" alt="Lip blush — resultado real" loading="lazy" />
+                <span className="gallery-label">Labios</span>
+              </div>
+              <div className="gallery-tile reveal" style={{ transitionDelay: "240ms" }}>
+                <img
+                  src="/images/gallery/g3.jpg"
+                  alt="Micropigmentación de cejas — resultado real"
+                  loading="lazy"
+                  style={{ objectPosition: "55% 40%" }}
+                />
+                <span className="gallery-label">Cejas</span>
+              </div>
+            </div>
+
+            <a
+              href="https://instagram.com/danielamirandapmu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="gallery-ig reveal"
+            >
+              Ver más en Instagram <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </section>
+
         {/* ── ACT III: LISTA VIP ── */}
         <section id="lista-vip" className="px-5 md:px-14 lg:px-20 pt-24 md:pt-32 pb-24 md:pb-32 scroll-mt-8">
           <div className="max-w-[1000px] mx-auto">
