@@ -1,243 +1,331 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /* ═══════════════════════════════════════════════════════════════
-   PIEL DORADA by Daniela Miranda Studios — Coming Soon
-   Beauty & Sun Spa · El Salvador
-   Single-frame cinematic reveal · No scroll
+   PIEL DORADA by Daniela Miranda Studios — Lista VIP
+   Waitlist + referral engine · Supabase-backed via /api/waitlist
    Built by MachineMind LLC
    ═══════════════════════════════════════════════════════════════ */
 
-function SplitText({
-  text,
-  charClass = "",
-  staggerDelay = 0.05,
-  baseDelay = 0,
-}: {
-  text: string;
-  charClass?: string;
-  staggerDelay?: number;
-  baseDelay?: number;
-}) {
+const WA_TEXT_INTRO =
+  "✨ Me uní a la lista VIP de Piel Dorada — el primer spa de bronceado de lujo en El Salvador, de Daniela Miranda 👑\n\n" +
+  "Únete tú también con mi link y las dos ganamos premios de miembro fundador:\n";
+
+type VipUser = {
+  name: string;
+  email: string;
+  code: string;
+  position: number;
+};
+
+const STORAGE_KEY = "pd_user";
+
+function loadSavedUser(): VipUser | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const u = JSON.parse(raw);
+    if (u && typeof u.code === "string" && typeof u.position === "number") return u;
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function SunDivider() {
   return (
-    <span aria-label={text}>
-      {text.split("").map((char, i) => (
-        <span
-          key={i}
-          className={`inline-block ${charClass}`}
-          style={{
-            animation: `char-reveal 0.9s cubic-bezier(0.16,1,0.3,1) ${baseDelay + i * staggerDelay}s both`,
-          }}
-          aria-hidden="true"
-        >
-          {char === " " ? "\u00A0" : char}
-        </span>
-      ))}
-    </span>
+    <div className="divider-sun">
+      <svg viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="30" r="11" fill="#C9A05C" />
+        <g stroke="#C9A05C" strokeWidth="2" strokeLinecap="round">
+          <line x1="30" y1="4" x2="30" y2="12" />
+          <line x1="30" y1="48" x2="30" y2="56" />
+          <line x1="4" y1="30" x2="12" y2="30" />
+          <line x1="48" y1="30" x2="56" y2="30" />
+          <line x1="11" y1="11" x2="17" y2="17" />
+          <line x1="43" y1="43" x2="49" y2="49" />
+          <line x1="49" y1="11" x2="43" y2="17" />
+          <line x1="17" y1="43" x2="11" y2="49" />
+        </g>
+      </svg>
+    </div>
   );
 }
 
-export default function PielDorada() {
-  const [ready, setReady] = useState(false);
+export default function ListaVip() {
+  const [user, setUser] = useState<VipUser | null>(null);
+  const [referrals, setReferrals] = useState(0);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
+  const [whatsapp, setWhatsapp] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [toastMsg, setToastMsg] = useState("");
+  const [origin, setOrigin] = useState("https://www.pieldoradasv.com");
+  const refCodeFromUrl = useRef<string | null>(null);
+  const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    const t = setTimeout(() => setReady(true), 2000);
-    return () => clearTimeout(t);
+  const toast = useCallback((msg: string) => {
+    setToastMsg(msg);
+    if (toastTimer.current) clearTimeout(toastTimer.current);
+    toastTimer.current = setTimeout(() => setToastMsg(""), 2600);
   }, []);
 
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email.includes("@")) { setSent(true); setEmail(""); }
+  const refreshReferrals = useCallback(async (code: string) => {
+    try {
+      const res = await fetch(`/api/waitlist?code=${encodeURIComponent(code)}`);
+      const json = await res.json();
+      if (typeof json?.data?.referrals === "number") setReferrals(json.data.referrals);
+    } catch (error) {
+      console.error("[ListaVip] refreshReferrals", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    setOrigin(window.location.origin);
+    refCodeFromUrl.current = new URLSearchParams(window.location.search).get("ref");
+    const saved = loadSavedUser();
+    if (saved) {
+      setUser(saved);
+      refreshReferrals(saved.code);
+    }
+  }, [refreshReferrals]);
+
+  useEffect(() => {
+    if (!user) return;
+    const id = setInterval(() => refreshReferrals(user.code), 8000);
+    return () => clearInterval(id);
+  }, [user, refreshReferrals]);
+
+  const join = async () => {
+    if (!name.trim()) { toast("Escribe tu nombre 💛"); return; }
+    if (!email.trim() || !email.includes("@")) { toast("Escribe un correo válido 💛"); return; }
+    if (!whatsapp.trim()) { toast("Escribe tu WhatsApp 💛"); return; }
+
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          whatsapp: whatsapp.trim(),
+          ref: refCodeFromUrl.current,
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok || !json?.data) {
+        toast(json?.message?.split(" / ")[0] ?? "Algo salió mal, intenta de nuevo 💛");
+        return;
+      }
+      const vip: VipUser = {
+        name: json.data.name,
+        email: json.data.email,
+        code: json.data.code,
+        position: json.data.position,
+      };
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(vip)); } catch {}
+      setUser(vip);
+      setReferrals(json.data.referrals ?? 0);
+      if (json.data.returning) toast("Ya estabas en la lista — aquí está tu lugar 💛");
+    } catch (error) {
+      console.error("[ListaVip] join", error);
+      toast("Sin conexión — intenta de nuevo 💛");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const wa = "https://wa.me/50373106004?text=Hola%20%E2%9C%A8%20me%20interesa%20Piel%20Dorada";
+  const referralLink = user ? `${origin}/?ref=${user.code}` : "";
+
+  const copyText = async (text: string, msg: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast(msg);
+    } catch {
+      // Older in-app browsers (IG/FB webview) without clipboard API
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); toast(msg); }
+      catch { toast("No se pudo copiar — mantén presionado el link 💛"); }
+      document.body.removeChild(ta);
+    }
+  };
+
+  const waShareHref = user
+    ? `https://wa.me/?text=${encodeURIComponent(WA_TEXT_INTRO + referralLink)}`
+    : "#";
+
+  const ringOffset = user ? Math.max(20, 364 - (user.position % 100) * 3.4) : 364;
+
+  const milestones = [
+    { n: 3, title: "Laminado de Cejas Gratis", desc: "Invita 3 amigas a la lista" },
+    { n: 5, title: "Descuento de Lanzamiento", desc: "Invita 5 amigas — precio especial de apertura" },
+    { n: 10, title: "Mes de Bronceado Gratis + Miembro Fundador", desc: "Invita 10 — un mes ilimitado y precio congelado de por vida" },
+  ];
 
   return (
-    <div className="grain">
-      {/* ═══ PRELOADER ═══ */}
-      <div
-        className={`fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-opacity duration-[1400ms] ease-[cubic-bezier(0.76,0,0.24,1)] ${ready ? "opacity-0 pointer-events-none" : "opacity-100"}`}
-      >
-        <p
-          className="font-serif text-[18px] md:text-[22px] tracking-[8px] text-white/40 uppercase font-light"
-          style={{ animation: "preloader-reveal 1.2s cubic-bezier(0.16,1,0.3,1) 0.3s both" }}
-        >
-          Piel Dorada
+    <>
+      <section className="hero">
+        <div className="sun-rays" />
+
+        <div className="badge"><span className="dot" /> Lista VIP · Cupos Limitados</div>
+
+        <h1>Piel <span className="gold">Dorada</span></h1>
+        <div className="tagline">Beauty &amp; Sun Spa</div>
+        <p className="sub">
+          El primer spa de bronceado de lujo en El Salvador.
+          Por Daniela Miranda — la única artista Miss PMU Internacional del país.
+          Sé de las primeras en entrar.
         </p>
-      </div>
 
-      {/* ═══ SINGLE FRAME ═══ */}
-      <div className="fixed inset-0 w-full h-full">
+        <SunDivider />
 
-        {/* Video */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ animation: "scale-settle 3s cubic-bezier(0.16,1,0.3,1) 1.8s both" }}
-        >
-          <source src="/piel-dorada-hero.mp4" type="video/mp4" />
-        </video>
-
-        {/* Cinematic overlays — slightly stronger on mobile for contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-black/80 md:from-black/55 md:via-black/20 md:to-black/75" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-black/10 md:from-black/15 md:to-black/15" />
-        <div className="absolute inset-0 bg-[rgba(201,168,76,0.02)] mix-blend-overlay" />
-
-        {/* ═══ CONTENT ═══ */}
-        <div className="absolute inset-0 z-10 flex flex-col safe-top safe-bottom px-5 md:px-14 lg:px-20">
-
-          {/* ── NAV ── */}
-          <nav
-            className="flex items-center justify-between flex-shrink-0 pt-1 md:pt-3"
-            style={{ animation: "fade-in 1s ease 3s both" }}
-          >
-            <span className="text-[9px] md:text-[10px] tracking-[4px] md:tracking-[5px] text-white/50 uppercase font-medium">
-              Piel Dorada
-            </span>
-            <a
-              href={wa}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[9px] tracking-[3px] text-white/30 uppercase font-medium hover:text-white/60 active:text-white/60 transition-colors duration-500"
+        <div className="signup-card">
+          {!user ? (
+            <form
+              onSubmit={(e) => { e.preventDefault(); if (!submitting) join(); }}
             >
-              Contacto
-            </a>
-          </nav>
-
-          {/* ── CENTER: Brand composition ── */}
-          <div className="flex-1 flex flex-col items-center justify-center text-center min-h-0">
-
-            {/* Eyebrow */}
-            <p
-              className="text-[8px] md:text-[10px] tracking-[4px] md:tracking-[7px] text-white/30 uppercase font-medium mb-4 md:mb-7"
-              style={{ animation: "fade-up 1s cubic-bezier(0.16,1,0.3,1) 2.4s both" }}
-            >
-              Beauty & Sun Spa
-            </p>
-
-            {/* Brand name */}
-            <h1 className="font-serif text-[52px] md:text-[90px] lg:text-[120px] xl:text-[140px] font-light tracking-[4px] md:tracking-[8px] lg:tracking-[12px] leading-[0.85] uppercase">
-              <span className="block">
-                <SplitText text="Piel" charClass="text-gradient-gold" staggerDelay={0.06} baseDelay={2.6} />
-              </span>
-              <span className="block">
-                <SplitText text="Dorada" charClass="text-gradient-gold" staggerDelay={0.06} baseDelay={3.0} />
-              </span>
-            </h1>
-
-            {/* Attribution */}
-            <p
-              className="text-[11px] md:text-[15px] tracking-[2px] md:tracking-[5px] text-white/70 uppercase font-light mt-5 md:mt-9"
-              style={{ animation: "fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 3.8s both" }}
-            >
-              by Daniela Miranda Studios
-            </p>
-
-            {/* Location */}
-            <p
-              className="text-[10px] md:text-[13px] tracking-[2px] md:tracking-[4px] text-white/45 uppercase font-light mt-1.5 md:mt-3"
-              style={{ animation: "fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 4s both" }}
-            >
-              San Salvador, El Salvador
-            </p>
-
-            {/* Divider */}
-            <div
-              className="w-7 md:w-12 h-px bg-white/15 mt-5 md:mt-10 mb-5 md:mb-10"
-              style={{ animation: "line-grow 1s ease-out 4.2s both", transformOrigin: "center" }}
-            />
-
-            {/* Date */}
-            <div style={{ animation: "fade-up 1s cubic-bezier(0.16,1,0.3,1) 4.4s both" }}>
-              <p className="font-serif text-[22px] md:text-[34px] lg:text-[40px] font-light text-white/90 tracking-[1px] md:tracking-[4px] leading-none">
-                Septiembre 2026
+              <h2>Únete a la Lista VIP</h2>
+              <p className="card-sub">
+                Apertura Septiembre 2026. Las primeras en la lista reciben acceso
+                anticipado y precios de miembro fundador que se congelan de por vida.
               </p>
-              <div className="flex items-center justify-center gap-2 mt-2.5 md:mt-4">
-                <span
-                  className="w-[5px] h-[5px] rounded-full bg-[#C9A84C]"
-                  style={{ animation: "pulse-dot 2.5s ease-in-out infinite" }}
+
+              <div className="field">
+                <label htmlFor="name">Nombre</label>
+                <input
+                  type="text" id="name" placeholder="Tu nombre"
+                  autoComplete="given-name" value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
-                <span className="text-[8px] md:text-[10px] tracking-[3px] md:tracking-[4px] text-[#C9A84C]/70 uppercase font-medium">
-                  Apertura
-                </span>
+              </div>
+              <div className="field">
+                <label htmlFor="email">Correo</label>
+                <input
+                  type="email" id="email" placeholder="tucorreo@ejemplo.com"
+                  autoComplete="email" value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="field">
+                <label htmlFor="whatsapp">WhatsApp</label>
+                <input
+                  type="tel" id="whatsapp" placeholder="7000-0000"
+                  autoComplete="tel" value={whatsapp}
+                  onChange={(e) => setWhatsapp(e.target.value)}
+                />
+              </div>
+
+              <button className="btn-primary" type="submit" disabled={submitting}>
+                {submitting ? "Reservando..." : "Reservar Mi Lugar ✨"}
+              </button>
+              <p className="form-note">Te avisamos primero cuando abramos. Sin spam — solo lo importante.</p>
+            </form>
+          ) : (
+            <div className="success-view">
+              <div className="position-ring">
+                <svg viewBox="0 0 130 130">
+                  <circle cx="65" cy="65" r="58" fill="none" stroke="rgba(201,160,92,0.15)" strokeWidth="6" />
+                  <circle
+                    cx="65" cy="65" r="58" fill="none" stroke="#C9A05C" strokeWidth="6"
+                    strokeLinecap="round" strokeDasharray="364" strokeDashoffset={ringOffset}
+                  />
+                </svg>
+                <div>
+                  <div className="num">#{user.position}</div>
+                  <div className="lbl">En la lista</div>
+                </div>
+              </div>
+
+              <h2 style={{ textAlign: "center" }}>
+                ¡Estás dentro, <span>{user.name.split(" ")[0] || "reina"}</span>! 👑
+              </h2>
+              <p className="card-sub" style={{ textAlign: "center" }}>
+                Ahora la parte buena: <strong>invita a tus amigas y sube en la lista</strong>.
+                Mientras más invitas, más premios desbloqueas.
+              </p>
+
+              <div className="count-badge">
+                {referrals === 1 ? "1 amiga invitada" : `${referrals} amigas invitadas`}
+              </div>
+
+              <div className="referral-box">
+                <div className="code-label">Tu link personal para invitar</div>
+                <div className="referral-link">
+                  <input type="text" value={referralLink} readOnly onFocus={(e) => e.target.select()} />
+                  <button
+                    className="copy-btn" type="button"
+                    onClick={() => copyText(referralLink, "¡Link copiado! Compártelo 💛")}
+                  >
+                    Copiar
+                  </button>
+                </div>
+                <div className="share-row">
+                  <a className="share-btn share-wa" href={waShareHref} target="_blank" rel="noopener noreferrer">
+                    💬 WhatsApp
+                  </a>
+                  <button
+                    className="share-btn share-ig" type="button"
+                    onClick={() => copyText(referralLink, "Link copiado — pégalo en tu historia de IG 📸")}
+                  >
+                    📸 Instagram
+                  </button>
+                </div>
+              </div>
+
+              <div className="milestones">
+                <h4>Tus Recompensas</h4>
+                {milestones.map((m) => (
+                  <div key={m.n} className={`milestone${referrals >= m.n ? " reached" : ""}`}>
+                    <div className="m-count">{m.n}</div>
+                    <div className="m-text">
+                      <div className="m-title">{m.title}</div>
+                      <div className="m-desc">{m.desc}</div>
+                    </div>
+                    <div className="m-check">✓</div>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
+          )}
+        </div>
+      </section>
 
-          {/* ── BOTTOM: Email + Links ── */}
-          <div
-            className="flex-shrink-0 pb-1"
-            style={{ animation: "fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 4.6s both" }}
-          >
-            <div className="max-w-[440px] mx-auto mb-4 md:mb-6">
-              {!sent ? (
-                <form onSubmit={submit}>
-                  <p className="text-[8px] md:text-[10px] text-white/25 tracking-[2px] uppercase text-center mb-2.5 md:mb-3 font-medium">
-                    S&eacute; la primera en saberlo
-                  </p>
-                  {/* Stacked on mobile, inline on tablet+ */}
-                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-px">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
-                      placeholder="tu@email.com"
-                      required
-                      className="w-full sm:flex-1 bg-white/[0.05] border border-white/[0.10] text-white text-[16px] sm:text-[13px] font-light px-4 py-3.5 sm:py-3 rounded-none outline-none transition-all duration-500 focus:border-white/25 focus:bg-white/[0.08] placeholder:text-white/20 placeholder:text-[14px] sm:placeholder:text-[12px] placeholder:tracking-[1px]"
-                    />
-                    <button
-                      type="submit"
-                      className="w-full sm:w-auto px-6 sm:px-7 py-3.5 sm:py-3 bg-white text-black text-[10px] tracking-[2px] uppercase font-semibold hover:bg-white/90 active:bg-white/85 transition-colors duration-300 whitespace-nowrap"
-                    >
-                      Notificarme
-                    </button>
-                  </div>
-                </form>
-              ) : (
-                <div className="flex items-center justify-center gap-2.5 py-3">
-                  <div className="w-4 h-4 rounded-full bg-[#C9A84C] flex items-center justify-center flex-shrink-0">
-                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                  </div>
-                  <p className="text-[11px] text-white/40 font-light">Te notificaremos cuando abramos.</p>
-                </div>
-              )}
-            </div>
-
-            {/* Links */}
-            <div className="flex items-center justify-center gap-5 md:gap-8">
-              <a
-                href={wa}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[8px] md:text-[9px] tracking-[2px] md:tracking-[3px] text-white/20 uppercase font-medium hover:text-white/40 active:text-white/40 transition-colors duration-500 py-1"
-              >
-                WhatsApp
-              </a>
-              <span className="w-px h-2.5 bg-white/8" />
-              <a
-                href="https://instagram.com/danielamirandapmu"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[8px] md:text-[9px] tracking-[2px] md:tracking-[3px] text-white/20 uppercase font-medium hover:text-white/40 active:text-white/40 transition-colors duration-500 py-1"
-              >
-                Instagram
-              </a>
-              <span className="w-px h-2.5 bg-white/8 hidden md:block" />
-              <span className="text-[7px] tracking-[2px] text-white/[0.06] uppercase hidden md:block">
-                MachineMind
-              </span>
-            </div>
-          </div>
+      <div className="perks">
+        <div className="perk">
+          <div className="icon">☀️</div>
+          <h3>Bronceado de Lujo</h3>
+          <p>Las primeras camas de bronceado en El Salvador. Color perfecto, ambiente premium, experiencia controlada y segura.</p>
+        </div>
+        <div className="perk">
+          <div className="icon">👑</div>
+          <h3>Miss PMU Internacional</h3>
+          <p>Micropigmentación de cejas y labios con la única artista certificada Miss PMU Internacional del país.</p>
+        </div>
+        <div className="perk">
+          <div className="icon">💎</div>
+          <h3>Miembros Fundadores</h3>
+          <p>Las primeras en la lista reciben precio de fundador que se congela para siempre. Solo por tiempo limitado antes de la apertura.</p>
         </div>
       </div>
-    </div>
+
+      <footer className="site-footer">
+        <div className="logo">Piel Dorada</div>
+        <div className="byline">by Daniela Miranda Studios</div>
+        <div className="links">
+          <a href="https://wa.me/50373106004?text=Hola%20✨%20me%20interesa%20Piel%20Dorada" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          <a href="https://instagram.com/danielamirandapmu" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+        <div className="fine">San Salvador, El Salvador · Apertura Septiembre 2026</div>
+      </footer>
+
+      <div className={`toast${toastMsg ? " show" : ""}`}>{toastMsg}</div>
+    </>
   );
 }

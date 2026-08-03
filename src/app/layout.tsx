@@ -25,9 +25,9 @@ const siteUrl = "https://www.pieldoradasv.com";
 const ogImage = `${siteUrl}/og-share.jpg`;
 
 export const metadata: Metadata = {
-  title: "Piel Dorada by Daniela Miranda Studios | Beauty & Sun Spa | El Salvador",
+  title: "Piel Dorada — Lista VIP | Beauty & Sun Spa | El Salvador",
   description:
-    "Piel Dorada — Beauty & Sun Spa by Daniela Miranda Studios. Bronceado de lujo, micropigmentaci\u00f3n y bienestar en San Salvador. Septiembre 2026.",
+    "Únete a la Lista VIP de Piel Dorada — Beauty & Sun Spa by Daniela Miranda Studios. Bronceado de lujo, micropigmentaci\u00f3n y bienestar. Apertura Septiembre 2026.",
   keywords: [
     "Piel Dorada",
     "beauty spa",
@@ -81,7 +81,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${cormorant.variable} ${dmSans.variable}`}>
-      <body className="min-h-screen bg-[#0A0A08] text-white antialiased">
+      <body className="min-h-screen antialiased">
         {children}
       </body>
     </html>
