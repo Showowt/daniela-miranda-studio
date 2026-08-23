@@ -2,8 +2,14 @@
    BLOG CONTENT ENGINE — data-driven posts (no MDX dependency).
    Priority: tanning posts first (own the empty category on Google).
    Bodies are author-trusted HTML rendered inside .pd-prose.
-   Add new posts by appending to POSTS — sitemap + /blog pick them up.
+   Seed posts live inline below; the rest are authored as JSON batches
+   under src/content/blog/ and merged in. sitemap + /blog pick them up.
    ═══════════════════════════════════════════════════════════════ */
+
+import batch1 from "@/content/blog/batch-1.json";
+import batch2 from "@/content/blog/batch-2.json";
+import batch3 from "@/content/blog/batch-3.json";
+import batch4 from "@/content/blog/batch-4.json";
 
 export type Post = {
   slug: string;
@@ -21,7 +27,7 @@ export type Post = {
   faqs: { q: string; a: string }[];
 };
 
-export const POSTS: Post[] = [
+const SEED_POSTS: Post[] = [
   {
     slug: "que-es-el-bronceado-brasileno",
     title: "¿Qué es el bronceado brasileño y por qué es el mejor?",
@@ -206,6 +212,17 @@ export const POSTS: Post[] = [
     ],
   },
 ];
+
+/* Batches authored as JSON (no dates) — stamp launch date on merge. */
+type RawPost = Omit<Post, "datePublished" | "dateModified">;
+const LAUNCH_DATE = "2026-08-23";
+
+const BATCH_POSTS: Post[] = (
+  [...batch1, ...batch2, ...batch3, ...batch4] as unknown as RawPost[]
+).map((p) => ({ ...p, datePublished: LAUNCH_DATE }));
+
+/** All posts — seed (flagship, inline) first, then the JSON batches. */
+export const POSTS: Post[] = [...SEED_POSTS, ...BATCH_POSTS];
 
 export function getPost(slug: string): Post | undefined {
   return POSTS.find((p) => p.slug === slug);

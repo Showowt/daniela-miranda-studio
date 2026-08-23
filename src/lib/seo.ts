@@ -17,44 +17,48 @@ export function url(path = ""): string {
   return clean ? `${SITE_URL}/${clean}` : `${SITE_URL}/`;
 }
 
-/** Per-route metadata with canonical + OG + Twitter, all consistent. */
+/** Per-route metadata with canonical + OG + Twitter, all consistent.
+ *  Set `hasGeneratedOg: true` on routes that ship an `opengraph-image.tsx`
+ *  so the file convention supplies og:image/twitter:image (no duplicate). */
 export function pageMetadata(opts: {
   title: string;
   description: string;
   path?: string;
   ogImage?: string;
   ogTitle?: string;
+  hasGeneratedOg?: boolean;
 }): Metadata {
   const canonical = url(opts.path ?? "");
-  const image = opts.ogImage ?? BUSINESS.ogImage;
   const ogTitle = opts.ogTitle ?? opts.title;
+  const image = opts.ogImage ?? BUSINESS.ogImage;
+
+  const openGraph: Metadata["openGraph"] = {
+    title: ogTitle,
+    description: opts.description,
+    url: canonical,
+    type: "website",
+    locale: "es_SV",
+    siteName: BUSINESS.shortName,
+  };
+  const twitter: Metadata["twitter"] = {
+    card: "summary_large_image",
+    title: ogTitle,
+    description: opts.description,
+  };
+
+  if (!opts.hasGeneratedOg) {
+    openGraph.images = [
+      { url: image, width: 1200, height: 630, alt: BUSINESS.name, type: "image/jpeg" },
+    ];
+    twitter.images = [image];
+  }
+
   return {
     title: opts.title,
     description: opts.description,
     alternates: { canonical },
-    openGraph: {
-      title: ogTitle,
-      description: opts.description,
-      url: canonical,
-      type: "website",
-      locale: "es_SV",
-      siteName: BUSINESS.shortName,
-      images: [
-        {
-          url: image,
-          width: 1200,
-          height: 630,
-          alt: BUSINESS.name,
-          type: "image/jpeg",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: ogTitle,
-      description: opts.description,
-      images: [image],
-    },
+    openGraph,
+    twitter,
   };
 }
 

@@ -18,6 +18,7 @@ export const metadata: Metadata = pageMetadata({
   title: svc.title,
   description: svc.description,
   path: "unas",
+  hasGeneratedOg: true,
 });
 
 const faqs: Faq[] = [

@@ -12,6 +12,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     "Conoce a Daniela Miranda, la única artista Miss PMU Internacional de El Salvador y fundadora de Piel Dorada — Beauty & Sun Spa en San Salvador.",
   path: "sobre-daniela",
+  hasGeneratedOg: true,
 });
 
 export default function SobreDanielaPage() {
