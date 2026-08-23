@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { SERVICES } from "@/lib/site";
 
 /* ═══════════════════════════════════════════════════════════════
    PIEL DORADA by Daniela Miranda Studios — Lista VIP
@@ -454,6 +456,47 @@ export default function PielDorada() {
           </div>
         </section>
 
+        {/* ── ACT II.75: SERVICIOS — internal links to service pages ── */}
+        <section className="px-5 md:px-14 lg:px-20 pt-24 md:pt-32 pb-8 md:pb-12">
+          <div className="max-w-[1000px] mx-auto text-center">
+            <p className="section-eyebrow reveal">Nuestros Servicios</p>
+            <h2 className="section-title reveal font-serif">
+              Todo tu <span className="text-gradient-gold italic">ritual de belleza</span>
+              <br className="hidden md:block" /> en un solo lugar
+            </h2>
+            <p className="section-lead reveal">
+              Bronceado brasileño, micropigmentación, cejas, pestañas, uñas y
+              faciales — el primer spa de bronceado de lujo de El Salvador.
+            </p>
+
+            <div className="related-grid reveal" style={{ marginTop: "2.5rem", textAlign: "left" }}>
+              {SERVICES.map((s) => (
+                <Link key={s.slug} href={`/${s.slug}`} className="related-card">
+                  <span className="r-emoji" aria-hidden="true">{s.emoji}</span>
+                  <span className="r-text">
+                    <span className="r-title">{s.nav}</span>
+                    <span className="r-sub">Ver servicio →</span>
+                  </span>
+                </Link>
+              ))}
+              <Link href="/sobre-daniela" className="related-card">
+                <span className="r-emoji" aria-hidden="true">💛</span>
+                <span className="r-text">
+                  <span className="r-title">Sobre Daniela</span>
+                  <span className="r-sub">Miss PMU Internacional →</span>
+                </span>
+              </Link>
+              <Link href="/blog" className="related-card">
+                <span className="r-emoji" aria-hidden="true">📖</span>
+                <span className="r-text">
+                  <span className="r-title">Blog</span>
+                  <span className="r-sub">Guías y consejos →</span>
+                </span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* ── ACT III: LISTA VIP ── */}
         <section id="lista-vip" className="px-5 md:px-14 lg:px-20 pt-24 md:pt-32 pb-24 md:pb-32 scroll-mt-8">
           <div className="max-w-[1000px] mx-auto">
@@ -600,6 +643,28 @@ export default function PielDorada() {
           <div className="text-[9px] tracking-[3px] uppercase text-white/40 font-medium mb-5">
             by Daniela Miranda Studios
           </div>
+
+          <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 mb-6 max-w-lg mx-auto">
+            {SERVICES.map((s) => (
+              <Link
+                key={s.slug}
+                href={`/${s.slug}`}
+                className="text-[10px] tracking-[2px] uppercase text-white/35 hover:text-white/70 transition-colors duration-500"
+              >
+                {s.nav}
+              </Link>
+            ))}
+            <Link href="/sobre-daniela" className="text-[10px] tracking-[2px] uppercase text-white/35 hover:text-white/70 transition-colors duration-500">
+              Sobre Daniela
+            </Link>
+            <Link href="/blog" className="text-[10px] tracking-[2px] uppercase text-white/35 hover:text-white/70 transition-colors duration-500">
+              Blog
+            </Link>
+            <Link href="/contacto" className="text-[10px] tracking-[2px] uppercase text-white/35 hover:text-white/70 transition-colors duration-500">
+              Contacto
+            </Link>
+          </nav>
+
           <div className="flex items-center justify-center gap-5 md:gap-8 mb-6">
             <a
               href={WA_CONTACT}
