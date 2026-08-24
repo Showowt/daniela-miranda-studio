@@ -47,7 +47,6 @@ export default function UnasPage() {
       name: "Uñas Acrílicas, Manicure y Pedicure",
       description:
         "Uñas acrílicas, esmaltado permanente, manicure y pedicure spa en San Salvador. Diseños elegantes y duraderos en Piel Dorada.",
-      priceFrom: svc.priceFrom,
     }),
     faqJsonLd(faqs),
     breadcrumbJsonLd([
@@ -111,13 +110,13 @@ export default function UnasPage() {
               <span className="chip" aria-hidden="true">💅</span>
               <h3>Uñas Acrílicas</h3>
               <p>Estructura, forma y largo a tu medida, con diseños que van de lo clásico a lo atrevido.</p>
-              <span className="price">Desde $20</span>
+              <span className="price">Precio: consultar</span>
             </div>
             <div className="svc-card">
               <span className="chip" aria-hidden="true">✨</span>
               <h3>Esmaltado Permanente</h3>
               <p>Color y brillo intactos por 2 a 3 semanas, sin descascararse. La manicure que dura.</p>
-              <span className="price">Desde $20</span>
+              <span className="price">Precio: consultar</span>
             </div>
             <div className="svc-card">
               <span className="chip" aria-hidden="true">🌸</span>

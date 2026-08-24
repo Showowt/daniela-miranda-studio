@@ -51,7 +51,6 @@ export default function MicropigmentacionPage() {
       name: "Micropigmentación de Cejas y Labios",
       description:
         "Micropigmentación de cejas, labios e Hydra Lips por Daniela Miranda, la única artista Miss PMU Internacional de El Salvador.",
-      priceFrom: svc.priceFrom,
     }),
     faqJsonLd(faqs),
     breadcrumbJsonLd([
@@ -124,7 +123,7 @@ export default function MicropigmentacionPage() {
                 para un acabado natural, o powder brows (efecto polvo) para un
                 acabado difuminado y de mayor durabilidad.
               </p>
-              <span className="price">Desde $150</span>
+              <span className="price">Precio: consultar</span>
             </div>
             <div className="svc-card" id="labios">
               <span className="chip" aria-hidden="true">💋</span>

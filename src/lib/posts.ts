@@ -70,7 +70,7 @@ const SEED_POSTS: Post[] = [
       },
       {
         q: "¿Cuánto cuesta el bronceado brasileño en El Salvador?",
-        a: "En Piel Dorada el bronceado en spray comienza desde $45. También ofrecemos membresías mensuales para broncearte todo el mes.",
+        a: "En Piel Dorada ofrecemos bronceado en spray y membresías mensuales para broncearte todo el mes. Escríbenos por WhatsApp para conocer los precios actuales.",
       },
     ],
   },

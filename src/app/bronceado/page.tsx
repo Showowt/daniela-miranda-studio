@@ -29,7 +29,7 @@ export const metadata: Metadata = pageMetadata({
 const faqs: Faq[] = [
   {
     q: "¿Cuánto cuesta el bronceado brasileño en El Salvador?",
-    a: "En Piel Dorada el bronceado en spray comienza desde $45. También ofrecemos membresías mensuales ilimitadas para broncearte todo el mes.",
+    a: "En Piel Dorada ofrecemos bronceado en spray y membresías mensuales ilimitadas para broncearte todo el mes. Escríbenos por WhatsApp para conocer los precios actuales.",
   },
   {
     q: "¿Cuántas veces por semana debo usar la cama de bronceado?",
@@ -56,7 +56,6 @@ export default function BronceadoPage() {
       name: "Bronceado Brasileño y Camas de Bronceado",
       description:
         "El primer spa con camas de bronceado y bronceado brasileño en El Salvador. Bronceado seguro, parejo y natural en San Salvador.",
-      priceFrom: svc.priceFrom,
     }),
     faqJsonLd(faqs),
     breadcrumbJsonLd([
@@ -140,7 +139,7 @@ export default function BronceadoPage() {
                 dorado natural y uniforme. Sin rayos UV, sin manchas. Ideal
                 cuando quieres color de inmediato.
               </p>
-              <span className="price">Desde $45</span>
+              <span className="price">Precio: consultar</span>
             </div>
             <div className="svc-card" id="camas-uv">
               <span className="chip" aria-hidden="true">☀️</span>
@@ -160,7 +159,7 @@ export default function BronceadoPage() {
                 intensidad que buscas — desde un brillo sutil hasta un dorado
                 profundo. Listo en minutos.
               </p>
-              <span className="price">Desde $45</span>
+              <span className="price">Precio: consultar</span>
             </div>
             <div className="svc-card" id="membresias">
               <span className="chip" aria-hidden="true">💎</span>

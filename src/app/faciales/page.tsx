@@ -43,7 +43,6 @@ export default function FacialesPage() {
       name: "Limpieza Facial y Tratamientos de Belleza",
       description:
         "Limpieza facial profunda, tratamientos faciales y depilación en San Salvador. Piel radiante en Piel Dorada — Beauty & Sun Spa.",
-      priceFrom: svc.priceFrom,
     }),
     faqJsonLd(faqs),
     breadcrumbJsonLd([

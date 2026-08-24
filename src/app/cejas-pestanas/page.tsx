@@ -47,7 +47,6 @@ export default function CejasPestanasPage() {
       name: "Laminado de Cejas, Lifting y Extensiones de Pestañas",
       description:
         "Laminado de cejas, lifting y extensiones de pestañas en San Salvador. Realza tu mirada con Piel Dorada.",
-      priceFrom: svc.priceFrom,
     }),
     faqJsonLd(faqs),
     breadcrumbJsonLd([
@@ -117,7 +116,7 @@ export default function CejasPestanasPage() {
                 Peina y fija tus cejas hacia arriba para una forma definida, más
                 poblada y ordenada. Efecto de cejas perfectas por 4 a 6 semanas.
               </p>
-              <span className="price">Desde $40</span>
+              <span className="price">Precio: consultar</span>
             </div>
             <div className="svc-card" id="lifting">
               <span className="chip" aria-hidden="true">👁️</span>
@@ -127,7 +126,7 @@ export default function CejasPestanasPage() {
                 mirada abierta y despierta, sin necesidad de extensiones. Dura
                 6 a 8 semanas.
               </p>
-              <span className="price">Desde $35</span>
+              <span className="price">Precio: consultar</span>
             </div>
             <div className="svc-card" id="extensiones">
               <span className="chip" aria-hidden="true">💫</span>

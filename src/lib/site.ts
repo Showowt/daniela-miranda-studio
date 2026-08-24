@@ -75,7 +75,7 @@ export const SERVICES: ServiceDef[] = [
     title:
       "Bronceado Brasileño y Camas de Bronceado en San Salvador | Piel Dorada",
     description:
-      "El primer y único spa con camas de bronceado y bronceado brasileño en El Salvador. Bronceado seguro, parejo y natural en San Salvador. Membresías desde $49/mes.",
+      "El primer y único spa con camas de bronceado y bronceado brasileño en El Salvador. Bronceado seguro, parejo y natural en San Salvador. Membresías mensuales disponibles.",
     tagline:
       "El primer spa de bronceado de lujo del país — camas de bronceado, bronceado brasileño y spray tan en San Salvador.",
     serviceType: "Bronceado Brasileño",
