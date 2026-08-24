@@ -81,8 +81,9 @@ export function businessJsonLd(): JsonLdObject {
     paymentAccepted: "Cash, Credit Card, Bank Transfer",
     address: {
       "@type": "PostalAddress",
-      addressLocality: BUSINESS.city,
-      addressRegion: BUSINESS.region,
+      streetAddress: BUSINESS.addressStreet,
+      addressLocality: BUSINESS.addressLocality,
+      addressRegion: BUSINESS.addressRegion,
       addressCountry: BUSINESS.country,
     },
     geo: {
@@ -90,6 +91,7 @@ export function businessJsonLd(): JsonLdObject {
       latitude: BUSINESS.geo.lat,
       longitude: BUSINESS.geo.lng,
     },
+    hasMap: BUSINESS.mapsUrl,
     areaServed: AREAS_SERVED.map((name) => ({ "@type": "Place", name })),
     founder: {
       "@type": "Person",

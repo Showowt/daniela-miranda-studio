@@ -84,8 +84,8 @@ export const metadata: Metadata = {
   },
   other: {
     "apple-mobile-web-app-title": "Piel Dorada",
-    "geo.region": "SV-SS",
-    "geo.placename": "San Salvador",
+    "geo.region": "SV-LI",
+    "geo.placename": "Santa Tecla, San Salvador",
   },
 };
 

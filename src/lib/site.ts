@@ -16,11 +16,19 @@ export const BUSINESS = {
   phoneE164: "+50373106004",
   whatsappNumber: "50373106004",
   email: "hola@pieldoradasv.com",
+  // Physical location — Jardines de Merliot, Santa Tecla (greater San Salvador metro)
+  addressStreet:
+    'Calle Cuyagualo, Lote No. 28-A, Polígono "L", Urbanización Jardines de Merliot',
+  addressLocality: "Santa Tecla",
+  addressRegion: "La Libertad",
+  postalCode: "",
+  // Marketing metro — primary search keyword; Merliot is greater San Salvador
   city: "San Salvador",
   region: "San Salvador",
   country: "SV",
   countryName: "El Salvador",
-  geo: { lat: 13.6989, lng: -89.241 },
+  geo: { lat: 13.6772, lng: -89.2707 },
+  mapsUrl: "https://maps.google.com/?q=13.6772,-89.2707",
   openingLabel: "Septiembre 2026",
   instagram: "https://instagram.com/danielamirandapmu",
   instagramHandle: "@danielamirandapmu",
@@ -32,12 +40,14 @@ export const BUSINESS = {
 /** Areas served — geo-modifiers used across schema + local content. */
 export const AREAS_SERVED = [
   "San Salvador",
-  "Colonia Escalón",
-  "Santa Elena",
-  "Colonia San Benito",
-  "Zona Rosa",
+  "Santa Tecla",
+  "Ciudad Merliot",
   "Antiguo Cuscatlán",
+  "Santa Elena",
+  "Colonia Escalón",
+  "Colonia San Benito",
   "Nuevo Cuscatlán",
+  "Zona Rosa",
   "La Gran Vía",
   "Multiplaza",
 ] as const;

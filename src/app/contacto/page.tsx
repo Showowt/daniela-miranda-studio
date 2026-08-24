@@ -79,10 +79,17 @@ export default function ContactoPage() {
 
             <div className="info-card">
               <h3>Ubicación</h3>
-              <p>{BUSINESS.city}, {BUSINESS.countryName}</p>
-              <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>
-                Atendemos Escalón, Santa Elena, San Benito, Zona Rosa y Antiguo
-                Cuscatlán. Compartimos la dirección exacta al confirmar tu cita.
+              <p>{BUSINESS.addressStreet}</p>
+              <p>
+                {BUSINESS.addressLocality}, {BUSINESS.addressRegion},{" "}
+                {BUSINESS.countryName}
+              </p>
+              <a href={BUSINESS.mapsUrl} target="_blank" rel="noopener noreferrer">
+                Ver en Google Maps →
+              </a>
+              <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", marginTop: 8 }}>
+                En Ciudad Merliot — a minutos de Santa Elena, San Benito,
+                Antiguo Cuscatlán y San Salvador.
               </p>
             </div>
 
