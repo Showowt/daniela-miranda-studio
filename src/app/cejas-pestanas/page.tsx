@@ -19,6 +19,7 @@ export const metadata: Metadata = pageMetadata({
   description: svc.description,
   path: "cejas-pestanas",
   hasGeneratedOg: true,
+  keywords: svc.keywords,
 });
 
 const faqs: Faq[] = [

@@ -24,6 +24,7 @@ export const metadata: Metadata = pageMetadata({
   description: svc.description,
   path: "bronceado",
   hasGeneratedOg: true,
+  keywords: svc.keywords,
 });
 
 const faqs: Faq[] = [

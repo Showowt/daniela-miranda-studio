@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import JsonLd from "@/components/JsonLd";
-import { businessJsonLd } from "@/lib/seo";
+import { businessJsonLd, websiteJsonLd } from "@/lib/seo";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-serif",
@@ -21,6 +21,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  themeColor: "#0A0A08",
+  colorScheme: "dark",
 };
 
 const siteUrl = "https://www.pieldoradasv.com";
@@ -48,6 +50,19 @@ export const metadata: Metadata = {
     "Daniela Miranda",
     "Miss PMU Internacional",
   ],
+  applicationName: "Piel Dorada",
+  authors: [
+    { name: "Daniela Miranda", url: "https://instagram.com/danielamirandapmu" },
+  ],
+  creator: "Daniela Miranda Studios",
+  publisher: "Piel Dorada — Beauty & Sun Spa",
+  category: "Beauty Salon",
+  appleWebApp: {
+    capable: true,
+    title: "Piel Dorada",
+    statusBarStyle: "black-translucent",
+  },
+  formatDetection: { telephone: true, address: true, email: true },
   metadataBase: new URL(siteUrl),
   alternates: { canonical: siteUrl },
   robots: {
@@ -98,6 +113,7 @@ export default function RootLayout({
     <html lang="es-SV" className={`${cormorant.variable} ${dmSans.variable}`}>
       <body className="min-h-screen bg-[#0A0A08] text-white antialiased">
         <JsonLd data={businessJsonLd()} />
+        <JsonLd data={websiteJsonLd()} />
         {children}
       </body>
     </html>

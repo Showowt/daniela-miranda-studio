@@ -27,6 +27,7 @@ export function pageMetadata(opts: {
   ogImage?: string;
   ogTitle?: string;
   hasGeneratedOg?: boolean;
+  keywords?: readonly string[];
 }): Metadata {
   const canonical = url(opts.path ?? "");
   const ogTitle = opts.ogTitle ?? opts.title;
@@ -56,6 +57,7 @@ export function pageMetadata(opts: {
   return {
     title: opts.title,
     description: opts.description,
+    ...(opts.keywords ? { keywords: [...opts.keywords] } : {}),
     alternates: { canonical },
     openGraph,
     twitter,
@@ -115,7 +117,12 @@ export function businessJsonLd(): JsonLdObject {
         closes: "19:00",
       },
     ],
-    sameAs: [BUSINESS.instagram, BUSINESS.instagramAlt, BUSINESS.facebook],
+    sameAs: [
+      BUSINESS.instagram,
+      BUSINESS.instagramAlt,
+      BUSINESS.facebook,
+      BUSINESS.tiktok,
+    ],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Servicios de Piel Dorada",
@@ -143,8 +150,29 @@ export function personJsonLd(): JsonLdObject {
       "Bronceado Brasileño",
       "Maquillaje Permanente",
     ],
-    sameAs: [BUSINESS.instagram, BUSINESS.instagramAlt, BUSINESS.facebook],
+    sameAs: [
+      BUSINESS.instagram,
+      BUSINESS.instagramAlt,
+      BUSINESS.facebook,
+      BUSINESS.tiktok,
+    ],
     image: `${SITE_URL}/images/daniela-miranda.jpg`,
+  };
+}
+
+/** WebSite entity — anchors the site in Google's Knowledge Graph.
+ *  Injected once in the root layout alongside the BeautySalon node. */
+export function websiteJsonLd(): JsonLdObject {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    url: SITE_URL,
+    name: BUSINESS.name,
+    alternateName: BUSINESS.alternateName,
+    inLanguage: "es-SV",
+    publisher: { "@id": BUSINESS_ID },
+    about: { "@id": BUSINESS_ID },
   };
 }
 

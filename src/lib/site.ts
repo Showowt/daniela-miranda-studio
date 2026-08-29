@@ -34,6 +34,8 @@ export const BUSINESS = {
   instagramHandle: "@danielamirandapmu",
   instagramAlt: "https://instagram.com/damiranda_",
   facebook: "https://www.facebook.com/pieldoradasv",
+  tiktok: "https://www.tiktok.com/@danielamirandastudio",
+  tiktokHandle: "@danielamirandastudio",
   ogImage: `${SITE_URL}/og-share.jpg`,
 } as const;
 

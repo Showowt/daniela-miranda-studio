@@ -19,6 +19,7 @@ export const metadata: Metadata = pageMetadata({
   description: svc.description,
   path: "faciales",
   hasGeneratedOg: true,
+  keywords: svc.keywords,
 });
 
 const faqs: Faq[] = [
