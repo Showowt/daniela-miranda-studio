@@ -9,7 +9,7 @@ import { BUSINESS, AREAS_SERVED, WA_DEFAULT } from "@/lib/site";
 export const metadata: Metadata = pageMetadata({
   title: "Contacto | Piel Dorada — Beauty & Sun Spa en San Salvador",
   description:
-    "Contacta a Piel Dorada — Beauty & Sun Spa en San Salvador. Agenda por WhatsApp al +503 7310 6004, síguenos en Instagram y reserva tu cita de belleza y bronceado.",
+    "Contacta a Piel Dorada — Beauty & Sun Spa en San Salvador. Agenda por WhatsApp al +503 6224 8518, síguenos en Instagram y reserva tu cita de belleza y bronceado.",
   path: "contacto",
 });
 

@@ -60,7 +60,7 @@ export default function DanielaChat() {
         {
           role: "assistant",
           content:
-            "Disculpa hermosa, estoy teniendo problemas de conexión. Puedes escribirnos directamente al WhatsApp +503 7310 6004 💕",
+            "Disculpa hermosa, estoy teniendo problemas de conexión. Puedes escribirnos directamente al WhatsApp +503 6224 8518 💕",
         },
       ]);
     }
@@ -134,7 +134,7 @@ export default function DanielaChat() {
             </span>
           </div>
           <a
-            href="https://wa.me/50373106004"
+            href="https://wa.me/50362248518"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#B76E79] hover:opacity-70 transition-opacity"

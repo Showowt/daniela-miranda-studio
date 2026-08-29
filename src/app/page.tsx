@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { SERVICES } from "@/lib/site";
+import { SERVICES, waLink } from "@/lib/site";
 
 /* ═══════════════════════════════════════════════════════════════
    PIEL DORADA by Daniela Miranda Studios — Lista VIP
@@ -15,7 +15,7 @@ const WA_TEXT_INTRO =
   "✨ Me uní a la lista VIP de Piel Dorada — el primer spa de bronceado de lujo en El Salvador, de Daniela Miranda 👑\n\n" +
   "Únete tú también con mi link y las dos ganamos premios de miembro fundador:\n";
 
-const WA_CONTACT = "https://wa.me/50373106004?text=Hola%20%E2%9C%A8%20me%20interesa%20Piel%20Dorada";
+const WA_CONTACT = waLink("Hola ✨ me interesa Piel Dorada — quisiera más información y agendar.");
 
 type VipUser = {
   name: string;
@@ -42,6 +42,15 @@ function loadSavedUser(): VipUser | null {
   } catch {
     return null;
   }
+}
+
+/** Pre-filled WhatsApp confirmation receipt — the person's spot, sent to the studio. */
+function confirmText(u: VipUser): string {
+  return (
+    "✅ Confirmo mi lugar en la Lista VIP de Piel Dorada ✨\n\n" +
+    `Nombre: ${u.name}\nPosición: #${u.position}\nMi código VIP: ${u.code}\n\n` +
+    "¿Me confirman que quedé en la lista? 💛"
+  );
 }
 
 function SplitText({
@@ -169,7 +178,17 @@ export default function PielDorada() {
       try { localStorage.setItem(STORAGE_KEY, JSON.stringify(vip)); } catch {}
       setUser(vip);
       setReferrals(json.data.referrals ?? 0);
-      if (json.data.returning) toast("Ya estabas en la lista — aquí está tu lugar 💛");
+      if (json.data.returning) {
+        toast("Ya estabas en la lista — aquí está tu lugar 💛");
+      } else {
+        // Zero-infra WhatsApp confirmation: open a pre-filled receipt to the studio.
+        // Best-effort — if the browser blocks the popup, the success view still shows
+        // a guaranteed "Confirmar por WhatsApp" button as the reliable path.
+        const confirmHref = waLink(confirmText(vip));
+        setTimeout(() => {
+          try { window.open(confirmHref, "_blank", "noopener"); } catch {}
+        }, 900);
+      }
     } catch (error) {
       console.error("[PielDorada] join", error);
       toast("Sin conexión — intenta de nuevo 💛");
@@ -201,6 +220,8 @@ export default function PielDorada() {
   const waShareHref = user
     ? `https://wa.me/?text=${encodeURIComponent(WA_TEXT_INTRO + referralLink)}`
     : "#";
+
+  const waConfirmHref = user ? waLink(confirmText(user)) : "#";
 
   const ringOffset = user ? Math.max(20, 364 - (user.position % 100) * 3.4) : 364;
 
@@ -600,6 +621,15 @@ export default function PielDorada() {
                         Ahora la parte buena: <strong>invita a tus amigas y sube en la lista</strong>.
                         Mientras más invitas, más premios desbloqueas.
                       </p>
+
+                      <a
+                        className="confirm-wa"
+                        href={waConfirmHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        ✅ Confirmar mi lugar por WhatsApp
+                      </a>
 
                       <div className="count-badge">
                         {referrals === 1 ? "1 amiga invitada" : `${referrals} amigas invitadas`}

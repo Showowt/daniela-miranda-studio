@@ -12,9 +12,9 @@ export const BUSINESS = {
   alternateName: "Daniela Miranda Studio",
   founder: "Daniela Miranda",
   founderTitle: "Artista Miss PMU Internacional",
-  phoneDisplay: "+503 7310 6004",
-  phoneE164: "+50373106004",
-  whatsappNumber: "50373106004",
+  phoneDisplay: "+503 6224 8518",
+  phoneE164: "+50362248518",
+  whatsappNumber: "50362248518",
   email: "hola@pieldoradasv.com",
   // Physical location — Jardines de Merliot, Santa Tecla (greater San Salvador metro)
   addressStreet:

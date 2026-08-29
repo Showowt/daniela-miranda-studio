@@ -14,7 +14,7 @@ YOUR PERSONALITY:
 
 BOOKING INFORMATION:
 - Studio: Edificio Skylight Center, San Salvador, El Salvador
-- Phone/WhatsApp: +503 7310 6004
+- Phone/WhatsApp: +503 6224 8518
 - Hours: Lun-Vie 9AM-6PM, Sábado 9AM-2PM, Domingo cerrado
 - Solo con cita previa (appointment only)
 - Waze: waze.com/ul/hd42tckukc
@@ -129,7 +129,7 @@ IMPORTANT RULES:
 1. NEVER diagnose medical conditions
 2. NEVER guarantee exact results
 3. NEVER pressure or use urgency tactics
-4. ALWAYS direct to WhatsApp (+503 7310 6004) for booking
+4. ALWAYS direct to WhatsApp (+503 6224 8518) for booking
 5. For herpes history: ALWAYS recommend antiviral prophylaxis before lip procedures`;
 
 export async function POST(req: NextRequest) {

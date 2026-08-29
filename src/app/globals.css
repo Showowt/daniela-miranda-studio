@@ -249,6 +249,18 @@ html { scrollbar-width: none; }
 /* ═══ SUCCESS STATE ═══ */
 .success-view { animation: fade-up 0.6s both; }
 
+.confirm-wa {
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  width: 100%; padding: 16px; margin: 4px 0 20px;
+  background: #25D366; color: #fff; text-decoration: none;
+  border-radius: 12px; font-size: 14px; font-weight: 700;
+  letter-spacing: 0.4px; font-family: inherit;
+  box-shadow: 0 10px 30px rgba(37,211,102,0.35);
+  transition: all 0.25s;
+}
+.confirm-wa:hover { background: #1da851; transform: translateY(-2px); box-shadow: 0 14px 38px rgba(37,211,102,0.45); }
+.confirm-wa:active { transform: translateY(0); }
+
 .position-ring {
   width: 130px; height: 130px; margin: 0 auto 20px; position: relative;
   display: flex; align-items: center; justify-content: center;
