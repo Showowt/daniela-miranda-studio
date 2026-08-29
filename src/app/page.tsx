@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { SERVICES, waLink } from "@/lib/site";
+import VideoTestimonials from "@/components/VideoTestimonials";
 
 /* ═══════════════════════════════════════════════════════════════
    PIEL DORADA by Daniela Miranda Studios — Lista VIP
@@ -517,6 +518,9 @@ export default function PielDorada() {
             </div>
           </div>
         </section>
+
+        {/* ── ACT II.9: TESTIMONIOS — video showcase ── */}
+        <VideoTestimonials />
 
         {/* ── ACT III: LISTA VIP ── */}
         <section id="lista-vip" className="px-5 md:px-14 lg:px-20 pt-24 md:pt-32 pb-24 md:pb-32 scroll-mt-8">
