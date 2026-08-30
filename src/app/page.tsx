@@ -153,6 +153,7 @@ export default function PielDorada() {
   const [origin, setOrigin] = useState("https://www.pieldoradasv.com");
   const refCodeFromUrl = useRef<string | null>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const heroVideo = useRef<HTMLVideoElement>(null);
 
   const toast = useCallback((msg: string) => {
     setToastMsg(msg);
@@ -204,6 +205,30 @@ export default function PielDorada() {
     const id = setInterval(() => refreshReferrals(user.code), 8000);
     return () => clearInterval(id);
   }, [user, refreshReferrals]);
+
+  /* Force the hero background video to silent-autoplay.
+     React doesn't reliably set the `muted` DOM prop, so browsers block
+     autoplay and overlay a play button — set it imperatively and retry
+     on first interaction (covers iOS Low Power Mode). */
+  useEffect(() => {
+    const v = heroVideo.current;
+    if (!v) return;
+    v.muted = true;
+    v.defaultMuted = true;
+    v.setAttribute("muted", "");
+    const play = () => {
+      const p = v.play();
+      if (p && typeof p.catch === "function") p.catch(() => {});
+    };
+    play();
+    const onFirst = () => play();
+    window.addEventListener("touchstart", onFirst, { once: true, passive: true });
+    window.addEventListener("pointerdown", onFirst, { once: true });
+    return () => {
+      window.removeEventListener("touchstart", onFirst);
+      window.removeEventListener("pointerdown", onFirst);
+    };
+  }, []);
 
   /* Scroll-triggered reveals for below-the-fold sections */
   useEffect(() => {
@@ -361,11 +386,19 @@ export default function PielDorada() {
       {/* ═══ FIXED CINEMATIC FRAME — video + overlays behind everything ═══ */}
       <div className="fixed inset-0 w-full h-full z-0">
         <video
+          ref={heroVideo}
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          preload="auto"
+          webkit-playsinline="true"
+          x5-playsinline="true"
+          disablePictureInPicture
+          disableRemotePlayback
+          tabIndex={-1}
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
           style={{ animation: "scale-settle 3s cubic-bezier(0.16,1,0.3,1) 1.8s both" }}
         >
           <source src="/piel-dorada-hero.mp4" type="video/mp4" />
