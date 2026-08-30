@@ -602,6 +602,42 @@ export default function PielDorada() {
           </div>
         </section>
 
+        {/* ── ACT II.6: LA ARTISTA — editorial founder band (E-E-A-T) ── */}
+        <section className="px-5 md:px-14 lg:px-20 pt-24 md:pt-32 pb-8 md:pb-12">
+          <div className="artist-band max-w-[1100px] mx-auto">
+            <div className="artist-copy reveal">
+              <p className="section-eyebrow">La Artista</p>
+              <h2 className="section-title font-serif">
+                Arte que se <span className="text-gradient-gold italic">lleva puesto</span>
+              </h2>
+              <p className="artist-lead">
+                Daniela Miranda es la única artista{" "}
+                <strong>Miss PMU Internacional</strong> de El Salvador. Cada trazo,
+                cada tono y cada detalle nacen de años perfeccionando el arte de
+                realzar la belleza natural.
+              </p>
+              <span className="artist-credential">
+                <Icon name="crown" size={16} /> Miss PMU Internacional
+              </span>
+              <div className="artist-cta-row">
+                <Link href="/sobre-daniela" className="artist-cta" data-magnetic="0.3">
+                  Conoce su historia
+                  <Icon name="arrow" size={16} />
+                </Link>
+              </div>
+            </div>
+            <div className="artist-portrait reveal">
+              <img
+                src="/images/daniela-miranda.jpg"
+                alt="Daniela Miranda — Miss PMU Internacional, fundadora de Piel Dorada"
+                loading="lazy"
+                data-parallax="0.08"
+              />
+              <span className="artist-portrait-glow" aria-hidden="true" />
+            </div>
+          </div>
+        </section>
+
         {/* ── ACT II.75: SERVICIOS — internal links to service pages ── */}
         <section className="px-5 md:px-14 lg:px-20 pt-24 md:pt-32 pb-8 md:pb-12">
           <div className="max-w-[1000px] mx-auto text-center">

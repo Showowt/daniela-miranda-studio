@@ -963,3 +963,56 @@ html { scrollbar-width: none; }
   color: rgba(255,255,255,0.5); margin-top: 8px; max-width: 120px;
 }
 .vip-stat-div { width: 1px; height: 34px; background: rgba(201,168,76,0.22); }
+
+/* ═══ LA ARTISTA — editorial founder band ═══ */
+.artist-band {
+  display: grid; grid-template-columns: 1fr; gap: 34px; align-items: center;
+}
+@media (min-width: 900px) { .artist-band { grid-template-columns: 1.05fr 0.95fr; gap: 64px; } }
+.artist-copy { text-align: center; }
+.artist-copy .section-eyebrow { justify-content: center; }
+@media (min-width: 900px) {
+  .artist-copy { text-align: left; }
+  .artist-copy .section-eyebrow { justify-content: flex-start; }
+}
+.artist-lead {
+  font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.64);
+  max-width: 480px; margin: 20px auto 0;
+}
+@media (min-width: 900px) { .artist-lead { margin-left: 0; } }
+.artist-lead strong { color: #F5E6B8; font-weight: 600; }
+.artist-credential {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 22px;
+  padding: 8px 16px; border-radius: 100px; color: var(--gold-bright);
+  border: 1px solid rgba(201,168,76,0.4); background: rgba(201,168,76,0.06);
+  font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;
+}
+.artist-cta-row { margin-top: 26px; }
+.artist-cta {
+  display: inline-flex; align-items: center; gap: 9px;
+  color: #F5E6B8; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
+  text-decoration: none; padding: 14px 30px; border-radius: 100px;
+  border: 1px solid rgba(201,168,76,0.5); background: rgba(0,0,0,0.25);
+  transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+}
+.artist-cta:hover { background: rgba(201,168,76,0.14); border-color: rgba(201,168,76,0.9); box-shadow: 0 0 34px rgba(201,168,76,0.22); }
+.artist-cta svg { transition: transform 0.4s; }
+.artist-cta:hover svg { transform: translateX(4px); }
+
+.artist-portrait {
+  position: relative; border-radius: 24px; overflow: hidden;
+  aspect-ratio: 4 / 5; max-width: 450px; width: 100%; margin: 0 auto;
+  border: 1px solid rgba(201,168,76,0.35);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 70px rgba(201,168,76,0.14);
+}
+.artist-portrait img {
+  position: absolute; inset: -6% 0; width: 100%; height: 112%;
+  object-fit: cover; object-position: center 24%;
+  filter: saturate(1.04) contrast(1.05) brightness(1.02); will-change: transform;
+}
+.artist-portrait-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(80% 50% at 50% 0%, rgba(201,168,76,0.16), transparent 60%),
+    linear-gradient(180deg, transparent 56%, rgba(10,10,8,0.5) 100%);
+}
