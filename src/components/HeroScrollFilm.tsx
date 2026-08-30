@@ -2,20 +2,19 @@
 
 /* ═══════════════════════════════════════════════════════════════
    HeroScrollFilm — Apple-style scroll-scrubbed cinematic hero.
-   The Piel Dorada brand film is drawn frame-by-frame to a <canvas>
-   whose frame index is driven by scroll position. A tall stage is
-   pinned via CSS `position: sticky` (NOT GSAP pin — avoids the
-   React unmount removeChild crash). Frames preloaded from /hero-seq.
-   Golden skin → PIEL DORADA logo reveal → dream-spa, under the
-   user's finger. Overlays fade at scroll milestones.
+   The Piel Dorada brand film is scrubbed by driving the <video>
+   element's currentTime from scroll position (lightweight: one
+   video decode, no 100-image preload). Stage pinned via CSS
+   `position: sticky` (NOT GSAP pin — avoids the React unmount
+   removeChild crash). The film is re-encoded with dense keyframes
+   (/hero-film.mp4) so seeking is snappy. Golden skin → PIEL DORADA
+   logo reveal → dream-spa, under the user's finger. Overlays fade
+   at scroll milestones. Poster + reduced-motion fallbacks.
    ═══════════════════════════════════════════════════════════════ */
 
 import { useEffect, useRef, useState } from "react";
 import Icon from "@/components/Icon";
 import Logo from "@/components/Logo";
-
-const FRAME_COUNT = 104;
-const framePath = (i: number) => `/hero-seq/f-${String(i).padStart(3, "0")}.jpg`;
 
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 /** ramp: 0 below `from`, 1 above `to`, linear between */
@@ -31,114 +30,74 @@ export default function HeroScrollFilm({
   contactHref: string;
 }) {
   const stageRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imgsRef = useRef<HTMLImageElement[]>([]);
-  const loadedRef = useRef<boolean[]>([]);
-  const progressRef = useRef(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const durationRef = useRef(0);
   const rafRef = useRef(0);
 
   const [intro, setIntro] = useState(1);
   const [end, setEnd] = useState(0);
   const [reduce, setReduce] = useState(false);
 
-  /* Draw the frame nearest to the current scroll progress (cover-fit). */
-  const draw = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+  /* Prime iOS/Safari decoding: a muted play→pause wakes the decoder so
+     currentTime seeks actually paint frames (iOS shows only the poster
+     otherwise). Safe no-op elsewhere. */
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.defaultMuted = true;
+    const prime = () => {
+      const p = v.play();
+      if (p && typeof p.then === "function") p.then(() => v.pause()).catch(() => {});
+    };
+    const onMeta = () => { durationRef.current = v.duration || 0; };
+    v.addEventListener("loadedmetadata", onMeta);
+    if (v.readyState >= 1) onMeta();
+    prime();
+    const onFirst = () => prime();
+    window.addEventListener("touchstart", onFirst, { once: true, passive: true });
+    window.addEventListener("pointerdown", onFirst, { once: true });
+    return () => {
+      v.removeEventListener("loadedmetadata", onMeta);
+      window.removeEventListener("touchstart", onFirst);
+      window.removeEventListener("pointerdown", onFirst);
+    };
+  }, []);
 
-    const p = progressRef.current;
-    let idx = Math.round(p * (FRAME_COUNT - 1));
-    idx = Math.min(FRAME_COUNT - 1, Math.max(0, idx));
-
-    // Fall back to the nearest already-loaded frame (graceful during preload).
-    const loaded = loadedRef.current;
-    if (!loaded[idx]) {
-      let found = -1;
-      for (let d = 0; d < FRAME_COUNT; d++) {
-        if (idx - d >= 0 && loaded[idx - d]) { found = idx - d; break; }
-        if (idx + d < FRAME_COUNT && loaded[idx + d]) { found = idx + d; break; }
-      }
-      if (found === -1) return;
-      idx = found;
-    }
-
-    const img = imgsRef.current[idx];
-    if (!img || !img.complete || img.naturalWidth === 0) return;
-
-    const cw = canvas.width;
-    const ch = canvas.height;
-    const ir = img.naturalWidth / img.naturalHeight;
-    const cr = cw / ch;
-    let dw: number, dh: number, dx: number, dy: number;
-    if (cr > ir) {
-      dw = cw; dh = cw / ir; dx = 0; dy = (ch - dh) / 2;
-    } else {
-      dh = ch; dw = ch * ir; dy = 0; dx = (cw - dw) / 2;
-    }
-    ctx.drawImage(img, dx, dy, dw, dh);
-  };
-
-  const resize = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const dpr = Math.min(2, window.devicePixelRatio || 1);
-    canvas.width = Math.round(window.innerWidth * dpr);
-    canvas.height = Math.round(window.innerHeight * dpr);
-    draw();
-  };
-
-  /* Preload every frame; draw the first as soon as it arrives. */
+  /* Scroll → currentTime + overlay opacities (rAF-throttled). */
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     setReduce(reduced);
+    const v = videoRef.current;
+    const stage = stageRef.current;
+    if (!v || !stage) return;
 
-    const imgs: HTMLImageElement[] = [];
-    const loaded: boolean[] = [];
-    for (let i = 1; i <= FRAME_COUNT; i++) {
-      const idx = i - 1;
-      loaded[idx] = false;
-      const img = new Image();
-      img.decoding = "async";
-      img.onload = () => {
-        loaded[idx] = true;
-        // First frame or the reduced-motion still — paint immediately.
-        if (idx === 0 || reduced) draw();
-      };
-      img.src = framePath(i);
-      imgs[idx] = img;
-    }
-    imgsRef.current = imgs;
-    loadedRef.current = loaded;
-
-    // Reduced motion: hold on a late "dream-spa" frame, show the CTA.
     if (reduced) {
-      progressRef.current = 0.82;
+      // Static: hold on a late "dream-spa" frame, show the CTA.
+      const seekLate = () => { if (v.duration) { try { v.currentTime = v.duration * 0.85; } catch {} } };
+      if (v.readyState >= 1) seekLate();
+      else v.addEventListener("loadeddata", seekLate, { once: true });
       setIntro(0);
       setEnd(1);
+      return () => v.removeEventListener("loadeddata", seekLate);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  /* Scroll → progress → frame + overlay opacities (rAF-throttled). */
-  useEffect(() => {
-    resize();
-    if (reduce) return; // static in reduced-motion; no scroll binding
 
     let ticking = false;
     const compute = () => {
-      const stage = stageRef.current;
-      if (stage) {
-        const rect = stage.getBoundingClientRect();
-        const total = stage.offsetHeight - window.innerHeight;
-        const scrolled = Math.min(total, Math.max(0, -rect.top));
-        const p = total > 0 ? scrolled / total : 0;
-        progressRef.current = p;
-        setIntro(1 - ramp(p, 0.04, 0.16));
-        setEnd(ramp(p, 0.74, 0.9));
-        draw();
+      const rect = stage.getBoundingClientRect();
+      const total = stage.offsetHeight - window.innerHeight;
+      const scrolled = Math.min(total, Math.max(0, -rect.top));
+      const p = total > 0 ? scrolled / total : 0;
+
+      const dur = durationRef.current || v.duration || 0;
+      if (dur > 0 && v.readyState >= 1) {
+        const t = Math.min(dur - 0.05, Math.max(0, p * dur));
+        if (Math.abs(v.currentTime - t) > 0.03) {
+          try { v.currentTime = t; } catch {}
+        }
       }
+      setIntro(1 - ramp(p, 0.04, 0.16));
+      setEnd(ramp(p, 0.74, 0.9));
       ticking = false;
     };
     const onScroll = () => {
@@ -147,18 +106,16 @@ export default function HeroScrollFilm({
         rafRef.current = requestAnimationFrame(compute);
       }
     };
-    const onResize = () => { resize(); compute(); };
 
     compute();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
     return () => {
       cancelAnimationFrame(rafRef.current);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", onScroll);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reduce]);
+  }, []);
 
   return (
     <section
@@ -172,8 +129,21 @@ export default function HeroScrollFilm({
       </h1>
 
       <div className="hero-film-sticky">
-        <canvas ref={canvasRef} className="hero-film-canvas" aria-hidden="true" />
-        <img src="/hero-film-poster.jpg" alt="" className="hero-film-fallback" aria-hidden="true" />
+        <video
+          ref={videoRef}
+          className="hero-film-canvas"
+          src="/hero-film.mp4"
+          poster="/hero-film-poster.jpg"
+          muted
+          playsInline
+          preload="auto"
+          tabIndex={-1}
+          aria-hidden="true"
+          disablePictureInPicture
+          disableRemotePlayback
+          webkit-playsinline="true"
+          x5-playsinline="true"
+        />
         <div className="hero-film-scrim" aria-hidden="true" />
 
         {/* Top chrome */}

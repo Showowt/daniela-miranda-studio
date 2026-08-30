@@ -1036,12 +1036,8 @@ html { scrollbar-width: none; }
 }
 .hero-film-canvas {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  display: block; z-index: 1;
-}
-/* Poster shows under the canvas until the first frame paints */
-.hero-film-fallback {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; z-index: 0;
+  object-fit: cover; object-position: center 42%;
+  display: block; z-index: 1; background: #000; pointer-events: none;
 }
 .hero-film-scrim {
   position: absolute; inset: 0; z-index: 2; pointer-events: none;
