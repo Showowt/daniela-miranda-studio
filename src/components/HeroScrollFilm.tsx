@@ -160,16 +160,21 @@ export default function HeroScrollFilm({
           </a>
         </nav>
 
-        {/* Intro overlay — golden-skin shot */}
+        {/* Intro overlay — brand identity on landing (fades into the film's own PIEL DORADA reveal) */}
         <div className="hero-film-intro" style={{ opacity: intro }} aria-hidden={intro < 0.05}>
-          <p className="hero-film-eyebrow">Beauty &amp; Sun Spa</p>
-          <p className="hero-film-place">San Salvador · El Salvador</p>
-          <span className="hero-film-cue" aria-hidden="true">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
-          </span>
+          <div className="hero-film-brand">
+            <Logo variant="seal" size={56} className="hero-film-seal" />
+            <p className="hero-film-eyebrow">Beauty &amp; Sun Spa</p>
+            <p className="hero-film-wordmark text-gradient-gold">Piel Dorada</p>
+            <p className="hero-film-signature">by Daniela Miranda Studios</p>
+            <p className="hero-film-place">San Salvador · El Salvador · Apertura Sept 2026</p>
+          </div>
         </div>
+        <span className="hero-film-cue" style={{ opacity: intro }} aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </span>
 
         {/* End overlay — dream-spa shot → CTA */}
         <div className="hero-film-end" style={{ opacity: end }} aria-hidden={end < 0.05}>
