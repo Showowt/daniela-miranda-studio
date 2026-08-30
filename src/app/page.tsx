@@ -392,6 +392,7 @@ export default function PielDorada() {
           loop
           playsInline
           preload="auto"
+          poster="/piel-dorada-hero-poster.jpg"
           webkit-playsinline="true"
           x5-playsinline="true"
           disablePictureInPicture
