@@ -1016,3 +1016,97 @@ html { scrollbar-width: none; }
     radial-gradient(80% 50% at 50% 0%, rgba(201,168,76,0.16), transparent 60%),
     linear-gradient(180deg, transparent 56%, rgba(10,10,8,0.5) 100%);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   GLASS SYSTEM — unified "box" language (cleanup pass).
+   One radius scale · one glass surface · one top-edge sheen · one
+   refined gold-hairline hover. Appended last so it harmonizes every
+   card across the whole site (homepage + interior pages).
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --glass-surface: linear-gradient(158deg, rgba(24,21,16,0.60) 0%, rgba(12,11,9,0.74) 100%);
+  --glass-line: rgba(255,255,255,0.09);
+  --glass-line-gold: rgba(201,168,76,0.48);
+  --glass-blur: 22px;
+  --r-lg: 22px;   /* feature cards */
+  --r-md: 18px;   /* image tiles + list cards */
+  /* Layered depth: soft ambient drop + inner top sheen (the "glass") */
+  --glass-sheen: inset 0 1px 0 rgba(255,255,255,0.07);
+  --glass-drop: 0 24px 64px -22px rgba(0,0,0,0.66);
+  --glass-drop-lift: 0 40px 96px -24px rgba(0,0,0,0.74), 0 0 60px -8px rgba(201,168,76,0.15);
+}
+
+/* — Unified dark glass surface across every card type — */
+.perk,
+.milestone,
+.related-card,
+.svc-card,
+.info-card,
+.faq-item,
+.post-card {
+  background: var(--glass-surface);
+  border: 1px solid var(--glass-line);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.1);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.1);
+  box-shadow: var(--glass-drop), var(--glass-sheen);
+  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1),
+              border-color 0.45s ease, box-shadow 0.5s ease, background 0.45s ease;
+}
+
+/* Radius harmonization */
+.perk, .svc-card, .post-card { border-radius: var(--r-lg); }
+.related-card, .info-card, .faq-item, .milestone { border-radius: var(--r-md); }
+
+/* Feature cards — generous, cinematic lift */
+.perk:hover, .svc-card:hover, .post-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--glass-line-gold);
+  box-shadow: var(--glass-drop-lift), var(--glass-sheen);
+}
+
+/* List/link cards — subtle lift + warm gold wash */
+.related-card:hover, .info-card:hover, .faq-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--glass-line-gold);
+  background: linear-gradient(158deg, rgba(201,168,76,0.11) 0%, rgba(12,11,9,0.74) 62%);
+  box-shadow: var(--glass-drop), var(--glass-sheen);
+}
+
+/* — Image tiles: same family radius + consistent sheen — */
+.gallery-tile { border-radius: var(--r-md); box-shadow: 0 20px 56px -20px rgba(0,0,0,0.55), var(--glass-sheen); }
+.gallery-tile:hover { box-shadow: 0 34px 84px -22px rgba(0,0,0,0.66), 0 0 48px -8px rgba(201,168,76,0.16), var(--glass-sheen); }
+.artist-portrait { border-radius: var(--r-lg); }
+
+/* — VIP stats: promote loose numbers into a designed glass panel — */
+.vip-stats {
+  padding: 20px 30px; border-radius: var(--r-lg);
+  background: linear-gradient(158deg, rgba(24,21,16,0.48) 0%, rgba(12,11,9,0.58) 100%);
+  border: 1px solid rgba(201,168,76,0.16);
+  -webkit-backdrop-filter: blur(18px) saturate(1.1);
+  backdrop-filter: blur(18px) saturate(1.1);
+  box-shadow: var(--glass-drop), var(--glass-sheen);
+}
+
+/* — Referral ladder: richer "reached" celebration — */
+.milestone.reached {
+  box-shadow: var(--glass-drop), inset 0 1px 0 rgba(245,212,122,0.18), 0 0 34px -10px rgba(201,168,76,0.4);
+}
+
+/* — CTA band: lift onto the glass family so it reads as one system — */
+.cta-band {
+  border-radius: var(--r-lg);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--glass-drop), var(--glass-sheen);
+}
+
+/* — Compact-row density: tighten list cards so grids read as clean columns — */
+.related-card { padding: 15px 18px; }
+.faq-item, .info-card { border-radius: var(--r-md); }
+
+@media (prefers-reduced-motion: reduce) {
+  .perk, .svc-card, .post-card, .related-card, .info-card, .faq-item { transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+  .perk:hover, .svc-card:hover, .post-card:hover,
+  .related-card:hover, .info-card:hover, .faq-item:hover { transform: none; }
+}
