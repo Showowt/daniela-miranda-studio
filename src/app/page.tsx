@@ -6,6 +6,7 @@ import { SERVICES, waLink } from "@/lib/site";
 import VideoTestimonials from "@/components/VideoTestimonials";
 import Icon, { type IconName } from "@/components/Icon";
 import Logo from "@/components/Logo";
+import HeroScrollFilm from "@/components/HeroScrollFilm";
 
 /* ═══════════════════════════════════════════════════════════════
    PIEL DORADA by Daniela Miranda Studios — Lista VIP
@@ -53,35 +54,6 @@ function confirmText(u: VipUser): string {
     "✅ Confirmo mi lugar en la Lista VIP de Piel Dorada ✨\n\n" +
     `Nombre: ${u.name}\nPosición: #${u.position}\nMi código VIP: ${u.code}\n\n` +
     "¿Me confirman que quedé en la lista? 💛"
-  );
-}
-
-function SplitText({
-  text,
-  charClass = "",
-  staggerDelay = 0.05,
-  baseDelay = 0,
-}: {
-  text: string;
-  charClass?: string;
-  staggerDelay?: number;
-  baseDelay?: number;
-}) {
-  return (
-    <span aria-label={text}>
-      {text.split("").map((char, i) => (
-        <span
-          key={i}
-          className={`inline-block ${charClass}`}
-          style={{
-            animation: `char-reveal 0.9s cubic-bezier(0.16,1,0.3,1) ${baseDelay + i * staggerDelay}s both`,
-          }}
-          aria-hidden="true"
-        >
-          {char === " " ? " " : char}
-        </span>
-      ))}
-    </span>
   );
 }
 
@@ -412,125 +384,12 @@ export default function PielDorada() {
       {/* ═══ SCROLLING CONTENT ═══ */}
       <div className="relative z-10">
 
-        {/* ── ACT I: HERO — the original single-frame reveal ── */}
-        <section className="min-h-screen min-h-[100dvh] flex flex-col safe-top safe-bottom px-5 md:px-14 lg:px-20">
-
-          <nav
-            className="flex items-center justify-between flex-shrink-0 pt-1 md:pt-3"
-            style={{ animation: "fade-in 1s ease 3s both" }}
-          >
-            <Logo variant="seal" size={38} className="nav-logo" />
-            <a
-              href={WA_CONTACT}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-magnetic="0.3"
-              className="text-[9px] tracking-[3px] text-white/40 uppercase font-medium hover:text-white/70 active:text-white/70 transition-colors duration-500"
-            >
-              Contacto
-            </a>
-          </nav>
-
-          <div className="flex-1 flex flex-col items-center justify-center text-center min-h-0">
-            <div
-              className="hero-seal mb-5 md:mb-7"
-              style={{ animation: "fade-up 1.1s cubic-bezier(0.16,1,0.3,1) 2.1s both" }}
-            >
-              <Logo variant="seal" size={64} />
-            </div>
-            <p
-              className="text-[8px] md:text-[10px] tracking-[4px] md:tracking-[7px] text-white/35 uppercase font-medium mb-4 md:mb-6"
-              style={{ animation: "fade-up 1s cubic-bezier(0.16,1,0.3,1) 2.4s both" }}
-            >
-              Beauty & Sun Spa
-            </p>
-
-            <h1 data-parallax="0.06" className="font-serif text-[52px] md:text-[90px] lg:text-[120px] xl:text-[140px] font-light tracking-[4px] md:tracking-[8px] lg:tracking-[12px] leading-[0.85] uppercase">
-              <span className="block">
-                <SplitText text="Piel" charClass="text-gradient-gold" staggerDelay={0.06} baseDelay={2.6} />
-              </span>
-              <span className="block">
-                <SplitText text="Dorada" charClass="text-gradient-gold" staggerDelay={0.06} baseDelay={3.0} />
-              </span>
-            </h1>
-
-            <p
-              className="text-[11px] md:text-[15px] tracking-[2px] md:tracking-[5px] text-white/70 uppercase font-light mt-5 md:mt-9"
-              style={{ animation: "fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 3.8s both" }}
-            >
-              by Daniela Miranda Studios
-            </p>
-
-            <p
-              className="text-[10px] md:text-[13px] tracking-[2px] md:tracking-[4px] text-white/45 uppercase font-light mt-1.5 md:mt-3"
-              style={{ animation: "fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 4s both" }}
-            >
-              San Salvador, El Salvador
-            </p>
-
-            <div
-              className="w-7 md:w-12 h-px bg-white/15 mt-5 md:mt-10 mb-5 md:mb-10"
-              style={{ animation: "line-grow 1s ease-out 4.2s both", transformOrigin: "center" }}
-            />
-
-            <div style={{ animation: "fade-up 1s cubic-bezier(0.16,1,0.3,1) 4.4s both" }}>
-              <p className="font-serif text-[22px] md:text-[34px] lg:text-[40px] font-light text-white/90 tracking-[1px] md:tracking-[4px] leading-none">
-                Septiembre 2026
-              </p>
-              <div className="flex items-center justify-center gap-2 mt-2.5 md:mt-4">
-                <span
-                  className="w-[5px] h-[5px] rounded-full bg-[#C9A84C]"
-                  style={{ animation: "pulse-dot 2.5s ease-in-out infinite" }}
-                />
-                <span className="text-[8px] md:text-[10px] tracking-[3px] md:tracking-[4px] text-[#C9A84C]/70 uppercase font-medium">
-                  Apertura
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Hero CTA → Lista VIP */}
-          <div
-            className="flex-shrink-0 pb-2"
-            style={{ animation: "fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 4.6s both" }}
-          >
-            <div className="flex flex-col items-center gap-4 mb-4 md:mb-6">
-              <a href="#lista-vip" className="hero-cta" data-magnetic="0.4">
-                <span>{user ? "Ver Mi Lugar VIP" : "Únete a la Lista VIP"}</span>
-                <Icon name="sparkle" size={15} className="hero-cta-spark" />
-              </a>
-              <span className="scroll-cue" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              </span>
-            </div>
-
-            <div className="flex items-center justify-center gap-5 md:gap-8">
-              <a
-                href={WA_CONTACT}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[8px] md:text-[9px] tracking-[2px] md:tracking-[3px] text-white/20 uppercase font-medium hover:text-white/40 active:text-white/40 transition-colors duration-500 py-1"
-              >
-                WhatsApp
-              </a>
-              <span className="w-px h-2.5 bg-white/8" />
-              <a
-                href="https://instagram.com/danielamirandapmu"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[8px] md:text-[9px] tracking-[2px] md:tracking-[3px] text-white/20 uppercase font-medium hover:text-white/40 active:text-white/40 transition-colors duration-500 py-1"
-              >
-                Instagram
-              </a>
-              <span className="w-px h-2.5 bg-white/8 hidden md:block" />
-              <span className="text-[7px] tracking-[2px] text-white/[0.06] uppercase hidden md:block">
-                MachineMind
-              </span>
-            </div>
-          </div>
-        </section>
+        {/* ── ACT I: HERO — scroll-scrubbed brand film ── */}
+        <HeroScrollFilm
+          ctaLabel={user ? "Ver Mi Lugar VIP" : "Únete a la Lista VIP"}
+          ctaHref="#lista-vip"
+          contactHref={WA_CONTACT}
+        />
 
         {/* ── ACT II: LO QUE VIENE ── */}
         <section className="px-5 md:px-14 lg:px-20 pt-24 md:pt-32 pb-8 md:pb-12">
