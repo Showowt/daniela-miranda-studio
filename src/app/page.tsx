@@ -85,8 +85,64 @@ function SplitText({
   );
 }
 
+function CountUp({
+  to,
+  suffix = "",
+  duration = 1700,
+  className,
+}: {
+  to: number;
+  suffix?: string;
+  duration?: number;
+  className?: string;
+}) {
+  const [n, setN] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setN(to);
+      return;
+    }
+    let raf = 0;
+    let started = false;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && !started) {
+            started = true;
+            const start = performance.now();
+            const step = (t: number) => {
+              const p = Math.min(1, (t - start) / duration);
+              const eased = 1 - Math.pow(1 - p, 3);
+              setN(Math.round(eased * to));
+              if (p < 1) raf = requestAnimationFrame(step);
+            };
+            raf = requestAnimationFrame(step);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.4 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [to, duration]);
+  return (
+    <span ref={ref} className={className}>
+      {n}
+      {suffix}
+    </span>
+  );
+}
+
 export default function PielDorada() {
   const [ready, setReady] = useState(false);
+  const [count, setCount] = useState(0);
   const [user, setUser] = useState<VipUser | null>(null);
   const [referrals, setReferrals] = useState(0);
   const [name, setName] = useState("");
@@ -115,7 +171,24 @@ export default function PielDorada() {
   }, []);
 
   useEffect(() => {
-    const t = setTimeout(() => setReady(true), 2000);
+    // Cinematic preloader: count 0 → 100, then reveal.
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let raf = 0;
+    if (reduce) {
+      setCount(100);
+      setReady(true);
+    } else {
+      const start = performance.now();
+      const dur = 1900;
+      const step = (t: number) => {
+        const p = Math.min(1, (t - start) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        setCount(Math.round(eased * 100));
+        if (p < 1) raf = requestAnimationFrame(step);
+        else setReady(true);
+      };
+      raf = requestAnimationFrame(step);
+    }
     setOrigin(window.location.origin);
     refCodeFromUrl.current = new URLSearchParams(window.location.search).get("ref");
     const saved = loadSavedUser();
@@ -123,7 +196,7 @@ export default function PielDorada() {
       setUser(saved);
       refreshReferrals(saved.code);
     }
-    return () => clearTimeout(t);
+    return () => cancelAnimationFrame(raf);
   }, [refreshReferrals]);
 
   useEffect(() => {
@@ -148,6 +221,42 @@ export default function PielDorada() {
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
+  }, []);
+
+  /* Scroll parallax — scroller-agnostic (rAF + getBoundingClientRect). */
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const nodes = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-parallax]"),
+    );
+    if (nodes.length === 0) return;
+    let raf = 0;
+    let ticking = false;
+    const update = () => {
+      const vh = window.innerHeight;
+      for (const el of nodes) {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > vh + 200) continue;
+        const speed = parseFloat(el.dataset.parallax || "0.12");
+        const progress = (r.top + r.height / 2 - vh / 2) / vh; // -1..1 through view
+        el.style.transform = `translate3d(0, ${(-progress * speed * 100).toFixed(1)}px, 0)`;
+      }
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        raf = requestAnimationFrame(update);
+      }
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   const join = async () => {
@@ -232,14 +341,21 @@ export default function PielDorada() {
     <div className="grain">
       {/* ═══ PRELOADER ═══ */}
       <div
-        className={`fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-opacity duration-[1400ms] ease-[cubic-bezier(0.76,0,0.24,1)] ${ready ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+        className={`preloader fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center transition-opacity duration-[1400ms] ease-[cubic-bezier(0.76,0,0.24,1)] ${ready ? "opacity-0 pointer-events-none" : "opacity-100"}`}
       >
+        <div style={{ animation: "preloader-reveal 1.1s cubic-bezier(0.16,1,0.3,1) 0.15s both" }}>
+          <Logo variant="seal" size={76} />
+        </div>
         <p
-          className="font-serif text-[18px] md:text-[22px] tracking-[8px] text-white/40 uppercase font-light"
+          className="font-serif text-[17px] md:text-[21px] tracking-[8px] text-white/55 uppercase font-light mt-6"
           style={{ animation: "preloader-reveal 1.2s cubic-bezier(0.16,1,0.3,1) 0.3s both" }}
         >
           Piel Dorada
         </p>
+        <div className="preloader-bar" aria-hidden="true">
+          <span style={{ transform: `scaleX(${count / 100})` }} />
+        </div>
+        <div className="preloader-count" aria-hidden="true">{count}</div>
       </div>
 
       {/* ═══ FIXED CINEMATIC FRAME — video + overlays behind everything ═══ */}
@@ -295,7 +411,7 @@ export default function PielDorada() {
               Beauty & Sun Spa
             </p>
 
-            <h1 className="font-serif text-[52px] md:text-[90px] lg:text-[120px] xl:text-[140px] font-light tracking-[4px] md:tracking-[8px] lg:tracking-[12px] leading-[0.85] uppercase">
+            <h1 data-parallax="0.06" className="font-serif text-[52px] md:text-[90px] lg:text-[120px] xl:text-[140px] font-light tracking-[4px] md:tracking-[8px] lg:tracking-[12px] leading-[0.85] uppercase">
               <span className="block">
                 <SplitText text="Piel" charClass="text-gradient-gold" staggerDelay={0.06} baseDelay={2.6} />
               </span>
@@ -548,6 +664,22 @@ export default function PielDorada() {
                 Las que están en la lista entran primero — acceso anticipado a la apertura
                 y precio de miembro fundador que se congela de por vida.
               </p>
+              <div className="vip-stats reveal" aria-label="Más de 247 mujeres ya en la lista">
+                <span className="vip-stat">
+                  <CountUp to={247} suffix="+" className="vip-stat-num" />
+                  <span className="vip-stat-lbl">mujeres ya en la lista</span>
+                </span>
+                <span className="vip-stat-div" aria-hidden="true" />
+                <span className="vip-stat">
+                  <span className="vip-stat-num">2026</span>
+                  <span className="vip-stat-lbl">apertura septiembre</span>
+                </span>
+                <span className="vip-stat-div" aria-hidden="true" />
+                <span className="vip-stat">
+                  <span className="vip-stat-num">1º</span>
+                  <span className="vip-stat-lbl">sun spa de El Salvador</span>
+                </span>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mt-12 md:mt-16">
