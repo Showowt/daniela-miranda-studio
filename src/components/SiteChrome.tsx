@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SERVICES, BUSINESS, WA_DEFAULT } from "@/lib/site";
+import Logo from "./Logo";
 
 /* Shared cinematic shell for interior (service/content) pages.
    Static dark-luxury treatment — no autoplay video — for fast LCP.
@@ -10,8 +11,11 @@ function Header({ active }: { active?: string }) {
     <header className="pd-header">
       <div className="pd-header-inner">
         <Link href="/" className="pd-brand" aria-label="Piel Dorada — inicio">
-          <span className="pd-brand-name">Piel Dorada</span>
-          <span className="pd-brand-sub">Beauty &amp; Sun Spa</span>
+          <Logo variant="seal" size={40} />
+          <span className="pd-brand-txt">
+            <span className="pd-brand-name">Piel Dorada</span>
+            <span className="pd-brand-sub">Beauty &amp; Sun Spa</span>
+          </span>
         </Link>
         <nav className="pd-nav" aria-label="Servicios">
           {SERVICES.map((s) => (
@@ -42,6 +46,7 @@ function Footer() {
     <footer className="pd-footer">
       <div className="pd-footer-grid">
         <div>
+          <Logo variant="seal" size={50} className="pd-footer-seal" />
           <div className="pd-footer-brand text-gradient-gold">Piel Dorada</div>
           <p className="pd-footer-tag">by Daniela Miranda Studios</p>
           <p className="pd-footer-note">

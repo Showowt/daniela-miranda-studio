@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SERVICES, getService, WA_DEFAULT, BUSINESS } from "@/lib/site";
 import type { Faq } from "@/lib/seo";
+import Icon, { type IconName } from "./Icon";
 
 /* Shared building blocks for service / content pages. Server components. */
 
@@ -59,8 +60,8 @@ export function RelatedServices({ slugs }: { slugs: string[] }) {
         <div className="related-grid">
           {items.map((s) => (
             <Link key={s!.slug} href={`/${s!.slug}`} className="related-card">
-              <span className="r-emoji" aria-hidden="true">
-                {s!.emoji}
+              <span className="r-icon" aria-hidden="true">
+                <Icon name={s!.icon as IconName} size={22} />
               </span>
               <span className="r-text">
                 <span className="r-title">{s!.nav}</span>
@@ -116,7 +117,7 @@ export function AllServicesGrid({ exclude }: { exclude?: string }) {
           style={{ textDecoration: "none" }}
         >
           <span className="chip" aria-hidden="true">
-            {s.emoji}
+            <Icon name={s.icon as IconName} size={22} />
           </span>
           <h3>{s.nav}</h3>
           <p>{s.tagline}</p>

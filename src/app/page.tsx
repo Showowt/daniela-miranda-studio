@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { SERVICES, waLink } from "@/lib/site";
 import VideoTestimonials from "@/components/VideoTestimonials";
+import Icon, { type IconName } from "@/components/Icon";
+import Logo from "@/components/Logo";
 
 /* ═══════════════════════════════════════════════════════════════
    PIEL DORADA by Daniela Miranda Studios — Lista VIP
@@ -267,22 +269,27 @@ export default function PielDorada() {
             className="flex items-center justify-between flex-shrink-0 pt-1 md:pt-3"
             style={{ animation: "fade-in 1s ease 3s both" }}
           >
-            <span className="text-[9px] md:text-[10px] tracking-[4px] md:tracking-[5px] text-white/50 uppercase font-medium">
-              Piel Dorada
-            </span>
+            <Logo variant="seal" size={38} className="nav-logo" />
             <a
               href={WA_CONTACT}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[9px] tracking-[3px] text-white/30 uppercase font-medium hover:text-white/60 active:text-white/60 transition-colors duration-500"
+              data-magnetic="0.3"
+              className="text-[9px] tracking-[3px] text-white/40 uppercase font-medium hover:text-white/70 active:text-white/70 transition-colors duration-500"
             >
               Contacto
             </a>
           </nav>
 
           <div className="flex-1 flex flex-col items-center justify-center text-center min-h-0">
+            <div
+              className="hero-seal mb-5 md:mb-7"
+              style={{ animation: "fade-up 1.1s cubic-bezier(0.16,1,0.3,1) 2.1s both" }}
+            >
+              <Logo variant="seal" size={64} />
+            </div>
             <p
-              className="text-[8px] md:text-[10px] tracking-[4px] md:tracking-[7px] text-white/30 uppercase font-medium mb-4 md:mb-7"
+              className="text-[8px] md:text-[10px] tracking-[4px] md:tracking-[7px] text-white/35 uppercase font-medium mb-4 md:mb-6"
               style={{ animation: "fade-up 1s cubic-bezier(0.16,1,0.3,1) 2.4s both" }}
             >
               Beauty & Sun Spa
@@ -338,8 +345,9 @@ export default function PielDorada() {
             style={{ animation: "fade-up 0.8s cubic-bezier(0.16,1,0.3,1) 4.6s both" }}
           >
             <div className="flex flex-col items-center gap-4 mb-4 md:mb-6">
-              <a href="#lista-vip" className="hero-cta">
-                {user ? "Ver Mi Lugar VIP ✨" : "Únete a la Lista VIP ✨"}
+              <a href="#lista-vip" className="hero-cta" data-magnetic="0.4">
+                <span>{user ? "Ver Mi Lugar VIP" : "Únete a la Lista VIP"}</span>
+                <Icon name="sparkle" size={15} className="hero-cta-spark" />
               </a>
               <span className="scroll-cue" aria-hidden="true">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -396,7 +404,7 @@ export default function PielDorada() {
                     alt="Piel Dorada — visualización del nuevo Beauty & Sun Spa"
                     loading="lazy"
                   />
-                  <div className="perk-chip">☀️</div>
+                  <div className="perk-chip"><Icon name="sun" size={20} /></div>
                 </div>
                 <div className="perk-body">
                   <h3>Bronceado de Lujo</h3>
@@ -411,7 +419,7 @@ export default function PielDorada() {
                     loading="lazy"
                     style={{ objectPosition: "center 22%" }}
                   />
-                  <div className="perk-chip">👑</div>
+                  <div className="perk-chip"><Icon name="crown" size={20} /></div>
                 </div>
                 <div className="perk-body">
                   <h3>Miss PMU Internacional</h3>
@@ -425,7 +433,7 @@ export default function PielDorada() {
                     alt="Lip blush por Daniela Miranda Studios"
                     loading="lazy"
                   />
-                  <div className="perk-chip">💎</div>
+                  <div className="perk-chip"><Icon name="gem" size={20} /></div>
                 </div>
                 <div className="perk-body">
                   <h3>Miembros Fundadores</h3>
@@ -493,23 +501,29 @@ export default function PielDorada() {
 
             <div className="related-grid reveal" style={{ marginTop: "2.5rem", textAlign: "left" }}>
               {SERVICES.map((s) => (
-                <Link key={s.slug} href={`/${s.slug}`} className="related-card">
-                  <span className="r-emoji" aria-hidden="true">{s.emoji}</span>
+                <Link key={s.slug} href={`/${s.slug}`} className="related-card" data-magnetic="0.15">
+                  <span className="r-icon" aria-hidden="true">
+                    <Icon name={s.icon as IconName} size={22} />
+                  </span>
                   <span className="r-text">
                     <span className="r-title">{s.nav}</span>
                     <span className="r-sub">Ver servicio →</span>
                   </span>
                 </Link>
               ))}
-              <Link href="/sobre-daniela" className="related-card">
-                <span className="r-emoji" aria-hidden="true">💛</span>
+              <Link href="/sobre-daniela" className="related-card" data-magnetic="0.15">
+                <span className="r-icon" aria-hidden="true">
+                  <Icon name="sparkle" size={22} />
+                </span>
                 <span className="r-text">
                   <span className="r-title">Sobre Daniela</span>
                   <span className="r-sub">Miss PMU Internacional →</span>
                 </span>
               </Link>
-              <Link href="/blog" className="related-card">
-                <span className="r-emoji" aria-hidden="true">📖</span>
+              <Link href="/blog" className="related-card" data-magnetic="0.15">
+                <span className="r-icon" aria-hidden="true">
+                  <Icon name="book" size={22} />
+                </span>
                 <span className="r-text">
                   <span className="r-title">Blog</span>
                   <span className="r-sub">Guías y consejos →</span>
@@ -555,7 +569,7 @@ export default function PielDorada() {
                         <div className="m-title">{m.title}</div>
                         <div className="m-desc">{m.desc}</div>
                       </div>
-                      <div className="m-check">✓</div>
+                      <div className="m-check"><Icon name="check" size={14} strokeWidth={2} /></div>
                     </div>
                   ))}
                 </div>
@@ -631,8 +645,10 @@ export default function PielDorada() {
                         href={waConfirmHref}
                         target="_blank"
                         rel="noopener noreferrer"
+                        data-magnetic="0.25"
                       >
-                        ✅ Confirmar mi lugar por WhatsApp
+                        <Icon name="check" size={17} strokeWidth={2} />
+                        Confirmar mi lugar por WhatsApp
                       </a>
 
                       <div className="count-badge">
@@ -673,7 +689,8 @@ export default function PielDorada() {
         {/* ── FOOTER ── */}
         <footer className="text-center px-5 pb-10 safe-bottom pt-4">
           <div className="w-10 h-px bg-white/10 mx-auto mb-8" />
-          <div className="font-serif italic text-[22px] text-gradient-gold mb-2">Piel Dorada</div>
+          <Logo variant="seal" size={56} className="footer-seal" />
+          <div className="font-serif italic text-[22px] text-gradient-gold mb-2 mt-5">Piel Dorada</div>
           <div className="text-[9px] tracking-[3px] uppercase text-white/40 font-medium mb-5">
             by Daniela Miranda Studios
           </div>

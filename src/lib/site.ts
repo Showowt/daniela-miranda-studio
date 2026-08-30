@@ -72,6 +72,7 @@ export type ServiceDef = {
   tagline: string; // hero sub-line
   serviceType: string; // schema serviceType
   emoji: string;
+  icon: string; // bespoke line-icon name (see components/Icon.tsx)
   priceFrom?: string; // schema Offer price (USD, soft "desde")
   keywords: string[];
   /** Related slugs for internal linking (topical authority). */
@@ -92,6 +93,7 @@ export const SERVICES: ServiceDef[] = [
       "El primer spa de bronceado de lujo del país — camas de bronceado, bronceado brasileño y spray tan en San Salvador.",
     serviceType: "Bronceado Brasileño",
     emoji: "☀️",
+    icon: "sun",
     priceFrom: "45",
     keywords: [
       "bronceado El Salvador",
@@ -116,6 +118,7 @@ export const SERVICES: ServiceDef[] = [
       "Cejas y labios perfectos con la única artista Miss PMU Internacional de El Salvador.",
     serviceType: "Micropigmentación",
     emoji: "👑",
+    icon: "crown",
     priceFrom: "150",
     keywords: [
       "micropigmentación de cejas El Salvador",
@@ -140,6 +143,7 @@ export const SERVICES: ServiceDef[] = [
       "Realza tu mirada: laminado de cejas, lifting y extensiones de pestañas en San Salvador.",
     serviceType: "Laminado de Cejas y Pestañas",
     emoji: "✨",
+    icon: "eye",
     priceFrom: "40",
     keywords: [
       "laminado de cejas San Salvador",
@@ -161,6 +165,7 @@ export const SERVICES: ServiceDef[] = [
       "Uñas acrílicas, esmaltado permanente y pedicure spa — diseños elegantes que duran.",
     serviceType: "Uñas y Manicure",
     emoji: "💅",
+    icon: "polish",
     priceFrom: "20",
     keywords: [
       "uñas acrílicas San Salvador",
@@ -183,6 +188,7 @@ export const SERVICES: ServiceDef[] = [
       "Piel radiante: limpieza facial profunda y tratamientos de belleza en San Salvador.",
     serviceType: "Limpieza Facial",
     emoji: "🧖‍♀️",
+    icon: "droplet",
     priceFrom: "35",
     keywords: [
       "limpieza facial San Salvador",

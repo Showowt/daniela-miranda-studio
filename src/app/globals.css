@@ -795,3 +795,102 @@ html { scrollbar-width: none; }
 }
 .pd-footer-mm { letter-spacing: 1px; }
 
+
+/* ═══════════════════════════════════════════════════════════════
+   ELEVATION PASS — brand identity, custom cursor, icon chips,
+   vignette, image light-sweep. Appended so overrides win.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* — Icon chips inherit gold; SVGs render as blocks — */
+.perk-chip, .svc-card .chip { color: var(--gold-bright); }
+.perk-chip svg, .svc-card .chip svg, .r-icon svg, .m-check svg { display: block; }
+.milestone .m-check { display: inline-flex; align-items: center; justify-content: center; }
+
+/* — Related card icon (replaces emoji) — */
+.related-card .r-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px; flex: none; border-radius: 12px;
+  color: var(--gold-bright);
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.28);
+  transition: background 0.35s, border-color 0.35s, transform 0.35s;
+}
+.related-card:hover .r-icon {
+  background: rgba(201,168,76,0.16);
+  border-color: rgba(201,168,76,0.55);
+  transform: translateY(-1px);
+}
+
+/* ═══ BRAND LOGO ═══ */
+.pd-logo { display: inline-flex; align-items: center; text-decoration: none; }
+.pd-logo-lockup { gap: 11px; }
+.pd-seal { display: block; }
+.pd-wordmark { display: flex; flex-direction: column; line-height: 1; text-align: left; }
+.pd-wordmark-name {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 18px; font-weight: 500; letter-spacing: 1.5px; color: #F5E6B8;
+}
+.pd-wordmark-sub {
+  font-size: 7.5px; letter-spacing: 3.5px; text-transform: uppercase;
+  color: rgba(255,255,255,0.42); margin-top: 4px;
+}
+.hero-seal { display: inline-flex; }
+.hero-seal .pd-seal { animation: seal-glow 5.5s ease-in-out infinite; }
+@keyframes seal-glow {
+  0%,100% { filter: drop-shadow(0 4px 20px rgba(201,168,76,0.28)); }
+  50% { filter: drop-shadow(0 4px 30px rgba(245,212,122,0.5)); }
+}
+.footer-seal { display: inline-flex; justify-content: center; margin: 0 auto; }
+
+/* Interior-page brand: seal + text row */
+.pd-brand { flex-direction: row !important; align-items: center; gap: 11px; }
+.pd-brand-txt { display: flex; flex-direction: column; line-height: 1; }
+.pd-footer-seal { display: block; margin-bottom: 14px; }
+
+/* ═══ VIGNETTE (cinematic framing) ═══ */
+.grain::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9997;
+  background: radial-gradient(130% 130% at 50% 42%, transparent 60%, rgba(0,0,0,0.42) 100%);
+}
+
+/* ═══ IMAGE LIGHT-SWEEP on hover ═══ */
+.perk-media::before, .gallery-tile::before {
+  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(115deg, transparent 32%, rgba(245,230,184,0.16) 48%, transparent 64%);
+  transform: translateX(-120%); transition: transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.perk:hover .perk-media::before, .gallery-tile:hover::before { transform: translateX(120%); }
+.gallery-label { z-index: 2; }
+
+/* ═══ HERO CTA (icon + magnetic) ═══ */
+.hero-cta { display: inline-flex; align-items: center; gap: 9px; }
+.hero-cta-spark { color: var(--gold-bright); }
+
+/* ═══ CUSTOM CURSOR ═══ */
+@media (hover: hover) and (pointer: fine) {
+  .has-cursor, .has-cursor * { cursor: none !important; }
+}
+.pd-cursor-dot, .pd-cursor-ring {
+  position: fixed; top: 0; left: 0; z-index: 10001; pointer-events: none;
+  border-radius: 50%; opacity: 0; will-change: transform;
+}
+.has-cursor .pd-cursor-dot, .has-cursor .pd-cursor-ring { opacity: 1; }
+.pd-cursor-dot {
+  width: 6px; height: 6px; margin: 0; background: var(--gold-bright);
+  box-shadow: 0 0 10px rgba(245,212,122,0.9); transition: opacity 0.3s;
+}
+.pd-cursor-ring {
+  width: 34px; height: 34px; border: 1px solid rgba(201,168,76,0.6);
+  transition: width 0.3s cubic-bezier(0.16,1,0.3,1), height 0.3s cubic-bezier(0.16,1,0.3,1),
+    background 0.3s, border-color 0.3s, opacity 0.3s;
+}
+.pd-cursor-ring.hover { width: 58px; height: 58px; background: rgba(201,168,76,0.08); border-color: rgba(245,212,122,0.9); }
+.pd-cursor-ring.down { width: 26px; height: 26px; }
+
+/* ═══ MAGNETIC ═══ */
+[data-magnetic].is-magnet { transition: transform 0.12s linear; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pd-cursor-dot, .pd-cursor-ring { display: none; }
+  .hero-seal .pd-seal { animation: none; }
+}

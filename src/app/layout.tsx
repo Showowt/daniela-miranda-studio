@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import JsonLd from "@/components/JsonLd";
+import Cursor from "@/components/Cursor";
 import { businessJsonLd, websiteJsonLd } from "@/lib/seo";
 
 const cormorant = Cormorant_Garamond({
@@ -114,6 +115,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-[#0A0A08] text-white antialiased">
         <JsonLd data={businessJsonLd()} />
         <JsonLd data={websiteJsonLd()} />
+        <Cursor />
         {children}
       </body>
     </html>
