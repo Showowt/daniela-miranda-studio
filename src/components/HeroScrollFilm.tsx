@@ -136,7 +136,7 @@ export default function HeroScrollFilm({
           poster="/hero-film-poster.jpg"
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           tabIndex={-1}
           aria-hidden="true"
           disablePictureInPicture
