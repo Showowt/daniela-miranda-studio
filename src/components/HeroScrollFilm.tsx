@@ -7,7 +7,7 @@
    video decode, no 100-image preload). Stage pinned via CSS
    `position: sticky` (NOT GSAP pin — avoids the React unmount
    removeChild crash). The film is re-encoded with dense keyframes
-   (/hero-film.mp4) so seeking is snappy. Golden skin → PIEL DORADA
+   (/hero-film-v2.mp4) so seeking is snappy. Golden skin → PIEL DORADA
    logo reveal → dream-spa, under the user's finger. Overlays fade
    at scroll milestones. Poster + reduced-motion fallbacks.
    ═══════════════════════════════════════════════════════════════ */
@@ -132,7 +132,7 @@ export default function HeroScrollFilm({
         <video
           ref={videoRef}
           className="hero-film-canvas"
-          src="/hero-film.mp4"
+          src="/hero-film-v2.mp4"
           poster="/hero-film-poster.jpg"
           muted
           playsInline
